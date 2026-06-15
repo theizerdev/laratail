@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\Multitenantable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Backup extends Model
 {
+    use Multitenantable;
+
     protected $fillable = [
         'filename',
         'original_name',
@@ -15,6 +18,8 @@ class Backup extends Model
         'path',
         'compressed',
         'user_id',
+        'empresa_id',
+        'sucursal_id',
         'status',
     ];
 
@@ -26,6 +31,16 @@ class Backup extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function empresa(): BelongsTo
+    {
+        return $this->belongsTo(Empresa::class);
+    }
+
+    public function sucursal(): BelongsTo
+    {
+        return $this->belongsTo(Sucursal::class);
     }
 
     public function getHumanSizeAttribute(): string
