@@ -107,6 +107,34 @@ class PermissionSeeder extends Seeder
                 'monitoreo.backup' => 'Crear Respaldo de BD',
                 'monitoreo.import' => 'Importar Base de Datos',
             ],
+
+            // Sector: Ventas
+            'ventas' => [
+                // Módulo: Clientes
+                'clientes.view' => 'Ver Clientes',
+                'clientes.create' => 'Crear Cliente',
+                'clientes.edit' => 'Editar Cliente',
+                'clientes.delete' => 'Eliminar Cliente',
+
+                // Módulo: Pedidos
+                'pedidos.view' => 'Ver Pedidos',
+                'pedidos.create' => 'Crear Pedido',
+                'pedidos.edit' => 'Editar Pedido',
+                'pedidos.delete' => 'Eliminar Pedido',
+
+                // Módulo: Cotizaciones
+                'cotizaciones.view' => 'Ver Cotizaciones',
+                'cotizaciones.create' => 'Crear Cotización',
+                'cotizaciones.edit' => 'Editar Cotización',
+                'cotizaciones.delete' => 'Eliminar Cotización',
+                'cotizaciones.convert' => 'Convertir Cotización a Pedido',
+
+                // Módulo: Cupones
+                'cupones.view' => 'Ver Cupones',
+                'cupones.create' => 'Crear Cupón',
+                'cupones.edit' => 'Editar Cupón',
+                'cupones.delete' => 'Eliminar Cupón',
+            ],
         ];
 
         foreach ($permissions as $sector => $sectorPermissions) {
@@ -127,6 +155,10 @@ class PermissionSeeder extends Seeder
                     str_starts_with($permission, 'integraciones.') => 'integraciones',
                     str_starts_with($permission, 'whatsapp.') => 'whatsapp',
                     str_starts_with($permission, 'monitoreo.') => 'monitoreo',
+                    str_starts_with($permission, 'clientes.') => 'clientes',
+                    str_starts_with($permission, 'pedidos.') => 'pedidos',
+                    str_starts_with($permission, 'cotizaciones.') => 'cotizaciones',
+                    str_starts_with($permission, 'cupones.') => 'cupones',
                     default => 'general',
                 };
 

@@ -21,6 +21,13 @@ class MenuHelper
                 'icon' => 'heroicons:shopping-bag-solid',
                 'modules' => ['categorias', 'marcas', 'productos', 'atributos']
             ],
+            'ventas' => [
+                'name' => '💰 Ventas',
+                'description' => 'Clientes, pedidos, cotizaciones y cupones',
+                'color' => 'amber',
+                'icon' => 'heroicons:currency-dollar-solid',
+                'modules' => ['clientes', 'pedidos', 'cotizaciones', 'cupones']
+            ],
             'configuracion' => [
                 'name' => '⚙️ Configuración',
                 'description' => 'Configuración del sistema, países, regiones',
@@ -193,6 +200,50 @@ class MenuHelper
                         'active' => 'admin.atributos*',
                         'children' => [
                             ['label' => 'Listado', 'permission' => 'atributos.view', 'route' => 'admin.atributos', 'active' => 'admin.atributos'],
+                        ]
+                    ],
+                ],
+            ],
+            'ventas' => [
+                'label' => 'Ventas',
+                'icon' => 'heroicons:currency-dollar-solid',
+                'items' => [
+                    [
+                        'label' => 'Clientes',
+                        'icon' => 'heroicons:user-group-solid',
+                        'permissions' => ['clientes.view', 'clientes.create', 'clientes.edit', 'clientes.delete'],
+                        'active' => 'admin.clientes*',
+                        'children' => [
+                            ['label' => 'Listado', 'permission' => 'clientes.view', 'route' => 'admin.clientes', 'active' => 'admin.clientes'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Pedidos',
+                        'icon' => 'heroicons:shopping-cart-solid',
+                        'permissions' => ['pedidos.view', 'pedidos.create', 'pedidos.edit', 'pedidos.delete'],
+                        'active' => 'admin.pedidos*',
+                        'children' => [
+                            ['label' => 'Listado', 'permission' => 'pedidos.view', 'route' => 'admin.pedidos', 'active' => 'admin.pedidos'],
+                            ['label' => 'Nuevo pedido', 'permission' => 'pedidos.create', 'route' => 'admin.pedidos.create', 'active' => 'admin.pedidos.create'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Cotizaciones',
+                        'icon' => 'heroicons:document-text-solid',
+                        'permissions' => ['cotizaciones.view', 'cotizaciones.create', 'cotizaciones.edit', 'cotizaciones.delete'],
+                        'active' => 'admin.cotizaciones*',
+                        'children' => [
+                            ['label' => 'Listado', 'permission' => 'cotizaciones.view', 'route' => 'admin.cotizaciones', 'active' => 'admin.cotizaciones'],
+                            ['label' => 'Nueva cotización', 'permission' => 'cotizaciones.create', 'route' => 'admin.cotizaciones.create', 'active' => 'admin.cotizaciones.create'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Cupones',
+                        'icon' => 'heroicons:ticket-solid',
+                        'permissions' => ['cupones.view', 'cupones.create', 'cupones.edit', 'cupones.delete'],
+                        'active' => 'admin.cupones*',
+                        'children' => [
+                            ['label' => 'Listado', 'permission' => 'cupones.view', 'route' => 'admin.cupones', 'active' => 'admin.cupones'],
                         ]
                     ],
                 ],
