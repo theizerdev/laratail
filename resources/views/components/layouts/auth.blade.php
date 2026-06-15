@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ $title ?? config('app.name', 'Laravel') }}</title>
+
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet" />
+
+    @fonts
+    @fluxAppearance
+
+    @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @endif
+
+    {{-- Iconify Icons --}}
+    <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
+</head>
+<body class="min-h-screen bg-white">
+    <div class="flex min-h-screen">
+        {{-- Left Panel: Form Area --}}
+        <div class="flex w-full flex-col items-center justify-center px-6 py-12 lg:w-1/2 lg:px-16 xl:px-24">
+            <div class="w-full max-w-sm">
+                {{-- Logo --}}
+                <div class="mb-8">
+                    <a href="{{ route('home') }}" class="text-2xl font-semibold tracking-tight text-zinc-400">
+                        flux
+                    </a>
+                </div>
+
+                {{-- Content --}}
+                {{ $slot }}
+            </div>
+        </div>
+
+        {{-- Right Panel: Hero / Testimonial --}}
+        <div class="relative hidden w-1/2 lg:block">
+            {{-- Aurora background --}}
+            <div class="absolute inset-0 bg-gradient-to-br from-zinc-900 via-emerald-950 to-zinc-900">
+                {{-- Aurora effect layers --}}
+                <div class="absolute inset-0 opacity-60"
+                     style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
+                                          linear-gradient(225deg, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                                          linear-gradient(180deg, rgba(16, 185, 129, 0.2) 0%, transparent 60%);">
+                </div>
+                {{-- Subtle aurora streaks --}}
+                <div class="absolute top-0 left-1/4 h-full w-px bg-gradient-to-b from-transparent via-emerald-400/20 to-transparent"></div>
+                <div class="absolute top-0 left-1/3 h-full w-px bg-gradient-to-b from-transparent via-emerald-400/10 to-transparent"></div>
+                <div class="absolute top-0 right-1/4 h-full w-px bg-gradient-to-b from-transparent via-cyan-400/15 to-transparent"></div>
+                <div class="absolute top-0 right-1/3 h-full w-px bg-gradient-to-b from-transparent via-emerald-400/10 to-transparent"></div>
+            </div>
+
+            {{-- Testimonial content --}}
+            <div class="relative z-10 flex h-full flex-col items-center justify-center px-12 text-center">
+                {{-- Stars --}}
+                <div class="mb-6 flex gap-1">
+                    @for ($i = 0; $i < 5; $i++)
+                        <iconify-icon icon="heroicons:star-solid" class="h-5 w-5 text-white"></iconify-icon>
+                    @endfor
+                </div>
+
+                {{-- Quote --}}
+                <blockquote class="mb-8 max-w-md text-xl leading-relaxed font-medium text-white/90">
+                    "Flux has enabled me to design, build, and deliver apps faster than ever before."
+                </blockquote>
+
+                {{-- Author --}}
+                <div class="flex items-center gap-3">
+                    <div class="h-10 w-10 overflow-hidden rounded-full bg-zinc-700 ring-2 ring-white/20 flex items-center justify-center">
+                        <iconify-icon icon="heroicons:user-solid" class="h-6 w-6 text-zinc-400"></iconify-icon>
+                    </div>
+                    <div class="text-left">
+                        <p class="text-sm font-semibold text-white">Caleb Porzio</p>
+                        <p class="text-xs text-white/60">Creator of Livewire</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @livewireScripts
+    @fluxScripts
+</body>
+</html>
