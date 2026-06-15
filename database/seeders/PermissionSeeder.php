@@ -37,6 +37,33 @@ class PermissionSeeder extends Seeder
                 'groups.delete' => 'Eliminar Grupo',
             ],
 
+            // Sector: Catálogo
+            'catalogo' => [
+                // Módulo: Categorías
+                'categorias.view' => 'Ver Categorías',
+                'categorias.create' => 'Crear Categoría',
+                'categorias.edit' => 'Editar Categoría',
+                'categorias.delete' => 'Eliminar Categoría',
+
+                // Módulo: Marcas
+                'marcas.view' => 'Ver Marcas',
+                'marcas.create' => 'Crear Marca',
+                'marcas.edit' => 'Editar Marca',
+                'marcas.delete' => 'Eliminar Marca',
+
+                // Módulo: Productos
+                'productos.view' => 'Ver Productos',
+                'productos.create' => 'Crear Producto',
+                'productos.edit' => 'Editar Producto',
+                'productos.delete' => 'Eliminar Producto',
+
+                // Módulo: Atributos
+                'atributos.view' => 'Ver Atributos',
+                'atributos.create' => 'Crear Atributo',
+                'atributos.edit' => 'Editar Atributo',
+                'atributos.delete' => 'Eliminar Atributo',
+            ],
+
             // Sector: Configuración
             'configuracion' => [
                 // Módulo: Países
@@ -87,6 +114,10 @@ class PermissionSeeder extends Seeder
                 // Determinar el módulo basado en el prefijo del permiso
                 $module = match (true) {
                     str_starts_with($permission, 'dashboard.') => 'dashboard',
+                    str_starts_with($permission, 'categorias.') => 'categorias',
+                    str_starts_with($permission, 'marcas.') => 'marcas',
+                    str_starts_with($permission, 'productos.') => 'productos',
+                    str_starts_with($permission, 'atributos.') => 'atributos',
                     str_starts_with($permission, 'users.') => 'usuarios',
                     str_starts_with($permission, 'roles.') => 'roles',
                     str_starts_with($permission, 'groups.') => 'grupos',

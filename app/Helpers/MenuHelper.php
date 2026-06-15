@@ -14,6 +14,13 @@ class MenuHelper
                 'icon' => 'heroicons:shield-check-solid',
                 'modules' => [ 'usuarios', 'roles', 'grupos']
             ],
+            'catalogo' => [
+                'name' => '🛒 Catálogo',
+                'description' => 'Productos, categorías, marcas, atributos e inventario',
+                'color' => 'indigo',
+                'icon' => 'heroicons:shopping-bag-solid',
+                'modules' => ['categorias', 'marcas', 'productos', 'atributos']
+            ],
             'configuracion' => [
                 'name' => '⚙️ Configuración',
                 'description' => 'Configuración del sistema, países, regiones',
@@ -143,6 +150,49 @@ class MenuHelper
                         'children' => [
                             ['label' => 'Listado', 'permission' => 'groups.view', 'route' => 'admin.grupos', 'active' => 'admin.grupos'],
                             ['label' => 'Nuevo grupo', 'permission' => 'groups.create', 'route' => 'admin.grupos.create', 'active' => 'admin.grupos.create'],
+                        ]
+                    ],
+                ],
+            ],
+            'catalogo' => [
+                'label' => 'Catálogo',
+                'icon' => 'heroicons:shopping-bag-solid',
+                'items' => [
+                    [
+                        'label' => 'Productos',
+                        'icon' => 'heroicons:square-3-stack-3d-solid',
+                        'permissions' => ['productos.view', 'productos.create', 'productos.edit', 'productos.delete'],
+                        'active' => 'admin.productos*',
+                        'children' => [
+                            ['label' => 'Listado', 'permission' => 'productos.view', 'route' => 'admin.productos', 'active' => 'admin.productos'],
+                            ['label' => 'Nuevo producto', 'permission' => 'productos.create', 'route' => 'admin.productos.create', 'active' => 'admin.productos.create'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Categorías',
+                        'icon' => 'heroicons:tag-solid',
+                        'permissions' => ['categorias.view', 'categorias.create', 'categorias.edit', 'categorias.delete'],
+                        'active' => 'admin.categorias*',
+                        'children' => [
+                            ['label' => 'Listado', 'permission' => 'categorias.view', 'route' => 'admin.categorias', 'active' => 'admin.categorias'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Marcas',
+                        'icon' => 'heroicons:bookmark-solid',
+                        'permissions' => ['marcas.view', 'marcas.create', 'marcas.edit', 'marcas.delete'],
+                        'active' => 'admin.marcas*',
+                        'children' => [
+                            ['label' => 'Listado', 'permission' => 'marcas.view', 'route' => 'admin.marcas', 'active' => 'admin.marcas'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Atributos',
+                        'icon' => 'heroicons:swatch-solid',
+                        'permissions' => ['atributos.view', 'atributos.create', 'atributos.edit', 'atributos.delete'],
+                        'active' => 'admin.atributos*',
+                        'children' => [
+                            ['label' => 'Listado', 'permission' => 'atributos.view', 'route' => 'admin.atributos', 'active' => 'admin.atributos'],
                         ]
                     ],
                 ],

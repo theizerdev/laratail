@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth', 'verified', 'role:admin|super-admin'])->prefix('admin')->name('admin.')->group(function () {
     // Load module routes
     require __DIR__.'/modules/dashboard.php';
+    require __DIR__.'/modules/catalogo.php';
     require __DIR__.'/modules/empresas.php';
     require __DIR__.'/modules/grupos.php';
     require __DIR__.'/modules/integraciones.php';
