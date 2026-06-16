@@ -170,6 +170,37 @@ class PermissionSeeder extends Seeder
                 'envios.delete' => 'Eliminar Envío',
                 'envios.guia' => 'Generar Guía de Despacho',
             ],
+
+            // Sector: Pagos & Facturación
+            'pagos' => [
+                // Módulo: Pagos
+                'pagos.view' => 'Ver Pagos',
+                'pagos.create' => 'Crear Pago',
+                'pagos.edit' => 'Editar Pago',
+                'pagos.delete' => 'Eliminar Pago',
+
+                // Módulo: Facturas
+                'facturas.view' => 'Ver Facturas',
+                'facturas.create' => 'Crear Factura',
+                'facturas.edit' => 'Editar Factura',
+                'facturas.anular' => 'Anular Factura',
+
+                // Módulo: Notas de Crédito
+                'notas_credito.view' => 'Ver Notas de Crédito',
+                'notas_credito.create' => 'Crear Nota de Crédito',
+                'notas_credito.edit' => 'Editar Nota de Crédito',
+                'notas_credito.anular' => 'Anular Nota de Crédito',
+
+                // Módulo: Caja
+                'caja.view' => 'Ver Caja',
+                'caja.open' => 'Abrir Caja',
+                'caja.close' => 'Cerrar Caja',
+                'caja.movements' => 'Gestionar Movimientos de Caja',
+
+                // Módulo: Conciliación
+                'conciliacion.view' => 'Ver Conciliación',
+                'conciliacion.manage' => 'Gestionar Conciliación',
+            ],
         ];
 
         foreach ($permissions as $sector => $sectorPermissions) {
@@ -200,6 +231,11 @@ class PermissionSeeder extends Seeder
                     str_starts_with($permission, 'alertas_stock.') => 'alertas_stock',
                     str_starts_with($permission, 'ordenes_compra.') => 'ordenes_compra',
                     str_starts_with($permission, 'envios.') => 'envios',
+                    str_starts_with($permission, 'pagos.') => 'pagos',
+                    str_starts_with($permission, 'facturas.') => 'facturas',
+                    str_starts_with($permission, 'notas_credito.') => 'notas_credito',
+                    str_starts_with($permission, 'caja.') => 'caja',
+                    str_starts_with($permission, 'conciliacion.') => 'conciliacion',
                     default => 'general',
                 };
 

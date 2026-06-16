@@ -21,6 +21,7 @@ Route::middleware(['auth', 'verified', 'role:admin|super-admin'])->prefix('admin
     require __DIR__.'/modules/grupos.php';
     require __DIR__.'/modules/integraciones.php';
     require __DIR__.'/modules/inventario.php';
+    require __DIR__.'/modules/pagos.php';
     require __DIR__.'/modules/monitoreo.php';
     require __DIR__.'/modules/paises.php';
     require __DIR__.'/modules/roles.php';

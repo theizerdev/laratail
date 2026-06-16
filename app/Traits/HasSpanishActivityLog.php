@@ -25,6 +25,10 @@ trait HasSpanishActivityLog
         'Supplier' => 'Proveedor',
         'PurchaseOrder' => 'Orden de Compra',
         'Shipment' => 'Envío',
+        'Payment' => 'Pago',
+        'Invoice' => 'Factura',
+        'CreditNote' => 'Nota de Crédito',
+        'CashRegister' => 'Caja Registradora',
     ];
 
     public static $fieldLabelsMap = [
@@ -177,6 +181,27 @@ trait HasSpanishActivityLog
         'costo_unitario' => 'Costo unitario',
         'stock_anterior' => 'Stock anterior',
         'stock_nuevo' => 'Stock nuevo',
+        'amount' => 'Monto',
+        'metodo_pago' => 'Método de pago',
+        'referencia' => 'Referencia',
+        'fecha_pago' => 'Fecha de pago',
+        'comprobante_path' => 'Comprobante',
+        'numero' => 'Número',
+        'tipo' => 'Tipo',
+        'serie' => 'Serie',
+        'numero_control' => 'Número de control',
+        'fecha_emision' => 'Fecha de emisión',
+        'subtotal' => 'Subtotal',
+        'impuesto' => 'Impuesto',
+        'total' => 'Total',
+        'motivo' => 'Motivo',
+        'monto' => 'Monto',
+        'monto_inicial' => 'Monto inicial',
+        'monto_final' => 'Monto final',
+        'fecha_apertura' => 'Fecha de apertura',
+        'fecha_cierre' => 'Fecha de cierre',
+        'total_ingresos' => 'Total ingresos',
+        'total_egresos' => 'Total egresos',
     ];
 
     protected static function getModelNameInSpanish(): string

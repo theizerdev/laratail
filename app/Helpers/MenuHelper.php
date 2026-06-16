@@ -35,6 +35,13 @@ class MenuHelper
                 'icon' => 'heroicons:cube-solid',
                 'modules' => ['proveedores', 'movimientos', 'kardex', 'alertas_stock', 'ordenes_compra', 'envios']
             ],
+            'pagos' => [
+                'name' => '💳 Pagos & Facturación',
+                'description' => 'Pagos, facturas, notas de crédito, caja y conciliación',
+                'color' => 'rose',
+                'icon' => 'heroicons:banknotes-solid',
+                'modules' => ['pagos', 'facturas', 'notas_credito', 'caja', 'conciliacion']
+            ],
             'configuracion' => [
                 'name' => '⚙️ Configuración',
                 'description' => 'Configuración del sistema, países, regiones',
@@ -310,6 +317,56 @@ class MenuHelper
                             ['label' => 'Listado', 'permission' => 'envios.view', 'route' => 'admin.envios', 'active' => 'admin.envios'],
                             ['label' => 'Nuevo envío', 'permission' => 'envios.create', 'route' => 'admin.envios.create', 'active' => 'admin.envios.create'],
                         ]
+                    ],
+                ],
+            ],
+            'pagos' => [
+                'label' => 'Pagos & Facturación',
+                'icon' => 'heroicons:banknotes-solid',
+                'items' => [
+                    [
+                        'label' => 'Pagos',
+                        'icon' => 'heroicons:credit-card-solid',
+                        'permissions' => ['pagos.view', 'pagos.create', 'pagos.edit'],
+                        'active' => 'admin.pagos*',
+                        'children' => [
+                            ['label' => 'Listado', 'permission' => 'pagos.view', 'route' => 'admin.pagos', 'active' => 'admin.pagos'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Facturas',
+                        'icon' => 'heroicons:document-text-solid',
+                        'permissions' => ['facturas.view', 'facturas.create'],
+                        'active' => 'admin.facturas*',
+                        'children' => [
+                            ['label' => 'Listado', 'permission' => 'facturas.view', 'route' => 'admin.facturas', 'active' => 'admin.facturas'],
+                            ['label' => 'Nueva factura', 'permission' => 'facturas.create', 'route' => 'admin.facturas.create', 'active' => 'admin.facturas.create'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Notas de Crédito',
+                        'icon' => 'heroicons:document-minus-solid',
+                        'permissions' => ['notas_credito.view', 'notas_credito.create'],
+                        'active' => 'admin.notas-credito*',
+                        'children' => [
+                            ['label' => 'Listado', 'permission' => 'notas_credito.view', 'route' => 'admin.notas-credito', 'active' => 'admin.notas-credito'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Caja',
+                        'icon' => 'heroicons:cash-solid',
+                        'permissions' => ['caja.view', 'caja.open'],
+                        'active' => 'admin.caja*',
+                        'children' => [
+                            ['label' => 'Listado', 'permission' => 'caja.view', 'route' => 'admin.caja', 'active' => 'admin.caja'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Conciliación',
+                        'icon' => 'heroicons:scale-solid',
+                        'permissions' => ['conciliacion.view'],
+                        'active' => 'admin.conciliacion*',
+                        'route' => 'admin.conciliacion',
                     ],
                 ],
             ],
