@@ -135,6 +135,41 @@ class PermissionSeeder extends Seeder
                 'cupones.edit' => 'Editar Cupón',
                 'cupones.delete' => 'Eliminar Cupón',
             ],
+
+            // Sector: Inventario
+            'inventario' => [
+                // Módulo: Proveedores
+                'proveedores.view' => 'Ver Proveedores',
+                'proveedores.create' => 'Crear Proveedor',
+                'proveedores.edit' => 'Editar Proveedor',
+                'proveedores.delete' => 'Eliminar Proveedor',
+
+                // Módulo: Movimientos de Inventario
+                'movimientos.view' => 'Ver Movimientos',
+                'movimientos.create' => 'Crear Movimiento',
+                'movimientos.edit' => 'Editar Movimiento',
+                'movimientos.delete' => 'Eliminar Movimiento',
+
+                // Módulo: Kardex
+                'kardex.view' => 'Ver Kardex',
+
+                // Módulo: Alertas de Stock
+                'alertas_stock.view' => 'Ver Alertas de Stock',
+
+                // Módulo: Órdenes de Compra
+                'ordenes_compra.view' => 'Ver Órdenes de Compra',
+                'ordenes_compra.create' => 'Crear Orden de Compra',
+                'ordenes_compra.edit' => 'Editar Orden de Compra',
+                'ordenes_compra.delete' => 'Eliminar Orden de Compra',
+                'ordenes_compra.recibir' => 'Recibir Mercancía',
+
+                // Módulo: Envíos
+                'envios.view' => 'Ver Envíos',
+                'envios.create' => 'Crear Envío',
+                'envios.edit' => 'Editar Envío',
+                'envios.delete' => 'Eliminar Envío',
+                'envios.guia' => 'Generar Guía de Despacho',
+            ],
         ];
 
         foreach ($permissions as $sector => $sectorPermissions) {
@@ -159,6 +194,12 @@ class PermissionSeeder extends Seeder
                     str_starts_with($permission, 'pedidos.') => 'pedidos',
                     str_starts_with($permission, 'cotizaciones.') => 'cotizaciones',
                     str_starts_with($permission, 'cupones.') => 'cupones',
+                    str_starts_with($permission, 'proveedores.') => 'proveedores',
+                    str_starts_with($permission, 'movimientos.') => 'movimientos',
+                    str_starts_with($permission, 'kardex.') => 'kardex',
+                    str_starts_with($permission, 'alertas_stock.') => 'alertas_stock',
+                    str_starts_with($permission, 'ordenes_compra.') => 'ordenes_compra',
+                    str_starts_with($permission, 'envios.') => 'envios',
                     default => 'general',
                 };
 

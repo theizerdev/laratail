@@ -28,6 +28,13 @@ class MenuHelper
                 'icon' => 'heroicons:currency-dollar-solid',
                 'modules' => ['clientes', 'pedidos', 'cotizaciones', 'cupones']
             ],
+            'inventario' => [
+                'name' => '📦 Inventario',
+                'description' => 'Proveedores, movimientos, kardex, órdenes de compra y envíos',
+                'color' => 'cyan',
+                'icon' => 'heroicons:cube-solid',
+                'modules' => ['proveedores', 'movimientos', 'kardex', 'alertas_stock', 'ordenes_compra', 'envios']
+            ],
             'configuracion' => [
                 'name' => '⚙️ Configuración',
                 'description' => 'Configuración del sistema, países, regiones',
@@ -244,6 +251,64 @@ class MenuHelper
                         'active' => 'admin.cupones*',
                         'children' => [
                             ['label' => 'Listado', 'permission' => 'cupones.view', 'route' => 'admin.cupones', 'active' => 'admin.cupones'],
+                        ]
+                    ],
+                ],
+            ],
+            'inventario' => [
+                'label' => 'Inventario',
+                'icon' => 'heroicons:cube-solid',
+                'items' => [
+                    [
+                        'label' => 'Proveedores',
+                        'icon' => 'heroicons:building-office-solid',
+                        'permissions' => ['proveedores.view', 'proveedores.create', 'proveedores.edit', 'proveedores.delete'],
+                        'active' => 'admin.proveedores*',
+                        'children' => [
+                            ['label' => 'Listado', 'permission' => 'proveedores.view', 'route' => 'admin.proveedores', 'active' => 'admin.proveedores'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Movimientos',
+                        'icon' => 'heroicons:arrows-up-down-solid',
+                        'permissions' => ['movimientos.view', 'movimientos.create'],
+                        'active' => 'admin.movimientos*',
+                        'children' => [
+                            ['label' => 'Listado', 'permission' => 'movimientos.view', 'route' => 'admin.movimientos', 'active' => 'admin.movimientos'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Kardex',
+                        'icon' => 'heroicons:document-chart-bar-solid',
+                        'permissions' => ['kardex.view'],
+                        'active' => 'admin.kardex*',
+                        'route' => 'admin.kardex',
+                    ],
+                    [
+                        'label' => 'Alertas Stock',
+                        'icon' => 'heroicons:exclamation-triangle-solid',
+                        'permissions' => ['alertas_stock.view'],
+                        'active' => 'admin.alertas-stock*',
+                        'route' => 'admin.alertas-stock',
+                    ],
+                    [
+                        'label' => 'Órdenes de Compra',
+                        'icon' => 'heroicons:shopping-bag-solid',
+                        'permissions' => ['ordenes_compra.view', 'ordenes_compra.create', 'ordenes_compra.edit'],
+                        'active' => 'admin.ordenes-compra*',
+                        'children' => [
+                            ['label' => 'Listado', 'permission' => 'ordenes_compra.view', 'route' => 'admin.ordenes-compra', 'active' => 'admin.ordenes-compra'],
+                            ['label' => 'Nueva orden', 'permission' => 'ordenes_compra.create', 'route' => 'admin.ordenes-compra.create', 'active' => 'admin.ordenes-compra.create'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Envíos',
+                        'icon' => 'heroicons:truck-solid',
+                        'permissions' => ['envios.view', 'envios.create', 'envios.edit'],
+                        'active' => 'admin.envios*',
+                        'children' => [
+                            ['label' => 'Listado', 'permission' => 'envios.view', 'route' => 'admin.envios', 'active' => 'admin.envios'],
+                            ['label' => 'Nuevo envío', 'permission' => 'envios.create', 'route' => 'admin.envios.create', 'active' => 'admin.envios.create'],
                         ]
                     ],
                 ],

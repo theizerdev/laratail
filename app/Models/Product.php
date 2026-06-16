@@ -178,4 +178,14 @@ class Product extends Model
     {
         return $this->belongsTo(Sucursal::class);
     }
+
+    public function inventoryMovements(): HasMany
+    {
+        return $this->hasMany(InventoryMovement::class);
+    }
+
+    public function purchaseOrderItems(): HasMany
+    {
+        return $this->hasMany(PurchaseOrderItem::class);
+    }
 }

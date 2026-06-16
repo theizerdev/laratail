@@ -22,6 +22,9 @@ trait HasSpanishActivityLog
         'Coupon' => 'Cupón',
         'Cart' => 'Carrito',
         'Role' => 'Rol',
+        'Supplier' => 'Proveedor',
+        'PurchaseOrder' => 'Orden de Compra',
+        'Shipment' => 'Envío',
     ];
 
     public static $fieldLabelsMap = [
@@ -160,6 +163,20 @@ trait HasSpanishActivityLog
         'precio_unitario' => 'Precio unitario',
         'created_at' => 'Fecha de creación',
         'updated_at' => 'Fecha de actualización',
+        'contacto' => 'Contacto',
+        'rif' => 'RIF',
+        'supplier_id' => 'Proveedor',
+        'estado' => 'Estado',
+        'fecha_entrega_esperada' => 'Fecha entrega esperada',
+        'fecha_recepcion' => 'Fecha recepción',
+        'carrier_name' => 'Transportadora',
+        'tracking_number' => 'N° Seguimiento',
+        'fecha_envio' => 'Fecha envío',
+        'fecha_entrega' => 'Fecha entrega',
+        'costo_envio' => 'Costo envío',
+        'costo_unitario' => 'Costo unitario',
+        'stock_anterior' => 'Stock anterior',
+        'stock_nuevo' => 'Stock nuevo',
     ];
 
     protected static function getModelNameInSpanish(): string
