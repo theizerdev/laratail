@@ -20,7 +20,7 @@ class Index extends Component
     public function openRegister(): void
     {
         $this->monto_inicial = 0;
-        $this->dispatch('open-modal', 'modal-abrir-caja');
+        $this->js('Flux.modal("modal-abrir-caja").show()');
     }
 
     public function crearCaja(): void
@@ -32,7 +32,7 @@ class Index extends Component
 
         if ($existing) {
             session()->flash('error', 'Ya tienes una caja abierta.');
-            $this->dispatch('close-modal', 'modal-abrir-caja');
+            $this->js('Flux.modal("modal-abrir-caja").close()');
             return;
         }
 
@@ -44,7 +44,7 @@ class Index extends Component
         ]);
 
         session()->flash('success', 'Caja abierta correctamente.');
-        $this->dispatch('close-modal', 'modal-abrir-caja');
+        $this->js('Flux.modal("modal-abrir-caja").close()');
     }
 
     public function render()

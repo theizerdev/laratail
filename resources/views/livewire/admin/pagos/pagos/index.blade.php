@@ -228,7 +228,7 @@
             </div>
 
             <div class="mt-6 flex justify-end gap-2">
-                <flux:button wire:click="closeModal" variant="outline">Cancelar</flux:button>
+                <flux:button x-on:click="Flux.modal('modal-pago').close()" wire:click="closeModal" variant="outline">Cancelar</flux:button>
                 <flux:button wire:click="save" variant="primary">{{ $editingId ? 'Actualizar' : 'Guardar' }}</flux:button>
             </div>
         </div>
@@ -285,7 +285,7 @@
                 </div>
             @endif
             <div class="mt-6 flex justify-end">
-                <flux:button wire:click="closeDetailModal" variant="outline">Cerrar</flux:button>
+                <flux:button x-on:click="Flux.modal('modal-detalle').close()" variant="outline">Cerrar</flux:button>
             </div>
         </div>
     </flux:modal>

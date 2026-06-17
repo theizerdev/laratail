@@ -74,7 +74,7 @@ class Index extends Component
     public function openCreate(): void
     {
         $this->resetForm();
-        $this->dispatch('open-modal', 'modal-pago');
+        $this->js('Flux.modal("modal-pago").show()');
     }
 
     public function openEdit(int $id): void
@@ -89,24 +89,24 @@ class Index extends Component
         $this->estado = $payment->estado;
         $this->notas = $payment->notas ?? '';
         $this->orderSearch = $payment->order?->numero ?? '';
-        $this->dispatch('open-modal', 'modal-pago');
+        $this->js('Flux.modal("modal-pago").show()');
     }
 
     public function openDetail(int $id): void
     {
         $this->detailId = $id;
-        $this->dispatch('open-modal', 'modal-detalle');
+        $this->js('Flux.modal("modal-detalle").show()');
     }
 
     public function closeModal(): void
     {
-        $this->dispatch('close-modal', 'modal-pago');
+        $this->js('Flux.modal("modal-pago").close()');
         $this->resetForm();
     }
 
     public function closeDetailModal(): void
     {
-        $this->dispatch('close-modal', 'modal-detalle');
+        $this->js('Flux.modal("modal-detalle").close()');
         $this->detailId = null;
     }
 
@@ -163,7 +163,7 @@ class Index extends Component
             session()->flash('success', 'Pago registrado correctamente.' . ($caja ? " Caja: #{$caja->id}" : ''));
         }
 
-        $this->dispatch('close-modal', 'modal-pago');
+        $this->js('Flux.modal("modal-pago").close()');
         $this->resetForm();
     }
 

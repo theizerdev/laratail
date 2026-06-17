@@ -160,7 +160,7 @@
                 </div>
             </div>
             <div class="mt-6 flex justify-end gap-2">
-                <flux:button variant="outline" onclick="Flux.modal('modal-movimiento').close()">Cancelar</flux:button>
+                <flux:button variant="outline" x-on:click="Flux.modal('modal-movimiento').close()">Cancelar</flux:button>
                 <flux:button wire:click="saveMovement" variant="primary">Guardar</flux:button>
             </div>
         </div>
@@ -190,7 +190,7 @@
                 </div>
             </div>
             <div class="mt-6 flex justify-end gap-2">
-                <flux:button variant="outline" onclick="Flux.modal('modal-cerrar-caja').close()">Cancelar</flux:button>
+                <flux:button variant="outline" x-on:click="Flux.modal('modal-cerrar-caja').close()">Cancelar</flux:button>
                 <flux:button wire:click="cerrarCaja" variant="primary" class="bg-red-600 hover:bg-red-700">Cerrar Caja</flux:button>
             </div>
         </div>

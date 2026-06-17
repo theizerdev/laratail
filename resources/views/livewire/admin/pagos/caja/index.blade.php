@@ -130,7 +130,7 @@
                 <flux:input wire:model="monto_inicial" type="number" step="0.01" min="0" placeholder="0.00" />
             </div>
             <div class="mt-6 flex justify-end gap-2">
-                <flux:button variant="outline" onclick="Flux.modal('modal-abrir-caja').close()">Cancelar</flux:button>
+                <flux:button variant="outline" x-on:click="Flux.modal('modal-abrir-caja').close()">Cancelar</flux:button>
                 <flux:button wire:click="crearCaja" variant="primary" class="bg-emerald-600 hover:bg-emerald-700">Abrir Caja</flux:button>
             </div>
         </div>

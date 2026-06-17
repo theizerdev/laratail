@@ -33,7 +33,7 @@ class Detalle extends Component
         $this->movTipo = 'ingreso';
         $this->movMonto = 0;
         $this->movDescripcion = '';
-        $this->dispatch('open-modal', 'modal-movimiento');
+        $this->js('Flux.modal("modal-movimiento").show()');
     }
 
     public function saveMovement(): void
@@ -58,14 +58,14 @@ class Detalle extends Component
         ]);
 
         session()->flash('success', 'Movimiento registrado.');
-        $this->dispatch('close-modal', 'modal-movimiento');
+        $this->js('Flux.modal("modal-movimiento").close()');
     }
 
     public function openClose(): void
     {
         $register = CashRegister::findOrFail($this->registerId);
         $this->monto_final = $register->totalActual();
-        $this->dispatch('open-modal', 'modal-cerrar-caja');
+        $this->js('Flux.modal("modal-cerrar-caja").show()');
     }
 
     public function cerrarCaja(): void
@@ -84,7 +84,7 @@ class Detalle extends Component
         $register->cerrar($this->monto_final);
 
         session()->flash('success', 'Caja cerrada correctamente.');
-        $this->dispatch('close-modal', 'modal-cerrar-caja');
+        $this->js('Flux.modal("modal-cerrar-caja").close()');
         $this->redirect(route('admin.caja'), navigate: true);
     }
 
