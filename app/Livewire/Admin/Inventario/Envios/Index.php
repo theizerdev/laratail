@@ -25,7 +25,7 @@ class Index extends Component
 
     public function render()
     {
-        $query = Shipment::with(['order.customer'])
+        $query = Shipment::with(['order.customer', 'empleado'])
             ->latest();
 
         if ($this->filterEstado !== 'all') {

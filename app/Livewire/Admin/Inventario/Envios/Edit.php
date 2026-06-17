@@ -14,6 +14,8 @@ class Edit extends Component
     public int $shipmentId;
     public ?int $order_id = null;
     public string $estado = 'preparando';
+    public string $tipo_transporte = 'carrier'; // 'carrier' o 'empleado'
+    public ?int $empleado_id = null;
     public string $carrier_name = '';
     public string $tracking_number = '';
     public string $fecha_envio = '';
@@ -33,6 +35,8 @@ class Edit extends Component
 
         $this->order_id = $shipment->order_id;
         $this->estado = $shipment->estado;
+        $this->empleado_id = $shipment->empleado_id;
+        $this->tipo_transporte = $shipment->empleado_id ? 'empleado' : 'carrier';
         $this->carrier_name = $shipment->carrier_name ?? '';
         $this->tracking_number = $shipment->tracking_number ?? '';
         $this->fecha_envio = $shipment->fecha_envio?->format('Y-m-d') ?? '';
@@ -57,7 +61,9 @@ class Edit extends Component
     public function save(): void
     {
         $this->validate([
-            'carrier_name' => 'nullable|string|max:255',
+            'tipo_transporte' => 'required|string|in:carrier,empleado',
+            'empleado_id' => 'required_if:tipo_transporte,empleado|nullable|exists:empleados,id',
+            'carrier_name' => 'required_if:tipo_transporte,carrier|nullable|string|max:255',
             'tracking_number' => 'nullable|string|max:255',
             'fecha_envio' => 'nullable|date',
             'fecha_entrega_esperada' => 'nullable|date',
@@ -71,9 +77,22 @@ class Edit extends Component
         ]);
 
         $shipment = Shipment::findOrFail($this->shipmentId);
+
+        if ($this->tipo_transporte === 'empleado') {
+            $empleado = \App\Models\Empleado::findOrFail($this->empleado_id);
+            $carrierName = $empleado->full_name;
+            $trackingNumber = null;
+            $empleadoId = $empleado->id;
+        } else {
+            $carrierName = $this->carrier_name ?: null;
+            $trackingNumber = $this->tracking_number ?: null;
+            $empleadoId = null;
+        }
+
         $shipment->update([
-            'carrier_name' => $this->carrier_name ?: null,
-            'tracking_number' => $this->tracking_number ?: null,
+            'empleado_id' => $empleadoId,
+            'carrier_name' => $carrierName,
+            'tracking_number' => $trackingNumber,
             'fecha_envio' => $this->fecha_envio ?: null,
             'fecha_entrega_esperada' => $this->fecha_entrega_esperada ?: null,
             'peso' => $this->peso,
@@ -95,6 +114,7 @@ class Edit extends Component
 
         return view('livewire.admin.inventario.envios.edit', [
             'shipment' => $shipment,
+            'empleados' => \App\Models\Empleado::where('estado', 'activo')->orderBy('nombre')->get(),
         ]);
     }
 }

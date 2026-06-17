@@ -16,6 +16,7 @@ class Shipment extends Model
     protected $fillable = [
         'numero',
         'order_id',
+        'empleado_id',
         'carrier_name',
         'tracking_number',
         'estado',
@@ -67,6 +68,11 @@ class Shipment extends Model
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);
+    }
+
+    public function empleado(): BelongsTo
+    {
+        return $this->belongsTo(Empleado::class);
     }
 
     // State management

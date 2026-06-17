@@ -1,107 +1,158 @@
 <div>
-    <div class="mb-6 flex items-center justify-between">
+    <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Envíos</h1>
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Gestiona los envíos y el seguimiento de entregas.</p>
+            <h2 class="text-xl font-bold text-gray-900">Envíos</h2>
+            <p class="mt-1 text-sm text-gray-500">Gestiona los envíos y el seguimiento de entregas.</p>
         </div>
-        <a href="{{ route('admin.envios.create') }}" class="inline-flex items-center gap-1 rounded-lg bg-cyan-600 px-4 py-2 text-sm font-medium text-white hover:bg-cyan-700">
-             <iconify-icon icon="heroicons:plus" class="h-4 w-4"></iconify-icon> Nuevo Envío
+        <a href="{{ route('admin.envios.create') }}" wire:navigate>
+            <flux:button variant="primary">
+                <iconify-icon icon="heroicons:plus" class="h-4 w-4"></iconify-icon> Nuevo Envío
+            </flux:button>
         </a>
     </div>
 
     {{-- Stats --}}
     <div class="mb-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
-        <div class="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
-            <p class="text-sm text-gray-500 dark:text-gray-400">Total</p>
-            <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ number_format($stats['total']) }}</p>
+        <div class="rounded-2xl bg-white p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+                <p class="text-xs font-medium text-gray-400">Total</p>
+                <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-50">
+                    <iconify-icon icon="heroicons:document-text-solid" class="h-4 w-4 text-indigo-600"></iconify-icon>
+                </div>
+            </div>
+            <p class="mt-2 text-2xl font-bold text-gray-900">{{ number_format($stats['total']) }}</p>
         </div>
-        <div class="rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-600 dark:bg-gray-700">
-            <p class="text-sm text-gray-500 dark:text-gray-400">Preparando</p>
-            <p class="text-2xl font-bold text-gray-600 dark:text-gray-300">{{ number_format($stats['preparando']) }}</p>
+        <div class="rounded-2xl bg-white p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+                <p class="text-xs font-medium text-gray-400">Preparando</p>
+                <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-gray-100">
+                    <iconify-icon icon="heroicons:clock-solid" class="h-4 w-4 text-gray-600"></iconify-icon>
+                </div>
+            </div>
+            <p class="mt-2 text-2xl font-bold text-gray-600">{{ number_format($stats['preparando']) }}</p>
         </div>
-        <div class="rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-900/30">
-            <p class="text-sm text-amber-600 dark:text-amber-400">En Tránsito</p>
-            <p class="text-2xl font-bold text-amber-700 dark:text-amber-300">{{ number_format($stats['en_transito']) }}</p>
+        <div class="rounded-2xl bg-white p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+                <p class="text-xs font-medium text-gray-400">En Tránsito</p>
+                <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-50">
+                    <iconify-icon icon="heroicons:truck-solid" class="h-4 w-4 text-amber-600"></iconify-icon>
+                </div>
+            </div>
+            <p class="mt-2 text-2xl font-bold text-amber-600">{{ number_format($stats['en_transito']) }}</p>
         </div>
-        <div class="rounded-lg border border-emerald-200 bg-emerald-50 p-4 dark:border-emerald-800 dark:bg-emerald-900/30">
-            <p class="text-sm text-emerald-600 dark:text-emerald-400">Entregados</p>
-            <p class="text-2xl font-bold text-emerald-700 dark:text-emerald-300">{{ number_format($stats['entregados']) }}</p>
+        <div class="rounded-2xl bg-white p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+                <p class="text-xs font-medium text-gray-400">Entregados</p>
+                <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-50">
+                    <iconify-icon icon="heroicons:check-circle-solid" class="h-4 w-4 text-emerald-600"></iconify-icon>
+                </div>
+            </div>
+            <p class="mt-2 text-2xl font-bold text-emerald-600">{{ number_format($stats['entregados']) }}</p>
         </div>
     </div>
 
-    {{-- Filters --}}
-    <div class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center">
-        <div class="relative flex-1 max-w-md">
-            <input type="text" wire:model.live.debounce.300ms="search" placeholder="Buscar envío, tracking, orden..."
-                class="w-full rounded-lg border-gray-300 pl-10 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
-             <iconify-icon icon="heroicons:magnifying-glass" class="absolute left-3 top-2.5 h-5 w-5 text-gray-400"></iconify-icon>
+    <div class="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div class="w-full sm:max-w-xs">
+            <flux:input wire:model.live.debounce.300ms="search" placeholder="Buscar envío, tracking, orden..." icon="magnifying-glass" />
         </div>
-        <select wire:model.live="filterEstado" class="rounded-lg border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
-            <option value="all">Todos los estados</option>
-            <option value="preparando">Preparando</option>
-            <option value="enviado">Enviado</option>
-            <option value="en_transito">En Tránsito</option>
-            <option value="entregado">Entregado</option>
-            <option value="devuelto">Devuelto</option>
-        </select>
-        @if ($carriers->count() > 0)
-            <select wire:model.live="filterCarrier" class="rounded-lg border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
-                <option value="">Todas las transportadoras</option>
-                @foreach ($carriers as $c)
-                    <option value="{{ $c }}">{{ $c }}</option>
-                @endforeach
-            </select>
-        @endif
+        <div class="flex items-center gap-2">
+            <flux:select wire:model.live="filterEstado" class="w-auto">
+                <flux:select.option value="all">Todos los estados</flux:select.option>
+                <flux:select.option value="preparando">Preparando</flux:select.option>
+                <flux:select.option value="enviado">Enviado</flux:select.option>
+                <flux:select.option value="en_transito">En Tránsito</flux:select.option>
+                <flux:select.option value="entregado">Entregado</flux:select.option>
+                <flux:select.option value="devuelto">Devuelto</flux:select.option>
+            </flux:select>
+            @if ($carriers->count() > 0)
+                <flux:select wire:model.live="filterCarrier" class="w-auto">
+                    <flux:select.option value="">Todas las transportadoras</flux:select.option>
+                    @foreach ($carriers as $c)
+                        <flux:select.option value="{{ $c }}">{{ $c }}</flux:select.option>
+                    @endforeach
+                </flux:select>
+            @endif
+        </div>
     </div>
 
     {{-- Table --}}
-    <div class="overflow-x-auto rounded-lg border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
-        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-            <thead class="bg-gray-50 dark:bg-gray-700/50">
+    <div class="overflow-hidden rounded-2xl bg-white shadow-sm">
+        <table class="w-full">
+            <thead class="bg-gray-50">
                 <tr>
-                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">Número</th>
-                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">Orden</th>
-                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">Estado</th>
-                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">Transportadora</th>
-                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">Tracking</th>
-                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">Envío</th>
-                    <th class="px-4 py-3 text-center text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">Acciones</th>
+                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Número</th>
+                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Orden</th>
+                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Estado</th>
+                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Transportadora</th>
+                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Tracking</th>
+                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Envío</th>
+                    <th class="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase">Acciones</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+            <tbody class="divide-y divide-gray-100">
                 @forelse ($shipments as $shipment)
                     @php $ec = $shipment->estado_color; @endphp
-                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 {{ $shipment->retrasado ? 'bg-red-50 dark:bg-red-900/10' : '' }}">
+                    <tr class="hover:bg-gray-50 {{ $shipment->retrasado ? 'bg-red-50/50' : '' }}">
                         <td class="whitespace-nowrap px-4 py-3">
-                            <span class="text-sm font-semibold text-cyan-600 dark:text-cyan-400">{{ $shipment->numero }}</span>
+                            <span class="font-mono text-sm font-medium text-gray-900">{{ $shipment->numero }}</span>
                             @if ($shipment->retrasado)
-                                <span class="ml-1 inline-flex items-center rounded-full bg-red-100 px-1.5 py-0.5 text-xs text-red-700 dark:bg-red-900/50 dark:text-red-400">Retrasado</span>
+                                <span class="ml-1 inline-flex items-center gap-0.5 rounded-full bg-red-50 px-1.5 py-0.5 text-[10px] font-semibold text-red-700">
+                                    <iconify-icon icon="heroicons:exclamation-circle-solid" class="h-3 w-3"></iconify-icon>
+                                    Retrasado
+                                </span>
                             @endif
                         </td>
-                        <td class="px-4 py-3 text-sm text-gray-900 dark:text-white">{{ $shipment->order?->numero ?? '-' }}</td>
+                        <td class="px-4 py-3">
+                            <span class="text-sm text-gray-700">{{ $shipment->order?->numero ?? '-' }}</span>
+                        </td>
                         <td class="whitespace-nowrap px-4 py-3">
-                            <span class="inline-flex items-center rounded-full bg-{{ $ec }}-100 px-2.5 py-0.5 text-xs font-medium text-{{ $ec }}-800 dark:bg-{{ $ec }}-900/30 dark:text-{{ $ec }}-400">
+                            <span class="inline-flex items-center gap-1 rounded-full bg-{{ $ec }}-50 px-2.5 py-0.5 text-[10px] font-semibold text-{{ $ec }}-700">
+                                <span class="h-1.5 w-1.5 rounded-full bg-{{ $ec }}-500"></span>
                                 {{ $shipment->estado_label }}
                             </span>
                         </td>
-                        <td class="px-4 py-3 text-sm text-gray-600 dark:text-gray-300">{{ $shipment->carrier_name ?? '-' }}</td>
-                        <td class="px-4 py-3 text-sm font-mono text-gray-600 dark:text-gray-300">{{ $shipment->tracking_number ?? '-' }}</td>
-                        <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-600 dark:text-gray-300">{{ $shipment->fecha_envio?->format('d/m/Y') ?? '-' }}</td>
-                        <td class="whitespace-nowrap px-4 py-3 text-center">
-                            <div class="flex items-center justify-center gap-1">
-                                <a href="{{ route('admin.envios.edit', $shipment->id) }}" class="text-gray-600 hover:text-cyan-600 dark:text-gray-400" title="Editar">
-                                  
-                                    <iconify-icon icon="heroicons:pencil-square" class="h-5 w-5"></iconify-icon>
+                        <td class="px-4 py-3">
+                            @if ($shipment->empleado)
+                                <span class="flex items-center gap-1.5 text-sm font-medium text-gray-900">
+                                    <iconify-icon icon="heroicons:user-solid" class="h-4 w-4 text-cyan-500"></iconify-icon>
+                                    {{ $shipment->empleado->full_name }}
+                                    <span class="inline-flex items-center rounded-full bg-cyan-50 px-1.5 py-0.5 text-[10px] font-semibold text-cyan-700">Interno</span>
+                                </span>
+                            @else
+                                <span class="flex items-center gap-1.5 text-sm text-gray-600">
+                                    <iconify-icon icon="heroicons:truck-solid" class="h-4 w-4 text-gray-400"></iconify-icon>
+                                    {{ $shipment->carrier_name ?? '-' }}
+                                </span>
+                            @endif
+                        </td>
+                        <td class="px-4 py-3 font-mono text-xs text-gray-600">{{ $shipment->tracking_number ?? '-' }}</td>
+                        <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-600">{{ $shipment->fecha_envio?->format('d/m/Y') ?? '-' }}</td>
+                        <td class="whitespace-nowrap px-4 py-3 text-right">
+                            <div class="flex items-center justify-end gap-1">
+                                <a href="{{ route('admin.envios.edit', $shipment->id) }}" wire:navigate>
+                                    <flux:button variant="ghost" size="sm" class="!text-gray-400 hover:!text-cyan-600" title="Editar">
+                                        <iconify-icon icon="heroicons:pencil-square" class="h-4 w-4"></iconify-icon>
+                                    </flux:button>
                                 </a>
-                                <a href="{{ route('admin.envios.guia-despacho', $shipment->id) }}" class="text-gray-600 hover:text-cyan-600 dark:text-gray-400" title="Guía de Despacho">
-                                    <iconify-icon icon="heroicons:document-text" class="h-5 w-5"></iconify-icon>
+                                <a href="{{ route('admin.envios.guia-despacho', $shipment->id) }}" wire:navigate>
+                                    <flux:button variant="ghost" size="sm" class="!text-gray-400 hover:!text-cyan-600" title="Guía de Despacho">
+                                        <iconify-icon icon="heroicons:document-text" class="h-4 w-4"></iconify-icon>
+                                    </flux:button>
                                 </a>
                             </div>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7" class="px-4 py-8 text-center text-sm text-gray-500 dark:text-gray-400">No se encontraron envíos.</td>
+                        <td colspan="7" class="px-4 py-12 text-center">
+                            <div class="flex flex-col items-center">
+                                <div class="flex h-12 w-12 items-center justify-center rounded-full bg-gray-100">
+                                    <iconify-icon icon="heroicons:truck" class="h-6 w-6 text-gray-400"></iconify-icon>
+                                </div>
+                                <p class="mt-2 text-sm font-medium text-gray-900">No hay envíos</p>
+                                <p class="text-xs text-gray-500">Crea tu primer envío para comenzar</p>
+                            </div>
+                        </td>
                     </tr>
                 @endforelse
             </tbody>

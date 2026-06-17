@@ -4,9 +4,10 @@
             <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Nuevo Envío</h1>
             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Crea un envío para una orden existente.</p>
         </div>
-        <a href="{{ route('admin.envios') }}" class="inline-flex items-center gap-1 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300">
-            
-            <iconify-icon icon="heroicons:arrow-left" class="h-4 w-4"></iconify-icon> Volver
+        <a href="{{ route('admin.envios') }}" wire:navigate>
+            <flux:button variant="ghost" class="!text-gray-600">
+                <iconify-icon icon="heroicons:arrow-left" class="h-4 w-4"></iconify-icon> Volver
+            </flux:button>
         </a>
     </div>
 
@@ -16,10 +17,7 @@
             <div class="rounded-lg border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-800">
                 <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Orden Asociada</h2>
                 <div class="relative">
-                    <input type="text" wire:model.live.debounce.300ms="orderSearch" wire:focus="$set('showOrderDropdown', true)"
-                        placeholder="Buscar por número de orden..."
-                        class="w-full rounded-lg border-gray-300 pl-10 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
-                     <iconify-icon icon="heroicons:magnifying-glass" class="absolute left-3 top-2.5 h-5 w-5 text-gray-400"></iconify-icon>
+                    <flux:input wire:model.live.debounce.300ms="orderSearch" wire:focus="$set('showOrderDropdown', true)" placeholder="Buscar por número de orden..." icon="magnifying-glass" />
                     @if ($showOrderDropdown && count($searchResults) > 0)
                         <div class="absolute z-10 mt-1 max-h-48 w-full overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-600 dark:bg-gray-700">
                             @foreach ($searchResults as $o)
@@ -45,37 +43,53 @@
 
             {{-- Carrier info --}}
             <div class="rounded-lg border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-800">
-                <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Transportadora</h2>
+                <div class="mb-4 flex items-center justify-between border-b border-gray-100 pb-3 dark:border-gray-700">
+                    <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Asignación de Transporte</h2>
+                </div>
+
+                {{-- Tabs selector --}}
+                <div class="mb-6 rounded-lg bg-gray-100 p-1 dark:bg-gray-700/50 flex">
+                    <button type="button" wire:click="$set('tipo_transporte', 'carrier')"
+                        class="flex-1 py-2 text-center text-sm font-medium rounded-md transition-all duration-150 {{ $tipo_transporte === 'carrier' ? 'bg-white text-gray-900 shadow dark:bg-gray-800 dark:text-white' : 'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white' }}">
+                        <iconify-icon icon="heroicons:truck" class="inline-block mr-1.5 h-4 w-4 align-text-bottom"></iconify-icon>
+                        Transportadora Externa
+                    </button>
+                    <button type="button" wire:click="$set('tipo_transporte', 'empleado')"
+                        class="flex-1 py-2 text-center text-sm font-medium rounded-md transition-all duration-150 {{ $tipo_transporte === 'empleado' ? 'bg-white text-gray-900 shadow dark:bg-gray-800 dark:text-white' : 'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white' }}">
+                        <iconify-icon icon="heroicons:user" class="inline-block mr-1.5 h-4 w-4 align-text-bottom"></iconify-icon>
+                        Empleado Interno
+                    </button>
+                </div>
+
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    @if ($tipo_transporte === 'carrier')
+                        <div>
+                            <flux:input wire:model="carrier_name" label="Nombre Transportadora" placeholder="Ej: DHL, FedEx, MRW..." />
+                        </div>
+                        <div>
+                            <flux:input wire:model="tracking_number" label="Número de Tracking" placeholder="Número de seguimiento..." />
+                        </div>
+                    @else
+                        <div class="sm:col-span-2">
+                            <flux:select wire:model="empleado_id" label="Empleado Responsable" placeholder="Selecciona un empleado...">
+                                @foreach ($empleados as $emp)
+                                    <flux:select.option value="{{ $emp->id }}">{{ $emp->full_name }} ({{ $emp->cargo ?? 'Sin cargo' }})</flux:select.option>
+                                @endforeach
+                            </flux:select>
+                        </div>
+                    @endif
+
                     <div>
-                        <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Nombre Transportadora</label>
-                        <input type="text" wire:model="carrier_name" placeholder="Ej: DHL, FedEx, MRW..."
-                            class="w-full rounded-lg border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                        <flux:input type="date" wire:model="fecha_envio" label="Fecha de Envío" />
                     </div>
                     <div>
-                        <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Número de Tracking</label>
-                        <input type="text" wire:model="tracking_number" placeholder="Número de seguimiento..."
-                            class="w-full rounded-lg border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                        <flux:input type="date" wire:model="fecha_entrega_esperada" label="Entrega Esperada" />
                     </div>
                     <div>
-                        <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Fecha de Envío</label>
-                        <input type="date" wire:model="fecha_envio"
-                            class="w-full rounded-lg border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                        <flux:input type="number" wire:model="peso" min="0" step="0.001" label="Peso (kg)" />
                     </div>
                     <div>
-                        <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Entrega Esperada</label>
-                        <input type="date" wire:model="fecha_entrega_esperada"
-                            class="w-full rounded-lg border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
-                    </div>
-                    <div>
-                        <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Peso (kg)</label>
-                        <input type="number" wire:model="peso" min="0" step="0.001"
-                            class="w-full rounded-lg border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
-                    </div>
-                    <div>
-                        <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Costo de Envío</label>
-                        <input type="number" wire:model="costo_envio" min="0" step="0.01"
-                            class="w-full rounded-lg border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                        <flux:input type="number" wire:model="costo_envio" min="0" step="0.01" label="Costo de Envío" />
                     </div>
                 </div>
             </div>
@@ -85,32 +99,22 @@
                 <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Dirección de Destino</h2>
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div class="sm:col-span-2">
-                        <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Dirección</label>
-                        <input type="text" wire:model="direccion_destino"
-                            class="w-full rounded-lg border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                        <flux:input wire:model="direccion_destino" label="Dirección" />
                     </div>
                     <div>
-                        <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Ciudad</label>
-                        <input type="text" wire:model="ciudad_destino"
-                            class="w-full rounded-lg border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                        <flux:input wire:model="ciudad_destino" label="Ciudad" />
                     </div>
                     <div>
-                        <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Estado/Provincia</label>
-                        <input type="text" wire:model="estado_destino"
-                            class="w-full rounded-lg border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                        <flux:input wire:model="estado_destino" label="Estado/Provincia" />
                     </div>
                     <div>
-                        <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Código Postal</label>
-                        <input type="text" wire:model="codigo_postal_destino"
-                            class="w-full rounded-lg border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                        <flux:input wire:model="codigo_postal_destino" label="Código Postal" />
                     </div>
                 </div>
             </div>
 
             <div class="rounded-lg border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-800">
-                <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Notas</label>
-                <textarea wire:model="notas" rows="3" placeholder="Notas del envío..."
-                    class="w-full rounded-lg border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"></textarea>
+                <flux:textarea wire:model="notas" rows="3" label="Notas" placeholder="Notas del envío..." />
             </div>
         </div>
 
@@ -118,14 +122,12 @@
             <div class="sticky top-6 rounded-lg border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-800">
                 <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Acciones</h2>
                 <div class="space-y-2">
-                    <button wire:click="save('preparando')" disabled="{{ !$order_id }}"
-                        class="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 dark:border-gray-600 dark:text-gray-300">
+                    <flux:button class="w-full" wire:click="save('preparando')" :disabled="!$order_id">
                         Crear en Preparando
-                    </button>
-                    <button wire:click="save('enviado')" disabled="{{ !$order_id }}"
-                        class="w-full rounded-lg bg-cyan-600 px-4 py-2 text-sm font-medium text-white hover:bg-cyan-700 disabled:opacity-50 disabled:cursor-not-allowed">
+                    </flux:button>
+                    <flux:button variant="primary" class="w-full !bg-cyan-600 hover:!bg-cyan-700" wire:click="save('enviado')" :disabled="!$order_id">
                         Crear y Marcar Enviado
-                    </button>
+                    </flux:button>
                 </div>
             </div>
         </div>

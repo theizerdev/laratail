@@ -22,8 +22,6 @@ class Index extends Component
     public string $dateTo = '';
 
     // Modal state
-    public bool $showModal = false;
-    public bool $showDetailModal = false;
     public ?int $detailId = null;
 
     // Form fields
@@ -116,19 +114,19 @@ class Index extends Component
     public function openCreate(): void
     {
         $this->resetForm();
-        $this->showModal = true;
+        $this->dispatch('open-modal', 'modal-create-movimiento');
     }
 
     public function closeModal(): void
     {
-        $this->showModal = false;
+        $this->dispatch('close-modal', 'modal-create-movimiento');
         $this->resetForm();
     }
 
     public function showDetail(int $id): void
     {
         $this->detailId = $id;
-        $this->showDetailModal = true;
+        $this->dispatch('open-modal', 'modal-detail-movimiento');
     }
 
     protected function resetForm(): void
@@ -185,6 +183,7 @@ class Index extends Component
 
             session()->flash('success', 'Movimiento registrado correctamente.');
             $this->closeModal();
+            $this->dispatch('close-modal', 'modal-create-movimiento');
         } catch (\Exception $e) {
             session()->flash('error', 'Error al registrar movimiento: ' . $e->getMessage());
         }
@@ -218,7 +217,7 @@ class Index extends Component
         $movements = $query->paginate(20);
 
         $detailMovement = null;
-        if ($this->showDetailModal && $this->detailId) {
+        if ($this->detailId) {
             $detailMovement = InventoryMovement::with(['product', 'variant', 'user', 'sucursalOrigen', 'sucursalDestino'])->find($this->detailId);
         }
 

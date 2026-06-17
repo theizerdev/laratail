@@ -22,9 +22,16 @@ Route::middleware(['auth', 'verified', 'role:admin|super-admin'])->prefix('admin
     require __DIR__.'/modules/integraciones.php';
     require __DIR__.'/modules/inventario.php';
     require __DIR__.'/modules/pagos.php';
+    require __DIR__.'/modules/reportes.php';
     require __DIR__.'/modules/monitoreo.php';
     require __DIR__.'/modules/paises.php';
     require __DIR__.'/modules/roles.php';
     require __DIR__.'/modules/sucursales.php';
     require __DIR__.'/modules/users.php';
+
+    require __DIR__.'/modules/empleados.php';
+
+    // PDF Generation Routes
+    Route::get('/facturas/{id}/pdf', [\App\Http\Controllers\Admin\PdfController::class, 'downloadInvoice'])->name('facturas.pdf');
+    Route::get('/pedidos/{id}/ticket', [\App\Http\Controllers\Admin\PdfController::class, 'downloadTicket'])->name('pedidos.ticket');
 });

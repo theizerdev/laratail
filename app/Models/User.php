@@ -29,10 +29,12 @@ use Spatie\Permission\Traits\HasRoles;
  * @property string|null $telefono
  * @property int|null $empresa_id
  * @property int|null $sucursal_id
+ * @property string|null $whatsapp_otp
+ * @property Carbon|null $phone_verified_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
-#[Fillable(['name', 'email', 'password', 'group_id', 'telefono', 'empresa_id', 'sucursal_id'])]
+#[Fillable(['name', 'email', 'password', 'group_id', 'telefono', 'empresa_id', 'sucursal_id', 'whatsapp_otp', 'phone_verified_at'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable implements MustVerifyEmail
 {

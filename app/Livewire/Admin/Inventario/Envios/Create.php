@@ -13,6 +13,8 @@ use Livewire\Component;
 class Create extends Component
 {
     public ?int $order_id = null;
+    public string $tipo_transporte = 'carrier'; // 'carrier' o 'empleado'
+    public ?int $empleado_id = null;
     public string $carrier_name = '';
     public string $tracking_number = '';
     public string $fecha_envio = '';
@@ -57,7 +59,9 @@ class Create extends Component
     {
         $this->validate([
             'order_id' => 'required|exists:orders,id',
-            'carrier_name' => 'nullable|string|max:255',
+            'tipo_transporte' => 'required|string|in:carrier,empleado',
+            'empleado_id' => 'required_if:tipo_transporte,empleado|nullable|exists:empleados,id',
+            'carrier_name' => 'required_if:tipo_transporte,carrier|nullable|string|max:255',
             'tracking_number' => 'nullable|string|max:255',
             'fecha_envio' => 'nullable|date',
             'fecha_entrega_esperada' => 'nullable|date',
@@ -70,10 +74,22 @@ class Create extends Component
             'notas' => 'nullable|string|max:2000',
         ]);
 
+        if ($this->tipo_transporte === 'empleado') {
+            $empleado = \App\Models\Empleado::findOrFail($this->empleado_id);
+            $carrierName = $empleado->full_name;
+            $trackingNumber = null;
+            $empleadoId = $empleado->id;
+        } else {
+            $carrierName = $this->carrier_name ?: null;
+            $trackingNumber = $this->tracking_number ?: null;
+            $empleadoId = null;
+        }
+
         Shipment::create([
             'order_id' => $this->order_id,
-            'carrier_name' => $this->carrier_name ?: null,
-            'tracking_number' => $this->tracking_number ?: null,
+            'empleado_id' => $empleadoId,
+            'carrier_name' => $carrierName,
+            'tracking_number' => $trackingNumber,
             'estado' => $estado,
             'fecha_envio' => $this->fecha_envio ?: null,
             'fecha_entrega_esperada' => $this->fecha_entrega_esperada ?: null,
@@ -107,6 +123,7 @@ class Create extends Component
         return view('livewire.admin.inventario.envios.create', [
             'searchResults' => $searchResults,
             'selectedOrder' => $selectedOrder,
+            'empleados' => \App\Models\Empleado::where('estado', 'activo')->orderBy('nombre')->get(),
         ]);
     }
 }

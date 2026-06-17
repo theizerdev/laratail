@@ -21,6 +21,12 @@
             {{ session('success') }}
         </div>
     @endif
+    @if (session()->has('error'))
+        <div class="mb-4 flex items-center gap-2 rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
+            <iconify-icon icon="heroicons:x-circle-solid" class="h-5 w-5"></iconify-icon>
+            {{ session('error') }}
+        </div>
+    @endif
 
     {{-- Stats Cards --}}
     <div class="mb-6 grid grid-cols-2 gap-4 sm:grid-cols-5">
@@ -109,19 +115,24 @@
                         </td>
                         <td class="px-4 py-3">
                             @php $color = $order->estado_color; @endphp
-                            <span class="inline-flex items-center gap-1 rounded-full bg-{{ $color }}-50 px-2 py-0.5 text-[10px] font-semibold text-{{ $color }}-700">
+                            <button wire:click="openModalEstado({{ $order->id }}, '{{ $order->estado }}')" class="inline-flex items-center gap-1 rounded-full bg-{{ $color }}-50 px-2 py-0.5 text-[10px] font-semibold text-{{ $color }}-700 hover:bg-{{ $color }}-100 transition-colors">
                                 <span class="h-1.5 w-1.5 rounded-full bg-{{ $color }}-500"></span>
                                 {{ $order->estado_label }}
-                            </span>
+                            </button>
                         </td>
                         <td class="px-4 py-3">
                             @php $pColor = $order->pago_color; @endphp
-                            <span class="inline-flex items-center rounded-full bg-{{ $pColor }}-50 px-2 py-0.5 text-[10px] font-semibold text-{{ $pColor }}-700">
+                            <button wire:click="openModalPago({{ $order->id }})" class="inline-flex items-center rounded-full bg-{{ $pColor }}-50 px-2 py-0.5 text-[10px] font-semibold text-{{ $pColor }}-700 hover:bg-{{ $pColor }}-100 transition-colors">
                                 {{ ucfirst($order->estado_pago) }}
-                            </span>
+                            </button>
                         </td>
                         <td class="px-4 py-3 text-right">
                             <div class="flex items-center justify-end gap-1">
+                                <a href="{{ route('admin.pedidos.ticket', $order->id) }}" target="_blank">
+                                    <flux:button variant="ghost" size="sm" class="!text-gray-400 hover:!text-cyan-600" title="Imprimir Ticket POS">
+                                        <iconify-icon icon="heroicons:printer" class="h-4 w-4"></iconify-icon>
+                                    </flux:button>
+                                </a>
                                 @can('pedidos.edit')
                                     <a href="{{ route('admin.pedidos.edit', $order->id) }}" wire:navigate>
                                         <flux:button variant="ghost" size="sm" class="!text-gray-400 hover:!text-amber-600">
@@ -154,4 +165,82 @@
         </table>
     </div>
     <div class="mt-4">{{ $orders->links() }}</div>
+
+    {{-- Modal Cambiar Estado --}}
+    <flux:modal name="modal-estado" class="min-w-[22rem]">
+        <div class="p-6">
+            <h2 class="text-lg font-bold text-gray-900 mb-4">Cambiar Estado del Pedido</h2>
+            <form wire:submit.prevent="updateEstadoModal">
+                <div class="mb-4">
+                    <flux:select wire:model.live="nuevoEstado" label="Nuevo Estado">
+                        <flux:select.option value="borrador">Borrador</flux:select.option>
+                        <flux:select.option value="pendiente">Pendiente</flux:select.option>
+                        <flux:select.option value="confirmado">Confirmado</flux:select.option>
+                        <flux:select.option value="asignado">Asignado</flux:select.option>
+                        <flux:select.option value="procesando">Procesando</flux:select.option>
+                        <flux:select.option value="enviado">Enviado</flux:select.option>
+                        <flux:select.option value="entregado">Entregado</flux:select.option>
+                        <flux:select.option value="cancelado">Cancelado</flux:select.option>
+                        <flux:select.option value="devuelto">Devuelto</flux:select.option>
+                    </flux:select>
+                </div>
+
+                @if($nuevoEstado === 'asignado')
+                    <div class="mb-4">
+                        <flux:select wire:model="empleadoAsignadoId" label="Seleccionar Empleado *" placeholder="Elige un empleado">
+                            @foreach($empleados as $emp)
+                                <flux:select.option>Seleccione</flux:select.option>
+                                <flux:select.option value="{{ $emp->id }}">{{ $emp->full_name }} ({{ $emp->cargo }})</flux:select.option>
+                            @endforeach
+                        </flux:select>
+                    </div>
+                @endif
+                <div class="flex justify-end gap-2 mt-6">
+                    <flux:button x-on:click="Flux.modal('modal-estado').close()">Cancelar</flux:button>
+                    <flux:button type="submit" variant="primary">Guardar Estado</flux:button>
+                </div>
+            </form>
+        </div>
+    </flux:modal>
+
+    {{-- Modal Registrar Pago --}}
+    <flux:modal name="modal-pago" class="min-w-[22rem]">
+        <div class="p-6">
+            <h2 class="text-lg font-bold text-gray-900 mb-4">Registrar Pago</h2>
+
+            {{-- Cash register status --}}
+            @if ($cajaAbierta)
+                <div class="mb-4 flex items-center gap-2 rounded-lg bg-emerald-50 px-3 py-2 text-xs font-medium text-emerald-700">
+                    <iconify-icon icon="heroicons:check-circle-solid" class="h-4 w-4"></iconify-icon>
+                    Caja abierta #{{ $cajaAbierta->id }} — Saldo actual: ${{ number_format($cajaAbierta->totalActual(), 2) }}
+                </div>
+            @else
+                <div class="mb-4 flex items-center gap-2 rounded-lg bg-red-50 px-3 py-2 text-xs font-medium text-red-700">
+                    <iconify-icon icon="heroicons:exclamation-triangle-solid" class="h-4 w-4"></iconify-icon>
+                    No tienes caja abierta. Abre una caja antes de registrar pagos.
+                    <a href="{{ route('admin.caja') }}" wire:navigate class="ml-auto underline hover:text-red-800">Abrir Caja</a>
+                </div>
+            @endif
+
+            <form wire:submit.prevent="registrarPago">
+                <div class="space-y-4">
+                    <flux:input type="number" step="0.01" wire:model="montoPago" label="Monto a Pagar ($)" />
+                    
+                    <flux:select wire:model="nuevoMetodoPago" label="Método de Pago">
+                        <flux:select.option value="efectivo">Efectivo</flux:select.option>
+                        <flux:select.option value="transferencia">Transferencia Bancaria</flux:select.option>
+                        <flux:select.option value="tarjeta">Tarjeta (Punto de Venta)</flux:select.option>
+                        <flux:select.option value="pago_movil">Pago Móvil</flux:select.option>
+                        <flux:select.option value="zelle">Zelle</flux:select.option>
+                    </flux:select>
+
+                    <flux:input type="text" wire:model="referenciaPago" label="Referencia (Opcional)" placeholder="#000123" />
+                </div>
+                <div class="flex justify-end gap-2 mt-6">
+                    <flux:button x-on:click="Flux.modal('modal-pago').close()">Cancelar</flux:button>
+                    <flux:button type="submit" variant="primary" :disabled="!$cajaAbierta">Registrar Pago</flux:button>
+                </div>
+            </form>
+        </div>
+    </flux:modal>
 </div>

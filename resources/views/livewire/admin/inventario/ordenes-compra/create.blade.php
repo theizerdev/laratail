@@ -1,12 +1,15 @@
 <div>
     {{-- Header --}}
-    <div class="mb-6 flex items-center justify-between">
+    <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Nueva Orden de Compra</h1>
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Crea una orden de compra para un proveedor.</p>
+            <h2 class="text-xl font-bold text-gray-900">Nueva Orden de Compra</h2>
+            <p class="mt-1 text-sm text-gray-500">Crea una orden de compra para un proveedor.</p>
         </div>
-        <a href="{{ route('admin.ordenes-compra') }}" class="inline-flex items-center gap-1 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300">
-             <iconify-icon icon="heroicons:arrow-left" class="h-4 w-4"></iconify-icon> Volver
+        <a href="{{ route('admin.ordenes-compra') }}" wire:navigate>
+            <flux:button variant="outline">
+                <iconify-icon icon="heroicons:arrow-left" class="h-4 w-4"></iconify-icon>
+                Volver
+            </flux:button>
         </a>
     </div>
 
@@ -14,44 +17,33 @@
         {{-- Main content --}}
         <div class="space-y-6 lg:col-span-2">
             {{-- Order details --}}
-            <div class="rounded-lg border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-800">
-                <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Información de la Orden</h2>
+            <div class="rounded-2xl bg-white p-6 shadow-sm">
+                <h3 class="mb-4 text-sm font-semibold text-gray-900 uppercase tracking-wider">Información de la Orden</h3>
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <div>
-                        <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Proveedor <span class="text-red-500">*</span></label>
-                        <select wire:model="supplier_id" class="w-full rounded-lg border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
-                            <option value="">Seleccionar proveedor...</option>
-                            @foreach ($suppliers as $s)
-                                <option value="{{ $s->id }}">{{ $s->nombre }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div>
-                        <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Fecha <span class="text-red-500">*</span></label>
-                        <input type="date" wire:model="fecha" class="w-full rounded-lg border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
-                    </div>
-                    <div>
-                        <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Fecha Entrega Esperada</label>
-                        <input type="date" wire:model="fecha_entrega_esperada" class="w-full rounded-lg border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
-                    </div>
+                    <flux:select wire:model="supplier_id" label="Proveedor *" placeholder="Seleccionar proveedor...">
+                        @foreach ($suppliers as $s)
+                            <flux:select.option value="{{ $s->id }}">{{ $s->nombre }}</flux:select.option>
+                        @endforeach
+                    </flux:select>
+                    <flux:input type="date" wire:model="fecha" label="Fecha *" />
+                    <flux:input type="date" wire:model="fecha_entrega_esperada" label="Fecha Entrega Esperada" />
                 </div>
             </div>
 
             {{-- Products --}}
-            <div class="rounded-lg border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-800">
-                <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Productos</h2>
+            <div class="rounded-2xl bg-white p-6 shadow-sm">
+                <h3 class="mb-4 text-sm font-semibold text-gray-900 uppercase tracking-wider">Productos</h3>
 
                 {{-- Product search --}}
                 <div class="relative mb-4">
-                    <input type="text" wire:model.live.debounce.300ms="productSearch" wire:focus="$set('showProductDropdown', true)"
-                        placeholder="Buscar producto por nombre o SKU..."
-                        class="w-full rounded-lg border-gray-300 pl-10 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
-                     <iconify-icon icon="heroicons:magnifying-glass" class="absolute left-3 top-2.5 h-5 w-5 text-gray-400"></iconify-icon>
+                    <flux:input wire:model.live.debounce.300ms="productSearch" wire:focus="$set('showProductDropdown', true)"
+                        placeholder="Buscar producto por nombre o SKU..." icon="magnifying-glass" />
                     @if ($showProductDropdown && count($searchResults) > 0)
-                        <div class="absolute z-10 mt-1 max-h-48 w-full overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-600 dark:bg-gray-700">
+                        <div class="absolute z-10 mt-1 max-h-48 w-full overflow-y-auto rounded-xl border border-gray-200 bg-white shadow-lg">
                             @foreach ($searchResults as $p)
-                                <button type="button" wire:click="addItem({{ $p->id }})" class="flex w-full items-center gap-2 px-3 py-2 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-600">
-                                    <span class="font-medium text-gray-900 dark:text-white">{{ $p->nombre }}</span>
+                                <button type="button" wire:click="addItem({{ $p->id }})"
+                                    class="flex w-full items-center gap-2 px-3 py-2 text-left text-sm hover:bg-gray-50 transition-colors">
+                                    <span class="font-medium text-gray-900">{{ $p->nombre }}</span>
                                     <span class="text-gray-400">({{ $p->sku }})</span>
                                     <span class="ml-auto text-xs text-gray-500">Stock: {{ $p->stock }}</span>
                                 </button>
@@ -62,39 +54,39 @@
 
                 {{-- Items table --}}
                 @if (count($items) > 0)
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                            <thead>
+                    <div class="overflow-x-auto rounded-xl border border-gray-100">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
                                 <tr>
-                                    <th class="px-3 py-2 text-left text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">Producto</th>
-                                    <th class="w-24 px-3 py-2 text-center text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">Cantidad</th>
-                                    <th class="w-32 px-3 py-2 text-right text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">Costo Unit.</th>
-                                    <th class="w-32 px-3 py-2 text-right text-xs font-semibold uppercase text-gray-500 dark:text-gray-400">Subtotal</th>
+                                    <th class="px-3 py-2 text-left text-xs font-semibold text-gray-500 uppercase">Producto</th>
+                                    <th class="w-24 px-3 py-2 text-center text-xs font-semibold text-gray-500 uppercase">Cantidad</th>
+                                    <th class="w-32 px-3 py-2 text-right text-xs font-semibold text-gray-500 uppercase">Costo Unit.</th>
+                                    <th class="w-32 px-3 py-2 text-right text-xs font-semibold text-gray-500 uppercase">Subtotal</th>
                                     <th class="w-10 px-3 py-2"></th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                            <tbody class="divide-y divide-gray-100">
                                 @foreach ($items as $index => $item)
-                                    <tr>
+                                    <tr class="hover:bg-gray-50">
                                         <td class="px-3 py-2">
-                                            <div class="text-sm font-medium text-gray-900 dark:text-white">{{ $item['nombre_producto'] }}</div>
-                                            <div class="text-xs text-gray-500">{{ $item['sku'] }}</div>
+                                            <div class="text-sm font-medium text-gray-900">{{ $item['nombre_producto'] }}</div>
+                                            <div class="text-xs text-gray-400">{{ $item['sku'] }}</div>
                                         </td>
-                                        <td class="px-3 py-2">
+                                        <td class="px-3 py-2 text-center">
                                             <input type="number" wire:change="updateItemCantidad({{ $index }}, $event.target.value)"
                                                 value="{{ $item['cantidad_pedida'] }}" min="1"
-                                                class="w-20 rounded border-gray-300 text-center text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                                                class="w-20 rounded-lg border-gray-200 text-center text-sm focus:border-cyan-500 focus:ring-cyan-500">
                                         </td>
-                                        <td class="px-3 py-2">
+                                        <td class="px-3 py-2 text-right">
                                             <input type="number" wire:change="updateItemCosto({{ $index }}, $event.target.value)"
                                                 value="{{ $item['costo_unitario'] }}" min="0" step="0.01"
-                                                class="w-28 rounded border-gray-300 text-right text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                                                class="w-28 rounded-lg border-gray-200 text-right text-sm focus:border-cyan-500 focus:ring-cyan-500">
                                         </td>
-                                        <td class="px-3 py-2 text-right text-sm font-semibold text-gray-900 dark:text-white">
+                                        <td class="px-3 py-2 text-right text-sm font-semibold text-gray-900">
                                             ${{ number_format($item['subtotal'], 2) }}
                                         </td>
                                         <td class="px-3 py-2 text-center">
-                                            <button wire:click="removeItem({{ $index }})" class="text-red-500 hover:text-red-700">
+                                            <button wire:click="removeItem({{ $index }})" class="text-gray-400 hover:text-red-500 transition-colors">
                                                 <iconify-icon icon="heroicons:trash" class="h-4 w-4"></iconify-icon>
                                             </button>
                                         </td>
@@ -104,39 +96,39 @@
                         </table>
                     </div>
                 @else
-                    <div class="rounded-lg border-2 border-dashed border-gray-300 p-6 text-center dark:border-gray-600">
-                        <iconify-icon icon="heroicons:shopping-cart" class="mx-auto h-8 w-8 text-gray-400"></iconify-icon>
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Agrega productos a la orden de compra.</p>
+                    <div class="rounded-xl border-2 border-dashed border-gray-200 p-8 text-center">
+                        <div class="flex h-12 w-12 mx-auto items-center justify-center rounded-full bg-gray-100">
+                            <iconify-icon icon="heroicons:shopping-cart" class="h-6 w-6 text-gray-400"></iconify-icon>
+                        </div>
+                        <p class="mt-2 text-sm font-medium text-gray-900">Sin productos</p>
+                        <p class="text-xs text-gray-500">Busca y agrega productos a la orden de compra</p>
                     </div>
                 @endif
             </div>
 
             {{-- Notes --}}
-            <div class="rounded-lg border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-800">
-                <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Notas</label>
-                <textarea wire:model="notas" rows="3" placeholder="Notas adicionales..."
-                    class="w-full rounded-lg border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"></textarea>
+            <div class="rounded-2xl bg-white p-6 shadow-sm">
+                <flux:textarea wire:model="notas" label="Notas" placeholder="Notas adicionales..." rows="3" />
             </div>
         </div>
 
         {{-- Sidebar --}}
         <div class="space-y-6">
-            {{-- Totals --}}
-            <div class="rounded-lg border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-800">
-                <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Resumen</h2>
-                <div class="space-y-2 text-sm">
+            <div class="sticky top-6 rounded-2xl bg-white p-6 shadow-sm">
+                <h3 class="mb-4 text-sm font-semibold text-gray-900 uppercase tracking-wider">Resumen</h3>
+                <div class="space-y-3 text-sm">
                     <div class="flex justify-between">
-                        <span class="text-gray-500 dark:text-gray-400">Subtotal</span>
-                        <span class="text-gray-900 dark:text-white">${{ number_format($this->getSubtotal(), 2) }}</span>
+                        <span class="text-gray-500">Subtotal</span>
+                        <span class="font-medium text-gray-900">${{ number_format($this->getSubtotal(), 2) }}</span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="text-gray-500 dark:text-gray-400">Impuesto ({{ $impuesto_rate }}%)</span>
-                        <span class="text-gray-900 dark:text-white">${{ number_format($this->getImpuesto(), 2) }}</span>
+                        <span class="text-gray-500">Impuesto ({{ $impuesto_rate }}%)</span>
+                        <span class="font-medium text-gray-900">${{ number_format($this->getImpuesto(), 2) }}</span>
                     </div>
-                    <div class="border-t border-gray-200 pt-2 dark:border-gray-700">
-                        <div class="flex justify-between text-base font-bold">
-                            <span class="text-gray-900 dark:text-white">Total</span>
-                            <span class="text-cyan-600 dark:text-cyan-400">${{ number_format($this->getTotal(), 2) }}</span>
+                    <div class="border-t border-gray-100 pt-3">
+                        <div class="flex justify-between">
+                            <span class="text-base font-bold text-gray-900">Total</span>
+                            <span class="text-lg font-bold text-cyan-600">${{ number_format($this->getTotal(), 2) }}</span>
                         </div>
                     </div>
                     <div class="flex justify-between text-xs text-gray-400">
@@ -146,13 +138,13 @@
                 </div>
 
                 <div class="mt-6 space-y-2">
-                    <button wire:click="save('borrador')" class="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300">
+                    <flux:button wire:click="save('borrador')" variant="outline" class="w-full justify-center">
                         Guardar como Borrador
-                    </button>
-                    <button wire:click="save('enviada')" disabled="{{ count($items) === 0 || !$supplier_id }}"
-                        class="w-full rounded-lg bg-cyan-600 px-4 py-2 text-sm font-medium text-white hover:bg-cyan-700 disabled:opacity-50 disabled:cursor-not-allowed">
+                    </flux:button>
+                    <flux:button wire:click="save('enviada')" variant="primary"
+                        disabled="{{ count($items) === 0 || !$supplier_id }}" class="w-full justify-center">
                         Crear y Enviar
-                    </button>
+                    </flux:button>
                 </div>
             </div>
         </div>

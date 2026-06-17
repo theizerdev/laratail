@@ -18,8 +18,6 @@ class Index extends Component
     public string $filter = 'all';
 
     // Modal state
-    public bool $showModal = false;
-    public bool $showDeleteModal = false;
     public ?int $editingId = null;
     public ?int $deletingId = null;
 
@@ -42,7 +40,7 @@ class Index extends Component
     {
         $this->resetForm();
         $this->editingId = null;
-        $this->showModal = true;
+        $this->dispatch('open-modal', 'modal-proveedor');
     }
 
     public function openEdit(int $id): void
@@ -57,12 +55,12 @@ class Index extends Component
         $this->direccion = $supplier->direccion ?? '';
         $this->notas = $supplier->notas ?? '';
         $this->status = $supplier->status;
-        $this->showModal = true;
+        $this->dispatch('open-modal', 'modal-proveedor');
     }
 
     public function closeModal(): void
     {
-        $this->showModal = false;
+        $this->dispatch('close-modal', 'modal-proveedor');
         $this->resetForm();
     }
 
@@ -114,20 +112,20 @@ class Index extends Component
             session()->flash('success', 'Proveedor creado correctamente.');
         }
 
-        $this->closeModal();
+        $this->dispatch('close-modal', 'modal-proveedor');
     }
 
     public function confirmDelete(int $id): void
     {
         $this->deletingId = $id;
-        $this->showDeleteModal = true;
+        $this->dispatch('open-modal', 'modal-delete-proveedor');
     }
 
     public function delete(): void
     {
         $supplier = Supplier::findOrFail($this->deletingId);
         $supplier->delete();
-        $this->showDeleteModal = false;
+        $this->dispatch('close-modal', 'modal-delete-proveedor');
         $this->deletingId = null;
         session()->flash('success', 'Proveedor eliminado correctamente.');
     }

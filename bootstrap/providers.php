@@ -1,9 +1,7 @@
 <?php
 
-use App\Providers\AppServiceProvider;
-use App\Providers\RegionalConfigurationServiceProvider;
-
 return [
-    AppServiceProvider::class,
-    RegionalConfigurationServiceProvider::class,
+    App\Providers\AppServiceProvider::class,
+    App\Providers\RegionalConfigurationServiceProvider::class,
+    App\Providers\VoltServiceProvider::class,
 ];

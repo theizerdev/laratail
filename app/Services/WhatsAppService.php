@@ -75,30 +75,31 @@ class WhatsAppService
      */
     private function resolveCompany($empresa = null): void
     {
+        $empresaModel = null;
+
         if ($empresa instanceof Empresa) {
-            $this->companyId = $empresa->id;
-            $this->apiKey = $empresa->whatsapp_api_key;
+            $empresaModel = $empresa;
+        } elseif (is_numeric($empresa)) {
+            $empresaModel = Empresa::find($empresa);
+        } elseif (auth()->check() && auth()->user()->empresa_id) {
+            $empresaModel = Empresa::find(auth()->user()->empresa_id);
+        }
+
+        // Si no logramos resolver un modelo de empresa por parámetro o por usuario autenticado, usamos la empresa 1 por defecto (tienda principal)
+        if (!$empresaModel) {
+            $empresaModel = Empresa::find(1);
+        }
+
+        if ($empresaModel) {
+            $this->companyId = $empresaModel->id;
+            $this->apiKey = $empresaModel->whatsapp_api_key ?? config('whatsapp.api_key', 'test-api-key-vargas-centro');
+            if (!empty($empresaModel->whatsapp_api_url)) {
+                $this->baseUrl = rtrim($empresaModel->whatsapp_api_url, '/');
+            }
             return;
         }
 
-        if (is_numeric($empresa)) {
-            $empresaModel = Empresa::find($empresa);
-            if ($empresaModel) {
-                $this->companyId = $empresaModel->id;
-                $this->apiKey = $empresaModel->whatsapp_api_key;
-                return;
-            }
-        }
-
-        if (auth()->check() && auth()->user()->empresa_id) {
-            $empresaModel = Empresa::find(auth()->user()->empresa_id);
-            if ($empresaModel) {
-                $this->companyId = $empresaModel->id;
-                $this->apiKey = $empresaModel->whatsapp_api_key;
-                return;
-            }
-        }
-
+        // Fallback total si la base de datos no tiene empresas
         $this->companyId = 1;
         $this->apiKey = config('whatsapp.api_key', 'test-api-key-vargas-centro');
     }

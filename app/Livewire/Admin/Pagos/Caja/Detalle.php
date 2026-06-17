@@ -13,14 +13,11 @@ use Livewire\Component;
 class Detalle extends Component
 {
     public int $registerId;
-    public bool $showMovementModal = false;
 
     public function mount(int $id): void
     {
         $this->registerId = $id;
     }
-
-    public bool $showCloseModal = false;
 
     // Movement form
     public string $movTipo = 'ingreso';
@@ -36,7 +33,7 @@ class Detalle extends Component
         $this->movTipo = 'ingreso';
         $this->movMonto = 0;
         $this->movDescripcion = '';
-        $this->showMovementModal = true;
+        $this->dispatch('open-modal', 'modal-movimiento');
     }
 
     public function saveMovement(): void
@@ -61,14 +58,14 @@ class Detalle extends Component
         ]);
 
         session()->flash('success', 'Movimiento registrado.');
-        $this->showMovementModal = false;
+        $this->dispatch('close-modal', 'modal-movimiento');
     }
 
     public function openClose(): void
     {
         $register = CashRegister::findOrFail($this->registerId);
         $this->monto_final = $register->totalActual();
-        $this->showCloseModal = true;
+        $this->dispatch('open-modal', 'modal-cerrar-caja');
     }
 
     public function cerrarCaja(): void
@@ -87,7 +84,7 @@ class Detalle extends Component
         $register->cerrar($this->monto_final);
 
         session()->flash('success', 'Caja cerrada correctamente.');
-        $this->showCloseModal = false;
+        $this->dispatch('close-modal', 'modal-cerrar-caja');
         $this->redirect(route('admin.caja'), navigate: true);
     }
 

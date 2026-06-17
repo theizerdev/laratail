@@ -7,11 +7,15 @@
             </p>
         </div>
         <div class="flex items-center gap-2">
-            <a href="{{ route('admin.envios') }}" class="inline-flex items-center gap-1 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300">
-                <iconify-icon icon="heroicons:arrow-left" class="h-4 w-4"></iconify-icon> Volver
+            <a href="{{ route('admin.envios') }}" wire:navigate>
+                <flux:button variant="ghost" class="!text-gray-600">
+                    <iconify-icon icon="heroicons:arrow-left" class="h-4 w-4"></iconify-icon> Volver
+                </flux:button>
             </a>
-            <a href="{{ route('admin.envios.guia-despacho', $shipment->id) }}" class="inline-flex items-center gap-1 rounded-lg border border-cyan-300 px-4 py-2 text-sm font-medium text-cyan-700 hover:bg-cyan-50 dark:border-cyan-700 dark:text-cyan-400">
-                <iconify-icon icon="heroicons:document-text" class="h-4 w-4"></iconify-icon> Guía Despacho
+            <a href="{{ route('admin.envios.guia-despacho', $shipment->id) }}" target="_blank">
+                <flux:button variant="ghost" class="!text-cyan-600 hover:!bg-cyan-50">
+                    <iconify-icon icon="heroicons:document-text" class="h-4 w-4"></iconify-icon> Guía Despacho
+                </flux:button>
             </a>
         </div>
     </div>
@@ -39,15 +43,15 @@
             </div>
             <div class="flex gap-2">
                 @if ($estado === 'preparando')
-                    <button wire:click="cambiarEstado('enviado')" class="rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-blue-700">Marcar Enviado</button>
+                    <flux:button size="sm" wire:click="cambiarEstado('enviado')" class="!bg-blue-600 !text-white hover:!bg-blue-700">Marcar Enviado</flux:button>
                 @elseif ($estado === 'enviado')
-                    <button wire:click="cambiarEstado('en_transito')" class="rounded-lg bg-amber-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-amber-700">En Tránsito</button>
+                    <flux:button size="sm" wire:click="cambiarEstado('en_transito')" class="!bg-amber-600 !text-white hover:!bg-amber-700">En Tránsito</flux:button>
                 @elseif ($estado === 'en_transito')
-                    <button wire:click="cambiarEstado('entregado')" class="rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-emerald-700">Entregado</button>
+                    <flux:button size="sm" wire:click="cambiarEstado('entregado')" class="!bg-emerald-600 !text-white hover:!bg-emerald-700">Entregado</flux:button>
                 @endif
                 @if (!in_array($estado, ['entregado', 'devuelto']))
-                    <button wire:click="cambiarEstado('devuelto')" wire:confirm="¿Marcar como devuelto?"
-                        class="rounded-lg border border-red-300 px-3 py-1.5 text-xs font-medium text-red-600 hover:bg-red-50">Devuelto</button>
+                    <flux:button size="sm" variant="ghost" wire:click="cambiarEstado('devuelto')" wire:confirm="¿Marcar como devuelto?"
+                        class="!text-red-600 hover:!bg-red-50">Devuelto</flux:button>
                 @endif
             </div>
         </div>
@@ -56,31 +60,53 @@
     <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {{-- Carrier --}}
         <div class="rounded-lg border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-800">
-            <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Transportadora</h2>
+            <div class="mb-4 flex items-center justify-between border-b border-gray-100 pb-3 dark:border-gray-700">
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Asignación de Transporte</h2>
+            </div>
+
+            {{-- Tabs selector --}}
+            <div class="mb-6 rounded-lg bg-gray-100 p-1 dark:bg-gray-700/50 flex">
+                <button type="button" wire:click="$set('tipo_transporte', 'carrier')"
+                    class="flex-1 py-2 text-center text-sm font-medium rounded-md transition-all duration-150 {{ $tipo_transporte === 'carrier' ? 'bg-white text-gray-900 shadow dark:bg-gray-800 dark:text-white' : 'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white' }}">
+                    <iconify-icon icon="heroicons:truck" class="inline-block mr-1.5 h-4 w-4 align-text-bottom"></iconify-icon>
+                    Transportadora Externa
+                </button>
+                <button type="button" wire:click="$set('tipo_transporte', 'empleado')"
+                    class="flex-1 py-2 text-center text-sm font-medium rounded-md transition-all duration-150 {{ $tipo_transporte === 'empleado' ? 'bg-white text-gray-900 shadow dark:bg-gray-800 dark:text-white' : 'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white' }}">
+                    <iconify-icon icon="heroicons:user" class="inline-block mr-1.5 h-4 w-4 align-text-bottom"></iconify-icon>
+                    Empleado Interno
+                </button>
+            </div>
+
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                @if ($tipo_transporte === 'carrier')
+                    <div>
+                        <flux:input wire:model="carrier_name" label="Transportadora" />
+                    </div>
+                    <div>
+                        <flux:input wire:model="tracking_number" label="Tracking" />
+                    </div>
+                @else
+                    <div class="sm:col-span-2">
+                        <flux:select wire:model="empleado_id" label="Empleado Responsable" placeholder="Selecciona un empleado...">
+                            @foreach ($empleados as $emp)
+                                <flux:select.option value="{{ $emp->id }}">{{ $emp->full_name }} ({{ $emp->cargo ?? 'Sin cargo' }})</flux:select.option>
+                            @endforeach
+                        </flux:select>
+                    </div>
+                @endif
+
                 <div>
-                    <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Transportadora</label>
-                    <input type="text" wire:model="carrier_name" class="w-full rounded-lg border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                    <flux:input type="date" wire:model="fecha_envio" label="Fecha Envío" />
                 </div>
                 <div>
-                    <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Tracking</label>
-                    <input type="text" wire:model="tracking_number" class="w-full rounded-lg border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                    <flux:input type="date" wire:model="fecha_entrega_esperada" label="Entrega Esperada" />
                 </div>
                 <div>
-                    <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Fecha Envío</label>
-                    <input type="date" wire:model="fecha_envio" class="w-full rounded-lg border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                    <flux:input type="number" wire:model="peso" min="0" step="0.001" label="Peso (kg)" />
                 </div>
                 <div>
-                    <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Entrega Esperada</label>
-                    <input type="date" wire:model="fecha_entrega_esperada" class="w-full rounded-lg border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
-                </div>
-                <div>
-                    <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Peso (kg)</label>
-                    <input type="number" wire:model="peso" min="0" step="0.001" class="w-full rounded-lg border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
-                </div>
-                <div>
-                    <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Costo Envío</label>
-                    <input type="number" wire:model="costo_envio" min="0" step="0.01" class="w-full rounded-lg border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                    <flux:input type="number" wire:model="costo_envio" min="0" step="0.01" label="Costo Envío" />
                 </div>
             </div>
         </div>
@@ -90,37 +116,32 @@
             <h2 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Dirección de Destino</h2>
             <div class="space-y-4">
                 <div>
-                    <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Dirección</label>
-                    <input type="text" wire:model="direccion_destino" class="w-full rounded-lg border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                    <flux:input wire:model="direccion_destino" label="Dirección" />
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Ciudad</label>
-                        <input type="text" wire:model="ciudad_destino" class="w-full rounded-lg border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                        <flux:input wire:model="ciudad_destino" label="Ciudad" />
                     </div>
                     <div>
-                        <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Estado</label>
-                        <input type="text" wire:model="estado_destino" class="w-full rounded-lg border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                        <flux:input wire:model="estado_destino" label="Estado" />
                     </div>
                 </div>
                 <div>
-                    <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Código Postal</label>
-                    <input type="text" wire:model="codigo_postal_destino" class="w-full rounded-lg border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                    <flux:input wire:model="codigo_postal_destino" label="Código Postal" />
                 </div>
             </div>
         </div>
 
         <div class="sm:col-span-2">
             <div class="rounded-lg border border-gray-200 bg-white p-5 dark:border-gray-700 dark:bg-gray-800">
-                <label class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">Notas</label>
-                <textarea wire:model="notas" rows="3" class="w-full rounded-lg border-gray-300 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"></textarea>
+                <flux:textarea wire:model="notas" rows="3" label="Notas" />
             </div>
         </div>
     </div>
 
     <div class="mt-6 flex justify-end">
-        <button wire:click="save" class="rounded-lg bg-cyan-600 px-6 py-2 text-sm font-medium text-white hover:bg-cyan-700">
+        <flux:button variant="primary" wire:click="save" class="!bg-cyan-600 hover:!bg-cyan-700">
             Guardar Cambios
-        </button>
+        </flux:button>
     </div>
 </div>

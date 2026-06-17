@@ -12,7 +12,7 @@ class MenuHelper
                 'description' => 'Gestión de usuarios, roles, grupos y permisos',
                 'color' => 'emerald',
                 'icon' => 'heroicons:shield-check-solid',
-                'modules' => [ 'usuarios', 'roles', 'grupos']
+                'modules' => ['empleados', 'usuarios', 'roles', 'grupos']
             ],
             'catalogo' => [
                 'name' => '🛒 Catálogo',
@@ -41,6 +41,13 @@ class MenuHelper
                 'color' => 'rose',
                 'icon' => 'heroicons:banknotes-solid',
                 'modules' => ['pagos', 'facturas', 'notas_credito', 'caja', 'conciliacion']
+            ],
+            'reportes' => [
+                'name' => '📊 Reportes & Analítica',
+                'description' => 'Dashboard analítico, reportes de ventas, pagos e inventario',
+                'color' => 'orange',
+                'icon' => 'heroicons:chart-bar-solid',
+                'modules' => ['reportes']
             ],
             'configuracion' => [
                 'name' => '⚙️ Configuración',
@@ -143,6 +150,15 @@ class MenuHelper
                 'label' => 'Seguridad',
                 'icon' => 'heroicons:shield-check-solid',
                 'items' => [
+                    [
+                        'label' => 'Empleados',
+                        'icon' => 'heroicons:user-circle-solid',
+                        'permissions' => ['empleados.view', 'empleados.create', 'empleados.edit', 'empleados.delete'],
+                        'active' => 'admin.empleados*',
+                        'children' => [
+                            ['label' => 'Listado', 'permission' => 'empleados.view', 'route' => 'admin.empleados.index', 'active' => 'admin.empleados.index'],
+                        ]
+                    ],
                     [
                         'label' => 'Usuarios',
                         'icon' => 'heroicons:users-solid',
@@ -367,6 +383,40 @@ class MenuHelper
                         'permissions' => ['conciliacion.view'],
                         'active' => 'admin.conciliacion*',
                         'route' => 'admin.conciliacion',
+                    ],
+                ],
+            ],
+            'reportes' => [
+                'label' => 'Reportes & Analítica',
+                'icon' => 'heroicons:chart-bar-solid',
+                'items' => [
+                    [
+                        'label' => 'Dashboard',
+                        'icon' => 'heroicons:presentation-chart-bar-solid',
+                        'permissions' => ['reportes.dashboard'],
+                        'active' => 'admin.reportes.dashboard',
+                        'route' => 'admin.reportes.dashboard',
+                    ],
+                    [
+                        'label' => 'Reporte de Ventas',
+                        'icon' => 'heroicons:arrow-trending-up-solid',
+                        'permissions' => ['reportes.ventas'],
+                        'active' => 'admin.reportes.ventas',
+                        'route' => 'admin.reportes.ventas',
+                    ],
+                    [
+                        'label' => 'Reporte de Pagos',
+                        'icon' => 'heroicons:banknotes-solid',
+                        'permissions' => ['reportes.pagos'],
+                        'active' => 'admin.reportes.pagos',
+                        'route' => 'admin.reportes.pagos',
+                    ],
+                    [
+                        'label' => 'Reporte de Inventario',
+                        'icon' => 'heroicons:cube-solid',
+                        'permissions' => ['reportes.inventario'],
+                        'active' => 'admin.reportes.inventario',
+                        'route' => 'admin.reportes.inventario',
                     ],
                 ],
             ],

@@ -20,7 +20,7 @@ class GuiaDespacho extends Component
 
     public function render()
     {
-        $shipment = Shipment::with('order.items.product', 'order.customer')->findOrFail($this->shipmentId);
+        $shipment = Shipment::with('order.items.product', 'order.customer', 'empleado')->findOrFail($this->shipmentId);
 
         return view('livewire.admin.inventario.envios.guia-despacho', [
             'shipment' => $shipment,

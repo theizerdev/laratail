@@ -6,12 +6,14 @@
             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Documento de guía para el envío {{ $shipment->numero }}</p>
         </div>
         <div class="flex items-center gap-2">
-            <a href="{{ route('admin.envios.edit', $shipment->id) }}" class="inline-flex items-center gap-1 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300">
-                <iconify-icon icon="heroicons:arrow-left" class="h-4 w-4"></iconify-icon> Volver
+            <a href="{{ route('admin.envios.edit', $shipment->id) }}" wire:navigate>
+                <flux:button variant="ghost" class="!text-gray-600">
+                    <iconify-icon icon="heroicons:arrow-left" class="h-4 w-4"></iconify-icon> Volver
+                </flux:button>
             </a>
-            <button onclick="window.print()" class="inline-flex items-center gap-1 rounded-lg bg-cyan-600 px-4 py-2 text-sm font-medium text-white hover:bg-cyan-700">
+            <flux:button variant="primary" onclick="window.print()" class="!bg-cyan-600 hover:!bg-cyan-700">
                 <x-heroicons:printer class="h-4 w-4" /> Imprimir
-            </button>
+            </flux:button>
         </div>
     </div>
 
@@ -63,8 +65,8 @@
             <h3 class="mb-3 text-xs font-bold uppercase tracking-wider text-gray-500">Información del Envío</h3>
             <div class="grid grid-cols-4 gap-4">
                 <div class="rounded-lg border p-3">
-                    <p class="text-xs text-gray-500">Transportadora</p>
-                    <p class="font-semibold text-gray-900">{{ $shipment->carrier_name ?? 'N/A' }}</p>
+                    <p class="text-xs text-gray-500">{{ $shipment->empleado_id ? 'Empleado Responsable' : 'Transportadora' }}</p>
+                    <p class="font-semibold text-gray-900">{{ $shipment->empleado ? $shipment->empleado->full_name : ($shipment->carrier_name ?? 'N/A') }}</p>
                 </div>
                 <div class="rounded-lg border p-3">
                     <p class="text-xs text-gray-500">Nro. Tracking</p>

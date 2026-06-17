@@ -1,240 +1,381 @@
-<div>
-    {{-- Reports Section --}}
-    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
-        {{-- Received Card --}}
-        <div class="rounded-2xl bg-white p-5 shadow-sm">
-            <div class="flex items-center justify-between">
-                <p class="text-sm font-medium text-gray-400">Received</p>
-                <span class="text-[11px] font-medium text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">This month</span>
+<div wire:poll.60s>
+    {{-- Header --}}
+    <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div class="flex items-center gap-3">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100">
+                <iconify-icon icon="heroicons:presentation-chart-bar-solid" class="h-6 w-6 text-emerald-600"></iconify-icon>
             </div>
-            <p class="mt-2 text-3xl font-bold text-gray-900">$67,129</p>
-            <div class="mt-4">
-                <button class="w-full rounded-xl bg-emerald-500 py-2.5 text-sm font-semibold text-white shadow-sm shadow-emerald-200 transition hover:bg-emerald-600">
-                    Transfer
-                </button>
+            <div>
+                <h2 class="text-xl font-bold text-gray-900">Dashboard</h2>
+                <p class="text-sm text-gray-500">Resumen general del negocio · {{ now()->format('d M Y, H:i') }}</p>
             </div>
         </div>
+        <div class="flex items-center gap-2">
+            <a href="{{ route('admin.reportes.dashboard') }}" class="inline-flex items-center gap-2 rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200">
+                <iconify-icon icon="heroicons:chart-bar-solid" class="h-4 w-4"></iconify-icon>
+                Reportes Avanzados
+            </a>
+        </div>
+    </div>
 
-        {{-- Expenses Card --}}
+    {{-- KPI Cards --}}
+    <div class="mb-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
+        {{-- Ventas Hoy --}}
         <div class="rounded-2xl bg-white p-5 shadow-sm">
             <div class="flex items-center justify-between">
-                <p class="text-sm font-medium text-gray-400">Expenses</p>
-                <span class="text-[11px] font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">This month</span>
-            </div>
-            <p class="mt-2 text-3xl font-bold text-gray-900">$31,191</p>
-            <div class="mt-4">
-                <button class="w-full rounded-xl bg-gray-100 py-2.5 text-sm font-semibold text-gray-700 transition hover:bg-gray-200">
-                    Receive
-                </button>
-            </div>
-        </div>
-
-        {{-- Total Transaction Card --}}
-        <div class="rounded-2xl bg-white p-5 shadow-sm">
-            <div class="flex items-center justify-between">
-                <p class="text-sm font-medium text-gray-400">Total Transaction</p>
-                <button class="rounded-lg p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600">
-                    <iconify-icon icon="heroicons:bars-3" class="h-4 w-4"></iconify-icon>
-                </button>
-            </div>
-            <p class="mt-2 text-3xl font-bold text-gray-900">517<span class="text-lg text-gray-400">+</span></p>
-            <p class="mt-2 text-xs text-gray-400">Across all platforms</p>
-            <div class="mt-3 flex -space-x-1">
-                <span class="inline-block h-2 rounded-full bg-emerald-400" style="width: 40%"></span>
-                <span class="inline-block h-2 rounded-full bg-blue-400" style="width: 25%"></span>
-                <span class="inline-block h-2 rounded-full bg-yellow-400" style="width: 35%"></span>
-            </div>
-        </div>
-
-        {{-- Incoming Donut Chart Card --}}
-        <div class="rounded-2xl bg-white p-5 shadow-sm">
-            <p class="text-sm font-medium text-gray-400">Incoming</p>
-            <div class="mt-3 flex items-center gap-5">
-                {{-- Donut chart --}}
-                <div class="relative h-24 w-24 shrink-0">
-                    <svg viewBox="0 0 36 36" class="h-full w-full -rotate-90">
-                        <circle cx="18" cy="18" r="15.9" fill="none" stroke="#e5e7eb" stroke-width="3"></circle>
-                        <circle cx="18" cy="18" r="15.9" fill="none" stroke="#10b981" stroke-width="3" stroke-dasharray="38 62" stroke-dashoffset="0" stroke-linecap="round"></circle>
-                        <circle cx="18" cy="18" r="15.9" fill="none" stroke="#1e3a5f" stroke-width="3" stroke-dasharray="28 72" stroke-dashoffset="-38" stroke-linecap="round"></circle>
-                        <circle cx="18" cy="18" r="15.9" fill="none" stroke="#3b82f6" stroke-width="3" stroke-dasharray="22 78" stroke-dashoffset="-66" stroke-linecap="round"></circle>
-                        <circle cx="18" cy="18" r="15.9" fill="none" stroke="#eab308" stroke-width="3" stroke-dasharray="12 88" stroke-dashoffset="-88" stroke-linecap="round"></circle>
-                    </svg>
-                    <div class="absolute inset-0 flex flex-col items-center justify-center">
-                        <span class="text-xs font-bold text-gray-900">$30.7k</span>
-                    </div>
+                <p class="text-xs font-medium text-gray-400">Ventas Hoy</p>
+                <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-50">
+                    <iconify-icon icon="heroicons:shopping-cart-solid" class="h-4 w-4 text-emerald-600"></iconify-icon>
                 </div>
-                {{-- Legend --}}
-                <div class="space-y-2">
-                    <div class="flex items-center gap-2 text-xs">
-                        <span class="h-2.5 w-2.5 rounded-full bg-emerald-500"></span>
-                        <span class="text-gray-500">Fiverr</span>
-                        <span class="ml-auto font-semibold text-gray-700">$12,548</span>
-                    </div>
-                    <div class="flex items-center gap-2 text-xs">
-                        <span class="h-2.5 w-2.5 rounded-full bg-[#1e3a5f]"></span>
-                        <span class="text-gray-500">Upwork</span>
-                        <span class="ml-auto font-semibold text-gray-700">$9,163</span>
-                    </div>
-                    <div class="flex items-center gap-2 text-xs">
-                        <span class="h-2.5 w-2.5 rounded-full bg-blue-500"></span>
-                        <span class="text-gray-500">Razorpay</span>
-                        <span class="ml-auto font-semibold text-gray-700">$7,415</span>
-                    </div>
-                    <div class="flex items-center gap-2 text-xs">
-                        <span class="h-2.5 w-2.5 rounded-full bg-yellow-500"></span>
-                        <span class="text-gray-500">Freelancer</span>
-                        <span class="ml-auto font-semibold text-gray-700">$1,596</span>
-                    </div>
+            </div>
+            <p class="mt-2 text-2xl font-bold text-gray-900">{{ $ventasHoy->total }}</p>
+            <p class="mt-1 text-sm font-semibold text-emerald-600">${{ number_format($ventasHoy->monto, 2) }}</p>
+        </div>
+
+        {{-- Ventas del Mes --}}
+        <div class="rounded-2xl bg-white p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+                <p class="text-xs font-medium text-gray-400">Ventas del Mes</p>
+                <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-50">
+                    <iconify-icon icon="heroicons:calendar-days-solid" class="h-4 w-4 text-blue-600"></iconify-icon>
                 </div>
+            </div>
+            <p class="mt-2 text-2xl font-bold text-gray-900">{{ $ventasMes->total }}</p>
+            <p class="mt-1 text-sm font-semibold text-blue-600">${{ number_format($ventasMes->monto, 2) }}</p>
+        </div>
+
+        {{-- Ingresos del Mes --}}
+        <div class="rounded-2xl bg-white p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+                <p class="text-xs font-medium text-gray-400">Ingresos Cobrados</p>
+                <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-rose-50">
+                    <iconify-icon icon="heroicons:banknotes-solid" class="h-4 w-4 text-rose-600"></iconify-icon>
+                </div>
+            </div>
+            <p class="mt-2 text-2xl font-bold text-gray-900">${{ number_format($ingresosMes, 2) }}</p>
+            <p class="mt-1 text-xs text-gray-400">Pagos completados este mes</p>
+        </div>
+
+        {{-- Pendientes + Facturas --}}
+        <div class="rounded-2xl bg-white p-5 shadow-sm">
+            <div class="flex items-center justify-between">
+                <p class="text-xs font-medium text-gray-400">Pendientes / Facturas</p>
+                <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-50">
+                    <iconify-icon icon="heroicons:clock-solid" class="h-4 w-4 text-amber-600"></iconify-icon>
+                </div>
+            </div>
+            <p class="mt-2 text-2xl font-bold {{ $pedidosPendientes > 0 ? 'text-amber-600' : 'text-gray-900' }}">{{ $pedidosPendientes }}</p>
+            <p class="mt-1 text-xs text-gray-400">{{ $facturasMes }} facturas · ${{ number_format($totalFacturado, 2) }}</p>
+        </div>
+    </div>
+
+    {{-- Row 1: Area Chart (30-day Sales vs Payments) --}}
+    <div class="mb-6 rounded-2xl bg-white p-5 shadow-sm">
+        <div class="mb-2 flex items-center justify-between">
+            <h3 class="text-sm font-semibold text-gray-900">Ventas vs Cobros — Últimos 30 Días</h3>
+            <div class="flex items-center gap-3 text-xs text-gray-500">
+                <span class="flex items-center gap-1"><span class="h-2 w-2 rounded-full bg-emerald-500"></span> Ventas</span>
+                <span class="flex items-center gap-1"><span class="h-2 w-2 rounded-full bg-blue-500"></span> Cobros</span>
+            </div>
+        </div>
+        <div id="chart-daily-sales" style="min-height: 300px;"></div>
+    </div>
+
+    {{-- Row 2: Monthly Revenue Bar + Donut charts --}}
+    <div class="mb-6 grid grid-cols-1 gap-6 lg:grid-cols-3">
+        {{-- Monthly Revenue --}}
+        <div class="rounded-2xl bg-white p-5 shadow-sm lg:col-span-2">
+            <h3 class="mb-2 text-sm font-semibold text-gray-900">Ingresos Mensuales (12 meses)</h3>
+            <div id="chart-monthly-revenue" style="min-height: 280px;"></div>
+        </div>
+
+        {{-- Sales by Status Donut --}}
+        <div class="rounded-2xl bg-white p-5 shadow-sm">
+            <h3 class="mb-2 text-sm font-semibold text-gray-900">Pedidos por Estado</h3>
+            <div id="chart-status-donut" style="min-height: 280px;"></div>
+        </div>
+    </div>
+
+    {{-- Row 3: Payments by Method Donut + Recent Orders --}}
+    <div class="mb-6 grid grid-cols-1 gap-6 lg:grid-cols-3">
+        {{-- Payments by Method --}}
+        <div class="rounded-2xl bg-white p-5 shadow-sm">
+            <h3 class="mb-2 text-sm font-semibold text-gray-900">Pagos por Método</h3>
+            <div id="chart-payments-method" style="min-height: 280px;"></div>
+        </div>
+
+        {{-- Recent Orders --}}
+        <div class="rounded-2xl bg-white p-5 shadow-sm lg:col-span-2">
+            <h3 class="mb-4 text-sm font-semibold text-gray-900">Últimos Pedidos</h3>
+            <div class="space-y-3">
+                @forelse($ultimosPedidos as $pedido)
+                    <div class="flex items-center justify-between rounded-lg border border-gray-100 p-3 transition hover:bg-gray-50">
+                        <div>
+                            <p class="text-sm font-medium text-gray-900">{{ $pedido->numero }}</p>
+                            <p class="text-xs text-gray-400">{{ $pedido->customer?->nombre ?? 'Sin cliente' }} · {{ $pedido->created_at->diffForHumans() }}</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm font-bold text-gray-900">${{ number_format($pedido->total, 2) }}</p>
+                            <span class="inline-block rounded-full px-2 py-0.5 text-[10px] font-medium
+                                @if($pedido->estado === 'completado') bg-emerald-100 text-emerald-700
+                                @elseif($pedido->estado === 'pendiente') bg-amber-100 text-amber-700
+                                @elseif($pedido->estado === 'cancelado') bg-red-100 text-red-700
+                                @else bg-blue-100 text-blue-700 @endif">{{ ucfirst($pedido->estado) }}</span>
+                        </div>
+                    </div>
+                @empty
+                    <p class="py-8 text-center text-sm text-gray-400">No hay pedidos aún</p>
+                @endforelse
             </div>
         </div>
     </div>
 
-    {{-- Connected Accounts Section --}}
-    <div class="mt-8">
-        <h2 class="mb-4 text-base font-bold text-gray-900">Connected Accounts</h2>
-        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
-            {{-- Account Card 1 (dark green) --}}
-            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-700 to-emerald-900 p-6 text-white shadow-sm">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-2">
-                        <div class="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-sm font-bold">F</div>
-                        <span class="text-sm font-semibold">Flux</span>
-                    </div>
-                    <iconify-icon icon="heroicons:signal" class="h-5 w-5 text-white/60"></iconify-icon>
-                </div>
-                <div class="mt-6">
-                    <p class="text-xs text-white/60">Account Holder</p>
-                    <p class="mt-0.5 text-sm font-semibold">{{ Auth::user()->name }}</p>
-                </div>
-                <div class="absolute -right-4 -top-4 h-24 w-24 rounded-full bg-white/5"></div>
+    {{-- Row 4: Top Products + Top Clients --}}
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        {{-- Top Productos --}}
+        <div class="rounded-2xl bg-white p-5 shadow-sm">
+            <h3 class="mb-4 flex items-center gap-2 text-sm font-semibold text-gray-900">
+                <iconify-icon icon="heroicons:fire-solid" class="h-4 w-4 text-red-500"></iconify-icon>
+                Top 5 Productos del Mes
+            </h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                    <thead class="border-b border-gray-100 text-gray-400">
+                        <tr>
+                            <th class="pb-2 font-medium">Producto</th>
+                            <th class="pb-2 font-medium text-right">Uds</th>
+                            <th class="pb-2 font-medium text-right">Ingresos</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-50">
+                        @forelse($topProductos as $prod)
+                            <tr>
+                                <td class="py-2.5 font-medium text-gray-900 truncate max-w-[200px]">{{ $prod->nombre_producto }}</td>
+                                <td class="py-2.5 text-right text-gray-700">{{ $prod->total_vendido }}</td>
+                                <td class="py-2.5 text-right font-semibold text-emerald-600">${{ number_format($prod->total_ingresos, 2) }}</td>
+                            </tr>
+                        @empty
+                            <tr><td colspan="3" class="py-8 text-center text-gray-400">Sin ventas este mes</td></tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
+        </div>
 
-            {{-- Account Card 2 (bright green) --}}
-            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-400 to-emerald-600 p-6 text-white shadow-sm">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-2">
-                        <div class="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-sm font-bold">F</div>
-                        <span class="text-sm font-semibold">Flux</span>
-                    </div>
-                    <iconify-icon icon="heroicons:signal" class="h-5 w-5 text-white/60"></iconify-icon>
-                </div>
-                <div class="mt-6">
-                    <p class="text-xs text-white/60">Account Holder</p>
-                    <p class="mt-0.5 text-sm font-semibold">{{ Auth::user()->name }}</p>
-                </div>
-                <div class="absolute -right-4 -top-4 h-24 w-24 rounded-full bg-white/10"></div>
-            </div>
-
-            {{-- Add Account Card --}}
-            <div class="flex cursor-pointer items-center justify-center rounded-2xl border-2 border-dashed border-gray-200 p-6 transition hover:border-emerald-300 hover:bg-emerald-50/50">
-                <div class="text-center">
-                    <div class="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-gray-100">
-                        <iconify-icon icon="heroicons:plus" class="h-5 w-5 text-gray-400"></iconify-icon>
-                    </div>
-                    <p class="mt-2 text-sm font-medium text-gray-500">Add Account</p>
-                </div>
+        {{-- Top Clientes --}}
+        <div class="rounded-2xl bg-white p-5 shadow-sm">
+            <h3 class="mb-4 flex items-center gap-2 text-sm font-semibold text-gray-900">
+                <iconify-icon icon="heroicons:user-group-solid" class="h-4 w-4 text-emerald-500"></iconify-icon>
+                Top 5 Clientes del Mes
+            </h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                    <thead class="border-b border-gray-100 text-gray-400">
+                        <tr>
+                            <th class="pb-2 font-medium">Cliente</th>
+                            <th class="pb-2 font-medium text-right">Pedidos</th>
+                            <th class="pb-2 font-medium text-right">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-50">
+                        @forelse($topClientes as $cliente)
+                            <tr>
+                                <td class="py-2.5">
+                                    <p class="font-medium text-gray-900">{{ $cliente->nombre }}</p>
+                                    <p class="text-[10px] text-gray-400">{{ $cliente->email }}</p>
+                                </td>
+                                <td class="py-2.5 text-right text-gray-700">{{ $cliente->total_pedidos }}</td>
+                                <td class="py-2.5 text-right font-semibold text-emerald-600">${{ number_format($cliente->total_gastado, 2) }}</td>
+                            </tr>
+                        @empty
+                            <tr><td colspan="3" class="py-8 text-center text-gray-400">Sin datos este mes</td></tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 
-    {{-- Bottom Section: Chart + Exchange Rate --}}
-    <div class="mt-8 grid grid-cols-1 gap-5 xl:grid-cols-5">
-        {{-- Transaction Report (line chart) --}}
-        <div class="rounded-2xl bg-white p-6 shadow-sm xl:col-span-3">
-            <div class="flex items-center justify-between">
-                <h2 class="text-base font-bold text-gray-900">Transaction Report</h2>
-                <div class="flex items-center gap-3">
-                    <span class="flex items-center gap-1.5 text-xs text-gray-500">
-                        <span class="h-2 w-2 rounded-full bg-emerald-500"></span> Income
-                    </span>
-                    <span class="flex items-center gap-1.5 text-xs text-gray-500">
-                        <span class="h-2 w-2 rounded-full bg-emerald-200"></span> Expense
-                    </span>
-                </div>
-            </div>
+    {{-- ApexCharts Scripts --}}
+    @script
+    <script>
+        // ── Daily Sales Area Chart (30 days) ──
+        const dailySalesData = @js($dailySales);
 
-            {{-- Simple SVG line chart --}}
-            <div class="mt-6 relative h-52">
-                <svg class="h-full w-full" viewBox="0 0 600 200" preserveAspectRatio="none">
-                    {{-- Grid lines --}}
-                    <line x1="0" y1="50" x2="600" y2="50" stroke="#f3f4f6" stroke-width="1"/>
-                    <line x1="0" y1="100" x2="600" y2="100" stroke="#f3f4f6" stroke-width="1"/>
-                    <line x1="0" y1="150" x2="600" y2="150" stroke="#f3f4f6" stroke-width="1"/>
-                    {{-- Area fill --}}
-                    <path d="M0,160 C50,140 100,80 150,100 C200,120 250,60 300,50 C350,40 400,90 450,70 C500,50 550,30 600,40 L600,200 L0,200 Z" fill="url(#greenGradient)" opacity="0.3"/>
-                    {{-- Line --}}
-                    <path d="M0,160 C50,140 100,80 150,100 C200,120 250,60 300,50 C350,40 400,90 450,70 C500,50 550,30 600,40" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/>
-                    <defs>
-                        <linearGradient id="greenGradient" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stop-color="#10b981" stop-opacity="0.4"/>
-                            <stop offset="100%" stop-color="#10b981" stop-opacity="0"/>
-                        </linearGradient>
-                    </defs>
-                </svg>
-                {{-- X-axis labels --}}
-                <div class="mt-2 flex justify-between text-[11px] text-gray-400">
-                    <span>1</span><span>5</span><span>10</span><span>15</span><span>20</span><span>25</span><span>30</span>
-                </div>
-            </div>
-        </div>
+        const dailyChart = new ApexCharts(document.querySelector('#chart-daily-sales'), {
+            chart: {
+                type: 'area',
+                height: 300,
+                fontFamily: 'Inter, sans-serif',
+                toolbar: { show: false },
+                zoom: { enabled: false },
+            },
+            series: [
+                {
+                    name: 'Ventas',
+                    data: dailySalesData.map(d => d.sales),
+                },
+                {
+                    name: 'Cobros',
+                    data: dailySalesData.map(d => d.payments),
+                },
+            ],
+            colors: ['#10b981', '#3b82f6'],
+            fill: {
+                type: 'gradient',
+                gradient: { shadeIntensity: 1, opacityFrom: 0.4, opacityTo: 0.05, stops: [0, 90, 100] },
+            },
+            stroke: { curve: 'smooth', width: [2.5, 2.5] },
+            xaxis: {
+                categories: dailySalesData.map(d => d.date),
+                labels: {
+                    style: { fontSize: '10px', colors: '#9ca3af' },
+                    rotate: -45,
+                    rotateAlways: false,
+                    hideOverlappingLabels: true,
+                },
+                axisBorder: { show: false },
+                axisTicks: { show: false },
+            },
+            yaxis: {
+                labels: {
+                    style: { fontSize: '11px', colors: '#9ca3af' },
+                    formatter: (v) => '$' + v.toLocaleString(),
+                },
+            },
+            dataLabels: { enabled: false },
+            grid: { borderColor: '#f3f4f6', strokeDashArray: 3 },
+            tooltip: {
+                theme: 'light',
+                y: { formatter: (v) => '$' + v.toLocaleString(undefined, {minimumFractionDigits: 2}) },
+            },
+            legend: { show: false },
+        });
+        dailyChart.render();
 
-        {{-- Exchange Rate --}}
-        <div class="rounded-2xl bg-white p-6 shadow-sm xl:col-span-2">
-            <div class="flex items-center justify-between">
-                <h2 class="text-base font-bold text-gray-900">Exchange Rate</h2>
-                <a href="#" class="text-xs font-medium text-emerald-600 hover:text-emerald-700">View All &rsaquo;</a>
-            </div>
+        // ── Monthly Revenue Bar Chart ──
+        const monthlyData = @js($monthlyRevenue);
 
-            <div class="mt-5 space-y-4">
-                {{-- Dollar --}}
-                <div class="flex items-center gap-4">
-                    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-50 text-lg">
-                        &#127482;&#127480;
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <p class="text-sm font-semibold text-gray-900">Dollar</p>
-                        <p class="text-xs text-gray-400">USD</p>
-                    </div>
-                    <p class="text-sm font-bold text-gray-900">$1 = &#8377;84.14</p>
-                </div>
+        const monthlyChart = new ApexCharts(document.querySelector('#chart-monthly-revenue'), {
+            chart: {
+                type: 'bar',
+                height: 280,
+                fontFamily: 'Inter, sans-serif',
+                toolbar: { show: false },
+            },
+            series: [{
+                name: 'Ingresos',
+                data: monthlyData.map(d => d.revenue),
+            }],
+            colors: ['#10b981'],
+            plotOptions: {
+                bar: { borderRadius: 6, columnWidth: '55%', distributed: false },
+            },
+            xaxis: {
+                categories: monthlyData.map(d => d.month),
+                labels: { style: { fontSize: '11px', colors: '#9ca3af' } },
+                axisBorder: { show: false },
+                axisTicks: { show: false },
+            },
+            yaxis: {
+                labels: {
+                    style: { fontSize: '11px', colors: '#9ca3af' },
+                    formatter: (v) => '$' + v.toLocaleString(),
+                },
+            },
+            dataLabels: { enabled: false },
+            grid: { borderColor: '#f3f4f6', strokeDashArray: 3 },
+            tooltip: {
+                theme: 'light',
+                y: { formatter: (v) => '$' + v.toLocaleString(undefined, {minimumFractionDigits: 2}) },
+            },
+        });
+        monthlyChart.render();
 
-                {{-- Pound --}}
-                <div class="flex items-center gap-4">
-                    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-red-50 text-lg">
-                        &#127468;&#127463;
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <p class="text-sm font-semibold text-gray-900">Pound</p>
-                        <p class="text-xs text-gray-400">GBP</p>
-                    </div>
-                    <p class="text-sm font-bold text-gray-900">$1 = &#8377;84.14</p>
-                </div>
+        // ── Sales by Status Donut ──
+        const estadoLabels = @js($estadoLabels);
+        const estadoSeries = @js($estadoSeries);
 
-                {{-- Yuan --}}
-                <div class="flex items-center gap-4">
-                    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-yellow-50 text-lg">
-                        &#127464;&#127475;
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <p class="text-sm font-semibold text-gray-900">Yuan</p>
-                        <p class="text-xs text-gray-400">CNY</p>
-                    </div>
-                    <p class="text-sm font-bold text-gray-900">$1 = &#8377;84.14</p>
-                </div>
+        if (estadoSeries.length > 0) {
+            const statusChart = new ApexCharts(document.querySelector('#chart-status-donut'), {
+                chart: {
+                    type: 'donut',
+                    height: 280,
+                    fontFamily: 'Inter, sans-serif',
+                },
+                series: estadoSeries,
+                labels: estadoLabels,
+                colors: ['#f59e0b', '#3b82f6', '#10b981', '#ef4444'],
+                stroke: { width: 0 },
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: '72%',
+                            labels: {
+                                show: true,
+                                total: {
+                                    show: true,
+                                    label: 'Total',
+                                    fontSize: '12px',
+                                    color: '#6b7280',
+                                    formatter: (w) => w.globals.seriesTotals.reduce((a, b) => a + b, 0),
+                                },
+                            },
+                        },
+                    },
+                },
+                dataLabels: { enabled: false },
+                legend: { position: 'bottom', fontSize: '11px', labels: { colors: '#6b7280' } },
+                tooltip: { theme: 'light' },
+            });
+            statusChart.render();
+        } else {
+            document.querySelector('#chart-status-donut').innerHTML = '<p class="flex h-full items-center justify-center text-sm text-gray-400">Sin datos este mes</p>';
+        }
 
-                {{-- Euro --}}
-                <div class="flex items-center gap-4">
-                    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-50 text-lg">
-                        &#127466;&#127482;
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <p class="text-sm font-semibold text-gray-900">Euro</p>
-                        <p class="text-xs text-gray-400">EUR</p>
-                    </div>
-                    <p class="text-sm font-bold text-gray-900">$1 = &#8377;84.14</p>
-                </div>
-            </div>
-        </div>
-    </div>
+        // ── Payments by Method Donut ──
+        const metodoLabels = @js($metodoLabels);
+        const metodoSeries = @js($metodoSeries);
+
+        if (metodoSeries.length > 0) {
+            const methodChart = new ApexCharts(document.querySelector('#chart-payments-method'), {
+                chart: {
+                    type: 'donut',
+                    height: 280,
+                    fontFamily: 'Inter, sans-serif',
+                },
+                series: metodoSeries,
+                labels: metodoLabels,
+                colors: ['#f43f5e', '#8b5cf6', '#06b6d4', '#f59e0b', '#10b981'],
+                stroke: { width: 0 },
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: '72%',
+                            labels: {
+                                show: true,
+                                total: {
+                                    show: true,
+                                    label: 'Total',
+                                    fontSize: '12px',
+                                    color: '#6b7280',
+                                    formatter: (w) => '$' + w.globals.seriesTotals.reduce((a, b) => a + b, 0).toLocaleString(undefined, {minimumFractionDigits: 2}),
+                                },
+                            },
+                        },
+                    },
+                },
+                dataLabels: { enabled: false },
+                legend: { position: 'bottom', fontSize: '11px', labels: { colors: '#6b7280' } },
+                tooltip: {
+                    theme: 'light',
+                    y: { formatter: (v) => '$' + v.toLocaleString(undefined, {minimumFractionDigits: 2}) },
+                },
+            });
+            methodChart.render();
+        } else {
+            document.querySelector('#chart-payments-method').innerHTML = '<p class="flex h-full items-center justify-center text-sm text-gray-400">Sin pagos este mes</p>';
+        }
+    </script>
+    @endscript
 </div>

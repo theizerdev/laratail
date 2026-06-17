@@ -18,6 +18,12 @@ class PermissionSeeder extends Seeder
                 // Módulo: Dashboard
                 'dashboard.view' => 'Ver Dashboard',
 
+                // Módulo: Empleados
+                'empleados.view' => 'Ver Empleados',
+                'empleados.create' => 'Crear Empleado',
+                'empleados.edit' => 'Editar Empleado',
+                'empleados.delete' => 'Eliminar Empleado',
+
                 // Módulo: Usuarios
                 'users.view' => 'Ver Usuarios',
                 'users.create' => 'Crear Usuario',
@@ -201,6 +207,21 @@ class PermissionSeeder extends Seeder
                 'conciliacion.view' => 'Ver Conciliación',
                 'conciliacion.manage' => 'Gestionar Conciliación',
             ],
+
+            // Sector: Reportes & Analítica
+            'reportes' => [
+                // Módulo: Dashboard
+                'reportes.dashboard' => 'Ver Dashboard Analítico',
+
+                // Módulo: Reporte de Ventas
+                'reportes.ventas' => 'Ver Reporte de Ventas',
+
+                // Módulo: Reporte de Pagos
+                'reportes.pagos' => 'Ver Reporte de Pagos',
+
+                // Módulo: Reporte de Inventario
+                'reportes.inventario' => 'Ver Reporte de Inventario',
+            ],
         ];
 
         foreach ($permissions as $sector => $sectorPermissions) {
@@ -212,6 +233,7 @@ class PermissionSeeder extends Seeder
                     str_starts_with($permission, 'marcas.') => 'marcas',
                     str_starts_with($permission, 'productos.') => 'productos',
                     str_starts_with($permission, 'atributos.') => 'atributos',
+                    str_starts_with($permission, 'empleados.') => 'empleados',
                     str_starts_with($permission, 'users.') => 'usuarios',
                     str_starts_with($permission, 'roles.') => 'roles',
                     str_starts_with($permission, 'groups.') => 'grupos',
@@ -236,6 +258,7 @@ class PermissionSeeder extends Seeder
                     str_starts_with($permission, 'notas_credito.') => 'notas_credito',
                     str_starts_with($permission, 'caja.') => 'caja',
                     str_starts_with($permission, 'conciliacion.') => 'conciliacion',
+                    str_starts_with($permission, 'reportes.') => 'reportes',
                     default => 'general',
                 };
 

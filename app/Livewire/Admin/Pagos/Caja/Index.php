@@ -15,13 +15,12 @@ class Index extends Component
     use WithPagination;
 
     public string $filterEstado = 'all';
-    public bool $showOpenModal = false;
     public float $monto_inicial = 0;
 
     public function openRegister(): void
     {
         $this->monto_inicial = 0;
-        $this->showOpenModal = true;
+        $this->dispatch('open-modal', 'modal-abrir-caja');
     }
 
     public function crearCaja(): void
@@ -33,7 +32,7 @@ class Index extends Component
 
         if ($existing) {
             session()->flash('error', 'Ya tienes una caja abierta.');
-            $this->showOpenModal = false;
+            $this->dispatch('close-modal', 'modal-abrir-caja');
             return;
         }
 
@@ -45,7 +44,7 @@ class Index extends Component
         ]);
 
         session()->flash('success', 'Caja abierta correctamente.');
-        $this->showOpenModal = false;
+        $this->dispatch('close-modal', 'modal-abrir-caja');
     }
 
     public function render()
