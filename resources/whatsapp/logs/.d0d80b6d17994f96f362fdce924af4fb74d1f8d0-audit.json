@@ -1,0 +1,35 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 5
+    },
+    "auditLog": "logs\\.d0d80b6d17994f96f362fdce924af4fb74d1f8d0-audit.json",
+    "files": [
+        {
+            "date": 1779318575749,
+            "name": "logs\\whatsapp-2026-05-20.log",
+            "hash": "b7ed87bca8f1c417edfe5036e47306bd41288b4ab99ffaa695c6f7f0b831b5da"
+        },
+        {
+            "date": 1779369029011,
+            "name": "logs\\whatsapp-2026-05-21.log",
+            "hash": "b061f0c917fdca9936c2457cc473114b2d08d2864158adb143ddaba0388f4650"
+        },
+        {
+            "date": 1781017552345,
+            "name": "logs\\whatsapp-2026-06-09.log",
+            "hash": "0cc83692c42384ebb8f254fc13ff0b137bc2a3f1352f0578805416f5eadfdf35"
+        },
+        {
+            "date": 1781570616058,
+            "name": "logs\\whatsapp-2026-06-15.log",
+            "hash": "4b0301fdd3b3615b17fa73beed7ad649c61e8050b96c9a54ad0aa1efd5ee0132"
+        },
+        {
+            "date": 1782134336206,
+            "name": "logs\\whatsapp-2026-06-22.log",
+            "hash": "ca6df2892d668f5c6debae6360538b737311caec1f59b63297013041a1780de6"
+        }
+    ],
+    "hashType": "sha256"
+}

@@ -1,0 +1,1010 @@
+{"level":"info","message":"✅ Base de datos conectada","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:19:20","version":"v2"}
+{"level":"info","message":"✅ Modo sin cache activado","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:19:20","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Inicializando servicio WhatsApp...","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:19:20","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Usando Baileys v2.3000.1035194821, es la última: true","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:19:20","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Inicializando autenticación...","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:19:20","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Autenticación cargada exitosamente","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:19:20","version":"v2"}
+{"level":"info","message":"✅ Servicio WhatsApp inicializado","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:19:20","version":"v2"}
+{"category":"whatsapp","connection":"connecting","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:19:20","version":"v2"}
+{"level":"info","message":"🚀 WhatsApp API v2 ejecutándose en puerto 3001","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:19:20","version":"v2"}
+{"level":"info","message":"📱 Entorno: development","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:19:20","version":"v2"}
+{"level":"info","message":"🔗 Health check: http://localhost:3001/health","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:19:20","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:19:21","version":"v2"}
+{"category":"whatsapp","connection":"open","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:19:21","version":"v2"}
+{"category":"whatsapp","level":"info","message":"✅ Conectado a WhatsApp exitosamente","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:19:21","version":"v2"}
+{"ip":"::1","level":"info","message":"GET /","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:20:36","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36","version":"v2"}
+{"ip":"::1","level":"info","message":"GET /favicon.ico","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:20:36","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36","version":"v2"}
+{"ip":"::1","level":"info","message":"GET /health","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:20:43","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:45:03","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:45:15","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:45:15","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:46:35","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:46:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:46:38","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:48:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:48:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:48:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:48:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:49:04","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:49:04","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:49:04","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:49:04","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:49:18","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:49:18","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:49:18","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:49:19","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:49:19","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:49:19","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:49:27","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:49:27","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:49:27","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:49:28","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:49:28","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:49:28","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:49:40","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:49:40","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:49:40","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:49:46","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:49:46","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:49:46","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:49:51","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:49:51","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:49:51","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:49:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:49:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:49:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:01","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:01","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:01","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:06","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:06","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:06","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:11","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:11","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:11","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:16","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:16","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:16","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:21","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:21","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:21","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"POST /api/whatsapp/reconnect","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:25","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:26","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:26","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:26","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:34","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:34","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:34","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"POST /api/whatsapp/reconnect","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:37","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:41","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:41","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:41","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:46","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:47","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:47","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:51","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:51","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:51","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:50:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:01","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:01","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:01","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:06","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:06","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:06","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"POST /api/whatsapp/reconnect","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:06","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:11","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:11","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:11","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:16","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:16","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:16","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:21","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:21","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:21","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:26","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:26","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:26","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:31","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:31","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:31","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:41","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:41","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:41","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:46","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:46","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:46","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:51","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:51","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:51","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:51:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:05","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:05","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:05","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:06","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:06","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:06","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:11","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:11","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:11","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:16","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:16","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:16","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:21","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:21","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:21","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:26","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:26","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:26","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:31","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:31","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:31","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:41","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:41","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:41","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:50","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:50","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:50","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:51","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:51","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:51","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:52:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:01","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:01","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:01","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:06","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:06","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:06","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:11","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:11","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:11","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:16","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:17","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:17","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:21","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:21","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:21","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:26","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:26","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:26","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:31","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:31","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:31","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:41","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:41","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:41","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:46","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:46","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:46","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:51","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:51","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:51","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:53:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:01","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:01","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:01","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:06","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:06","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:06","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:20","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:20","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:20","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:21","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:21","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:21","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:26","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:26","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:26","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:31","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:31","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:31","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:35","userAgent":"curl/8.0.1","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:41","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:41","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:41","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:44","userAgent":"curl/8.0.1","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:46","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:46","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:46","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:51","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:51","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:51","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:54:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:02","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:02","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:02","userAgent":"GuzzleHttp/7","version":"v2"}
+{"level":"info","message":"✅ Base de datos conectada","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:10","version":"v2"}
+{"level":"info","message":"✅ Modo sin cache activado","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:10","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Inicializando servicio WhatsApp...","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:10","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Usando Baileys v2.3000.1035194821, es la última: true","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:11","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Inicializando autenticación...","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:11","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Autenticación cargada exitosamente","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:11","version":"v2"}
+{"level":"info","message":"✅ Servicio WhatsApp inicializado","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:11","version":"v2"}
+{"category":"whatsapp","connection":"connecting","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:11","version":"v2"}
+{"level":"info","message":"🚀 WhatsApp API v2 ejecutándose en puerto 3001","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:11","version":"v2"}
+{"level":"info","message":"📱 Entorno: development","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:11","version":"v2"}
+{"level":"info","message":"🔗 Health check: http://localhost:3001/health","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:11","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:13","version":"v2"}
+{"category":"whatsapp","connection":"open","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:13","version":"v2"}
+{"category":"whatsapp","level":"info","message":"✅ Conectado a WhatsApp exitosamente","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:13","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:20","userAgent":"curl/8.0.1","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:22","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:22","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:22","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:23","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:23","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:23","userAgent":"GuzzleHttp/7","version":"v2"}
+{"category":"message","from":"120363403206592635@newsletter","level":"info","message":"Message received","messageType":"conversation","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","level":"info","message":"Message updated","messageId":"3AB6994529B98680EC8F","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","level":"info","message":"Message updated","messageId":"3A4801DD005529DE88B8","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","level":"info","message":"Message updated","messageId":"3A6C2AEE0F0F03663140","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"120363405128558463@newsletter","level":"info","message":"Message received","messageType":"conversation","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","level":"info","message":"Message updated","messageId":"3A0754E9A549BB81ACD4","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"imageMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"videoMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"imageMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"imageMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"senderKeyDistributionMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"imageMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"imageMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"imageMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"imageMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"imageMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"senderKeyDistributionMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"imageMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"videoMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"imageMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"imageMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"senderKeyDistributionMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"senderKeyDistributionMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"protocolMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"protocolMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"protocolMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"protocolMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"protocolMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"protocolMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"senderKeyDistributionMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"protocolMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"senderKeyDistributionMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"videoMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","level":"info","message":"Message updated","messageId":"3ABB15E27EE444D4196E","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","level":"info","message":"Message updated","messageId":"3AECBD27A0BCEE3D4FE2","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","level":"info","message":"Message updated","messageId":"3AA9894C8E8A2C8CEDB6","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"category":"message","level":"info","message":"Message updated","messageId":"3A8723E334D27A85A629","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:27","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:28","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:28","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:28","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:37","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:37","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:37","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:42","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:42","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:42","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"POST /api/whatsapp/force-reconnect","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","userAgent":"GuzzleHttp/7","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Forzando reconexión completa...","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","connection":"close","lastDisconnect":401,"level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Desconectado de WhatsApp:","reason":401,"reconnectAttempts":0,"service":"whatsapp-api-v2","shouldReconnect":false,"timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Error 401 detectado, limpiando sesión para forzar nueva autenticación","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Limpiando sesión corrupta...","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Limpiando sesión corrupta...","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: app-state-sync-key-AAAAAB9+.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"code":"ENOENT","errno":-4058,"level":"error","message":"Error al leer directorio de sesión: ENOENT: no such file or directory, unlink 'C:\\laragon\\www\\laraccess\\resources\\whatsapp\\storage\\sessions\\vargas-centro\\app-state-sync-key-AAAAAB9+.json'","path":"C:\\laragon\\www\\laraccess\\resources\\whatsapp\\storage\\sessions\\vargas-centro\\app-state-sync-key-AAAAAB9+.json","service":"whatsapp-api-v2","stack":"Error: ENOENT: no such file or directory, unlink 'C:\\laragon\\www\\laraccess\\resources\\whatsapp\\storage\\sessions\\vargas-centro\\app-state-sync-key-AAAAAB9+.json'\n    at async Object.unlink (node:internal/fs/promises:1068:10)\n    at async WhatsAppService.clearCorruptedSession (C:\\laragon\\www\\laraccess\\resources\\whatsapp\\src\\services\\WhatsAppService.js:360:13)\n    at async WhatsAppService.forceReconnect (C:\\laragon\\www\\laraccess\\resources\\whatsapp\\src\\services\\WhatsAppService.js:642:7)\n    at async forceReconnect (C:\\laragon\\www\\laraccess\\resources\\whatsapp\\src\\controllers\\WhatsAppController.js:87:7)","syscall":"unlink","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: app-state-sync-key-AAAAAB99.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: app-state-sync-key-AAAAAB9__.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: app-state-sync-version-critical_unblock_low.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: app-state-sync-version-regular.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: app-state-sync-version-regular_low.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: creds.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-1.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","userAgent":"GuzzleHttp/7","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-10.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-12.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-14.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-15.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-16.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-17.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-18.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-19.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-2.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-20.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-21.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-22.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-23.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-24.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-25.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-26.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-27.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-28.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-29.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-3.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-30.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-31.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-32.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-33.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-34.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-35.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-36.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-37.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-38.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-4.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-40.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-41.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-42.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-43.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-44.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-45.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-47.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-48.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-49.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-5.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-50.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-51.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-52.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-53.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-54.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-55.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-56.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-57.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-58.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-59.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-6.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-60.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-61.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-62.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-63.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-64.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-65.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-66.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-67.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-68.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-69.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-7.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-70.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-71.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-72.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-73.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-74.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-75.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-76.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-77.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-78.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-79.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-8.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-80.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-81.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-82.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-83.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-84.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-85.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-86.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-87.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-88.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-89.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-9.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-90.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: pre-key-91.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: sender-key-status@broadcast--128423833931844--0.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: sender-key-status@broadcast--142429789392976--0.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: sender-key-status@broadcast--196452039045208--0.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: sender-key-status@broadcast--226134457356333--0.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: sender-key-status@broadcast--233062222807267--0.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: sender-key-status@broadcast--242653002227933--0.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: sender-key-status@broadcast--249331491860561--0.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: sender-key-status@broadcast--265811382013970--0.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: sender-key-status@broadcast--3273335533804--0.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: sender-key-status@broadcast--42043552305249--0.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: sender-key-status@broadcast--42043552305249--7.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: sender-key-status@broadcast--80517886140638--0.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: sender-key-status@broadcast--94841870516253--0.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: session-128423833931844.0.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: session-142429789392976.0.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: session-156449015607470.85.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: session-196452039045208.0.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: session-226134457356333.0.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: session-233062222807267.0.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: session-242653002227933.0.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: session-249331491860561.0.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: session-265811382013970.0.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: session-3273335533804.0.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: session-42043552305249.0.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: session-42043552305249.7.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: session-584142885159.0.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: session-584142885159.85.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: session-584142885159.88.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: session-584241703465.0.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: session-584241703465.27.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: session-584241703465.35.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: session-584242115948.0.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: session-584242115948.59.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: session-80517886140638.0.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Archivo eliminado: session-94841870516253.0.json","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Sesión corrupta limpiada exitosamente","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Máximo de reintentos alcanzado o sesión cerrada","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:47","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Inicializando autenticación...","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:49","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Autenticación cargada exitosamente","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:49","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Reconexión forzada completada","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:49","version":"v2"}
+{"category":"whatsapp","connection":"connecting","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:49","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:50","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Código QR generado","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:50","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:53","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:55:57","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:56:00","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:56:03","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:56:06","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:56:09","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:56:12","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:56:15","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:56:18","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:56:21","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:56:24","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:56:27","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:56:30","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:56:33","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:56:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:56:39","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:56:42","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:56:45","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:56:48","userAgent":"GuzzleHttp/7","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:56:50","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Código QR generado","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:56:50","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:56:51","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:56:54","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:56:57","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:57:01","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:57:01","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"POST /api/whatsapp/connect","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:57:02","userAgent":"GuzzleHttp/7","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Ya hay una conexión en progreso...","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:57:02","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:57:06","userAgent":"GuzzleHttp/7","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:57:10","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Código QR generado","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:57:10","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:57:30","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Código QR generado","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:57:30","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:57:39","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:57:39","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:57:42","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:57:45","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:57:48","userAgent":"GuzzleHttp/7","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:57:50","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Código QR generado","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:57:50","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:57:51","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:57:54","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:57:57","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:00","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:03","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:06","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:09","userAgent":"GuzzleHttp/7","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:10","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Código QR generado","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:10","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:12","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:15","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:18","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:23","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:24","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:28","userAgent":"GuzzleHttp/7","version":"v2"}
+{"category":"whatsapp","connection":"close","lastDisconnect":408,"level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:30","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Desconectado de WhatsApp:","reason":408,"reconnectAttempts":0,"service":"whatsapp-api-v2","shouldReconnect":true,"timestamp":"2026-06-22 09:58:30","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Reintentando conexión en 2000ms (intento 1/5)","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:30","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:31","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/qr","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:31","userAgent":"GuzzleHttp/7","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Inicializando autenticación...","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:32","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Autenticación cargada exitosamente","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:32","version":"v2"}
+{"category":"whatsapp","connection":"connecting","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:32","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:34","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Código QR generado","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:34","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:35","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:39","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:42","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:45","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:48","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:51","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:54","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:57","userAgent":"GuzzleHttp/7","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:59","version":"v2"}
+{"category":"whatsapp","connection":"close","lastDisconnect":515,"level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:59","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Desconectado de WhatsApp:","reason":515,"reconnectAttempts":1,"service":"whatsapp-api-v2","shouldReconnect":true,"timestamp":"2026-06-22 09:58:59","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Reintentando conexión en 4000ms (intento 2/5)","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:58:59","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:00","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/qr","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:00","userAgent":"GuzzleHttp/7","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Inicializando autenticación...","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:03","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Autenticación cargada exitosamente","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:03","version":"v2"}
+{"category":"whatsapp","connection":"connecting","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:03","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:06","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:06","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/qr","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:06","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:07","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/qr","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:07","userAgent":"GuzzleHttp/7","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:07","version":"v2"}
+{"category":"whatsapp","connection":"open","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:07","version":"v2"}
+{"category":"whatsapp","level":"info","message":"✅ Conectado a WhatsApp exitosamente","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:07","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:24","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:24","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:24","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:24","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:24","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:24","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:29","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:29","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:30","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:34","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:35","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:35","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:39","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:40","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:40","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:45","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:45","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:45","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:49","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:49","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:49","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:55","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:55","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 09:59:55","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:00","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:00","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:00","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:04","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:05","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:05","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:10","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:10","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:10","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:15","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:15","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:15","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:21","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:21","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:21","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:25","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:25","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:25","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:29","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:29","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:29","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:35","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:35","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:35","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:40","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:40","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:40","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:45","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:45","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:45","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:50","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:50","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:50","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:55","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:55","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:00:55","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:00","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:00","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:00","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:05","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:05","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:05","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:10","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:10","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:10","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:15","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:15","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:15","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:20","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:20","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:20","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:25","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:26","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:26","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:30","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:30","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:30","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:35","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:35","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:35","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:40","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:40","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:40","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:45","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:45","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:45","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:50","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:50","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:50","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:55","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:55","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:01:55","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:01","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:01","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:01","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:05","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:05","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:05","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:10","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:10","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:10","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:15","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:15","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:15","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:20","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:20","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:20","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:25","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:25","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:25","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:30","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:30","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:30","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:34","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:35","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:35","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:39","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:39","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:39","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:44","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:45","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:45","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:50","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:50","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:50","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:02:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:00","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:00","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:00","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:05","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:05","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:05","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:10","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:10","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:10","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:15","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:15","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:15","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:20","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:20","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:20","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:25","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:25","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:25","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:31","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:31","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:31","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:41","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:41","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:42","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:46","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:47","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:47","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:52","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:52","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:52","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:57","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:03:57","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:01","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:02","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:02","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:07","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:07","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:07","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:11","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:12","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:12","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:16","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:16","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:17","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:21","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:22","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:22","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:26","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:27","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:27","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:31","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:32","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:32","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:37","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:37","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:41","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:42","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:42","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:46","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:47","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:47","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:52","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:52","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:52","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:57","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:04:57","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:01","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:02","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:02","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:06","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:07","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:07","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:11","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:12","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:12","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:17","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:17","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:17","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:22","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:22","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:22","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:26","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:27","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:27","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:32","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:32","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:32","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:37","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:37","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:37","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:41","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:42","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:42","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:46","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:47","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:47","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:52","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:52","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:52","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:57","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:57","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:05:57","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:01","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:02","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:02","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:07","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:07","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:07","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:11","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:12","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:12","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:16","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:17","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:17","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:21","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:22","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:22","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:26","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:27","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:27","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:31","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:32","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:32","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:37","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:37","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:37","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:42","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:42","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:42","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:46","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:47","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:47","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:51","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:52","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:52","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:57","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:06:57","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:01","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:02","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:02","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:06","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:07","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:07","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:11","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:12","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:12","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:16","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:17","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:17","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:21","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:22","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:22","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:27","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:27","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:27","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:32","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:32","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:32","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:37","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:37","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:41","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:42","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:42","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:47","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:47","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:47","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:51","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:52","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:52","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:57","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:07:57","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:02","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:02","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:02","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:07","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:07","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:07","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:11","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:11","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:12","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:16","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:17","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:17","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:22","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:22","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:22","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:27","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:27","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:27","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:32","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:32","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:32","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:36","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:37","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:37","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:41","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:42","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:42","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:46","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:47","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:47","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:51","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:52","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:52","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:57","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:08:57","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:02","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:02","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:02","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:07","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:07","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:07","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:11","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:11","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:11","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:12","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:12","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:12","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:17","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:17","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:17","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:22","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:22","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:22","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:27","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:27","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:27","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:32","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:32","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:32","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:37","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:37","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:37","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:42","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:42","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:42","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:47","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:47","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:47","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:52","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:52","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:52","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:57","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:57","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:09:57","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:10:02","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:10:02","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:10:02","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:10:07","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:10:07","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:10:07","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:10:12","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:10:12","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:10:12","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:10:17","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:10:17","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:10:17","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:10:47","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:10:47","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:10:47","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:11:47","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:11:47","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:11:47","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:12:39","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:12:39","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:12:39","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:12:45","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:12:45","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:12:45","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:12:50","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:12:50","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:12:50","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:12:55","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:12:55","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:12:55","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:12:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:12:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:12:56","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:13:01","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:13:01","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:13:01","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:13:06","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:13:06","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:13:06","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:13:07","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:13:07","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:13:07","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:13:12","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:13:12","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:13:12","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:13:17","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:13:17","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:13:17","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:13:22","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:13:22","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:13:22","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:13:27","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:13:27","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:13:27","userAgent":"GuzzleHttp/7","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"senderKeyDistributionMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:53:33","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"imageMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 10:57:02","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Contactos actualizados: 1136","service":"whatsapp-api-v2","timestamp":"2026-06-22 11:00:15","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"senderKeyDistributionMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 11:08:09","version":"v2"}
+{"category":"whatsapp","connection":"close","lastDisconnect":503,"level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 11:11:50","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Desconectado de WhatsApp:","reason":503,"reconnectAttempts":0,"service":"whatsapp-api-v2","shouldReconnect":true,"timestamp":"2026-06-22 11:11:50","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Reintentando conexión en 2000ms (intento 1/5)","service":"whatsapp-api-v2","timestamp":"2026-06-22 11:11:50","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Inicializando autenticación...","service":"whatsapp-api-v2","timestamp":"2026-06-22 11:11:52","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Autenticación cargada exitosamente","service":"whatsapp-api-v2","timestamp":"2026-06-22 11:11:52","version":"v2"}
+{"category":"whatsapp","connection":"connecting","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 11:11:52","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 11:11:53","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 11:11:54","version":"v2"}
+{"category":"whatsapp","connection":"open","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 11:11:54","version":"v2"}
+{"category":"whatsapp","level":"info","message":"✅ Conectado a WhatsApp exitosamente","service":"whatsapp-api-v2","timestamp":"2026-06-22 11:11:54","version":"v2"}

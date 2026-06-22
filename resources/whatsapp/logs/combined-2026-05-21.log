@@ -1,0 +1,60 @@
+{"level":"info","message":"✅ Base de datos conectada","service":"whatsapp-api-v2","timestamp":"2026-05-21 15:46:17","version":"v2"}
+{"level":"info","message":"✅ Modo sin cache activado","service":"whatsapp-api-v2","timestamp":"2026-05-21 15:46:17","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Inicializando servicio WhatsApp...","service":"whatsapp-api-v2","timestamp":"2026-05-21 15:46:17","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Usando Baileys v2.3000.1035194821, es la última: true","service":"whatsapp-api-v2","timestamp":"2026-05-21 15:46:18","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Inicializando autenticación...","service":"whatsapp-api-v2","timestamp":"2026-05-21 15:46:18","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Autenticación cargada exitosamente","service":"whatsapp-api-v2","timestamp":"2026-05-21 15:46:18","version":"v2"}
+{"level":"info","message":"✅ Servicio WhatsApp inicializado","service":"whatsapp-api-v2","timestamp":"2026-05-21 15:46:18","version":"v2"}
+{"category":"whatsapp","connection":"connecting","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-05-21 15:46:18","version":"v2"}
+{"level":"info","message":"🚀 WhatsApp API v2 ejecutándose en puerto 3001","service":"whatsapp-api-v2","timestamp":"2026-05-21 15:46:18","version":"v2"}
+{"level":"info","message":"📱 Entorno: development","service":"whatsapp-api-v2","timestamp":"2026-05-21 15:46:18","version":"v2"}
+{"level":"info","message":"🔗 Health check: http://localhost:3001/health","service":"whatsapp-api-v2","timestamp":"2026-05-21 15:46:18","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-05-21 15:46:19","version":"v2"}
+{"category":"whatsapp","connection":"open","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-05-21 15:46:19","version":"v2"}
+{"category":"whatsapp","level":"info","message":"✅ Conectado a WhatsApp exitosamente","service":"whatsapp-api-v2","timestamp":"2026-05-21 15:46:19","version":"v2"}
+{"ip":"::1","level":"info","message":"GET /api/whatsapp/status","service":"whatsapp-api-v2","timestamp":"2026-05-21 15:47:40","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::1","level":"info","message":"GET /api/whatsapp/stats","service":"whatsapp-api-v2","timestamp":"2026-05-21 15:47:40","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::1","level":"info","message":"GET /api/whatsapp/messages","service":"whatsapp-api-v2","timestamp":"2026-05-21 15:47:40","userAgent":"GuzzleHttp/7","version":"v2"}
+{"ip":"::1","level":"info","message":"POST /api/whatsapp/send","service":"whatsapp-api-v2","timestamp":"2026-05-21 15:48:40","userAgent":"GuzzleHttp/7","version":"v2"}
+{"companyId":1,"level":"info","message":"Anti-block: Message validated and delayed for 584242115948@s.whatsapp.net","messageLength":464,"service":"whatsapp-api-v2","timestamp":"2026-05-21 15:48:40","to":"584242115948@s.whatsapp.net","version":"v2"}
+{"category":"message","level":"info","message":"Message sent","messageId":"3EB06649C418A7809BF810","service":"whatsapp-api-v2","timestamp":"2026-05-21 15:48:41","to":"584242115948@s.whatsapp.net","version":"v2"}
+{"ip":"::1","level":"info","message":"POST /api/whatsapp/send","service":"whatsapp-api-v2","timestamp":"2026-05-21 15:48:41","userAgent":"GuzzleHttp/7","version":"v2"}
+{"companyId":1,"level":"info","message":"Anti-block: Message validated and delayed for 584241703465@s.whatsapp.net","messageLength":253,"service":"whatsapp-api-v2","timestamp":"2026-05-21 15:48:41","to":"584241703465@s.whatsapp.net","version":"v2"}
+{"category":"message","level":"info","message":"Message sent","messageId":"3EB0F2AE7CB0DE20B8ECB2","service":"whatsapp-api-v2","timestamp":"2026-05-21 15:48:41","to":"584241703465@s.whatsapp.net","version":"v2"}
+{"ip":"::1","level":"info","message":"POST /api/whatsapp/send","service":"whatsapp-api-v2","timestamp":"2026-05-21 15:58:53","userAgent":"GuzzleHttp/7","version":"v2"}
+{"companyId":1,"level":"info","message":"Anti-block: Message validated and delayed for 584242115948@s.whatsapp.net","messageLength":413,"service":"whatsapp-api-v2","timestamp":"2026-05-21 15:58:53","to":"584242115948@s.whatsapp.net","version":"v2"}
+{"category":"message","level":"info","message":"Message sent","messageId":"3EB08FB8E5303561721F72","service":"whatsapp-api-v2","timestamp":"2026-05-21 15:58:53","to":"584242115948@s.whatsapp.net","version":"v2"}
+{"ip":"::1","level":"info","message":"POST /api/whatsapp/send","service":"whatsapp-api-v2","timestamp":"2026-05-21 15:58:53","userAgent":"GuzzleHttp/7","version":"v2"}
+{"level":"info","message":"Anti-block: Delaying message to 584242115948@s.whatsapp.net by 29599ms","service":"whatsapp-api-v2","timestamp":"2026-05-21 15:58:53","version":"v2"}
+{"ip":"::1","level":"info","message":"POST /api/whatsapp/send","service":"whatsapp-api-v2","timestamp":"2026-05-21 15:58:58","userAgent":"GuzzleHttp/7","version":"v2"}
+{"companyId":1,"level":"info","message":"Anti-block: Message validated and delayed for 584241703465@s.whatsapp.net","messageLength":381,"service":"whatsapp-api-v2","timestamp":"2026-05-21 15:58:58","to":"584241703465@s.whatsapp.net","version":"v2"}
+{"category":"message","level":"info","message":"Message sent","messageId":"3EB06C8BBF4C2280B13D21","service":"whatsapp-api-v2","timestamp":"2026-05-21 15:58:58","to":"584241703465@s.whatsapp.net","version":"v2"}
+{"companyId":1,"level":"info","message":"Anti-block: Message validated and delayed for 584242115948@s.whatsapp.net","messageLength":304,"service":"whatsapp-api-v2","timestamp":"2026-05-21 15:59:23","to":"584242115948@s.whatsapp.net","version":"v2"}
+{"category":"message","level":"info","message":"Message sent","messageId":"3EB0F2A9ED15962C8101C6","service":"whatsapp-api-v2","timestamp":"2026-05-21 15:59:23","to":"584242115948@s.whatsapp.net","version":"v2"}
+{"ip":"::1","level":"info","message":"POST /api/whatsapp/send","service":"whatsapp-api-v2","timestamp":"2026-05-21 16:02:21","userAgent":"GuzzleHttp/7","version":"v2"}
+{"companyId":1,"level":"info","message":"Anti-block: Message validated and delayed for 584242115948@s.whatsapp.net","messageLength":213,"service":"whatsapp-api-v2","timestamp":"2026-05-21 16:02:21","to":"584242115948@s.whatsapp.net","version":"v2"}
+{"category":"message","level":"info","message":"Message sent","messageId":"3EB051F49F0D8992E376BC","service":"whatsapp-api-v2","timestamp":"2026-05-21 16:02:21","to":"584242115948@s.whatsapp.net","version":"v2"}
+{"ip":"::1","level":"info","message":"POST /api/whatsapp/send","service":"whatsapp-api-v2","timestamp":"2026-05-21 16:02:21","userAgent":"GuzzleHttp/7","version":"v2"}
+{"companyId":1,"level":"info","message":"Anti-block: Message validated and delayed for 584241703465@s.whatsapp.net","messageLength":189,"service":"whatsapp-api-v2","timestamp":"2026-05-21 16:02:21","to":"584241703465@s.whatsapp.net","version":"v2"}
+{"category":"message","level":"info","message":"Message sent","messageId":"3EB0E5D942550A157C2313","service":"whatsapp-api-v2","timestamp":"2026-05-21 16:02:21","to":"584241703465@s.whatsapp.net","version":"v2"}
+{"ip":"::1","level":"info","message":"POST /api/whatsapp/send","service":"whatsapp-api-v2","timestamp":"2026-05-21 16:06:00","userAgent":"GuzzleHttp/7","version":"v2"}
+{"companyId":1,"level":"info","message":"Anti-block: Message validated and delayed for 584242115948@s.whatsapp.net","messageLength":332,"service":"whatsapp-api-v2","timestamp":"2026-05-21 16:06:00","to":"584242115948@s.whatsapp.net","version":"v2"}
+{"category":"message","level":"info","message":"Message sent","messageId":"3EB09A98ACC60E29ADF85E","service":"whatsapp-api-v2","timestamp":"2026-05-21 16:06:00","to":"584242115948@s.whatsapp.net","version":"v2"}
+{"ip":"::1","level":"info","message":"POST /api/whatsapp/send","service":"whatsapp-api-v2","timestamp":"2026-05-21 16:06:00","userAgent":"GuzzleHttp/7","version":"v2"}
+{"companyId":1,"level":"info","message":"Anti-block: Message validated and delayed for 584241703465@s.whatsapp.net","messageLength":258,"service":"whatsapp-api-v2","timestamp":"2026-05-21 16:06:00","to":"584241703465@s.whatsapp.net","version":"v2"}
+{"category":"message","level":"info","message":"Message sent","messageId":"3EB0B0B7A3571A33D257F2","service":"whatsapp-api-v2","timestamp":"2026-05-21 16:06:01","to":"584241703465@s.whatsapp.net","version":"v2"}
+{"ip":"::1","level":"info","message":"POST /api/whatsapp/send","service":"whatsapp-api-v2","timestamp":"2026-05-21 16:06:22","userAgent":"GuzzleHttp/7","version":"v2"}
+{"level":"info","message":"Anti-block: Delaying message to 584242115948@s.whatsapp.net by 8612ms","service":"whatsapp-api-v2","timestamp":"2026-05-21 16:06:22","version":"v2"}
+{"ip":"::1","level":"info","message":"POST /api/whatsapp/send","service":"whatsapp-api-v2","timestamp":"2026-05-21 16:06:27","userAgent":"GuzzleHttp/7","version":"v2"}
+{"level":"info","message":"Anti-block: Delaying message to 584241703465@s.whatsapp.net by 3786ms","service":"whatsapp-api-v2","timestamp":"2026-05-21 16:06:27","version":"v2"}
+{"companyId":1,"level":"info","message":"Anti-block: Message validated and delayed for 584242115948@s.whatsapp.net","messageLength":286,"service":"whatsapp-api-v2","timestamp":"2026-05-21 16:06:30","to":"584242115948@s.whatsapp.net","version":"v2"}
+{"category":"message","level":"info","message":"Message sent","messageId":"3EB0A33A93BB8CD671EB8D","service":"whatsapp-api-v2","timestamp":"2026-05-21 16:06:30","to":"584242115948@s.whatsapp.net","version":"v2"}
+{"companyId":1,"level":"info","message":"Anti-block: Message validated and delayed for 584241703465@s.whatsapp.net","messageLength":189,"service":"whatsapp-api-v2","timestamp":"2026-05-21 16:06:30","to":"584241703465@s.whatsapp.net","version":"v2"}
+{"category":"message","level":"info","message":"Message sent","messageId":"3EB077E3525D3A440250E2","service":"whatsapp-api-v2","timestamp":"2026-05-21 16:06:31","to":"584241703465@s.whatsapp.net","version":"v2"}
+{"ip":"::1","level":"info","message":"POST /api/whatsapp/send","service":"whatsapp-api-v2","timestamp":"2026-05-21 16:07:23","userAgent":"GuzzleHttp/7","version":"v2"}
+{"companyId":1,"level":"info","message":"Anti-block: Message validated and delayed for 584242115948@s.whatsapp.net","messageLength":305,"service":"whatsapp-api-v2","timestamp":"2026-05-21 16:07:23","to":"584242115948@s.whatsapp.net","version":"v2"}
+{"category":"message","level":"info","message":"Message sent","messageId":"3EB01097B279E0B736A18C","service":"whatsapp-api-v2","timestamp":"2026-05-21 16:07:23","to":"584242115948@s.whatsapp.net","version":"v2"}
+{"ip":"::1","level":"info","message":"POST /api/whatsapp/send","service":"whatsapp-api-v2","timestamp":"2026-05-21 16:07:23","userAgent":"GuzzleHttp/7","version":"v2"}
+{"companyId":1,"level":"info","message":"Anti-block: Message validated and delayed for 584241703465@s.whatsapp.net","messageLength":214,"service":"whatsapp-api-v2","timestamp":"2026-05-21 16:07:23","to":"584241703465@s.whatsapp.net","version":"v2"}
+{"category":"message","level":"info","message":"Message sent","messageId":"3EB08BED3BE1ADD063266D","service":"whatsapp-api-v2","timestamp":"2026-05-21 16:07:23","to":"584241703465@s.whatsapp.net","version":"v2"}
+{"level":"info","message":"Recibida señal SIGINT, cerrando servidor...","service":"whatsapp-api-v2","timestamp":"2026-05-21 16:21:18","version":"v2"}

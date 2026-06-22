@@ -1,0 +1,214 @@
+<?php
+
+namespace App\Traits;
+
+use Spatie\Activitylog\Contracts\Activity;
+
+trait HasSpanishActivityLog
+{
+    public static $modelNamesMap = [
+        'User' => 'Usuario',
+        'Cita' => 'Cita',
+        'CitaConfirmacion' => 'Confirmación de Cita',
+        'Empresa' => 'Empresa',
+        'Especialidad' => 'Especialidad',
+        'Medico' => 'Médico',
+        'Paciente' => 'Paciente',
+        'Pais' => 'País',
+        'TipoConsulta' => 'Tipo de Consulta',
+        'Sucursal' => 'Sucursal',
+        'Enfermero' => 'Enfermero',
+        'EnfermeroEspecialidad' => 'Especialidad de Enfermero',
+        'Pago' => 'Pago',
+        'ExchangeRate' => 'Tasa de Cambio',
+        'ExchangeRateDailyHistory' => 'Histórico Diario de Tasas',
+        'ExchangeRateMonthlyHistory' => 'Histórico Mensual de Tasas',
+        'AnulacionTalonario' => 'Anulación de Talonario',
+        'ClienteFiscal' => 'Cliente Fiscal',
+        'FiscalControlSequence' => 'Secuencia de Control Fiscal',
+        'Serie' => 'Serie de Documentos',
+    ];
+
+    public static $fieldLabelsMap = [
+        'name' => 'Nombre',
+        'nombres' => 'Nombres',
+        'apellidos' => 'Apellidos',
+        'email' => 'Correo electrónico',
+        'phone' => 'Teléfono',
+        'telefono' => 'Teléfono',
+        'status' => 'Estado',
+        'empresa_id' => 'Empresa',
+        'sucursal_id' => 'Sucursal',
+        'failed_login_attempts' => 'Intentos fallidos de acceso',
+        'documento_identidad' => 'Documento de identidad',
+        'tipo_documento' => 'Tipo de documento',
+        'numero_documento' => 'Número de documento',
+        'razon_social' => 'Razón social',
+        'nombre_comercial' => 'Nombre comercial',
+        'direccion_fiscal' => 'Dirección fiscal',
+        'direccion' => 'Dirección',
+        'ciudad' => 'Ciudad',
+        'estado' => 'Estado',
+        'codigo_postal' => 'Código postal',
+        'tipo_pago' => 'Tipo de pago',
+        'total' => 'Total',
+        'total_usd' => 'Total USD',
+        'total_bs' => 'Total Bs.',
+        'total_con_impuestos' => 'Total con impuestos',
+        'numero_control_fiscal' => 'N° Control Fiscal',
+        'es_factura_fiscal' => 'Es factura fiscal',
+        'base_imponible' => 'Base imponible',
+        'iva_monto' => 'Monto IVA',
+        'igtf_monto' => 'Monto IGTF',
+        'metodo_pago' => 'Método de pago',
+        'cliente_fiscal_id' => 'Cliente fiscal',
+        'fecha' => 'Fecha',
+        'fecha_inicio' => 'Fecha de inicio',
+        'fecha_fin' => 'Fecha de fin',
+        'motivo' => 'Motivo',
+        'notas' => 'Notas',
+        'observaciones' => 'Observaciones',
+        'paciente_id' => 'Paciente',
+        'medico_id' => 'Médico',
+        'especialidad_id' => 'Especialidad',
+        'subespecialidad_id' => 'Subespecialidad',
+        'licencia_medica' => 'Licencia médica',
+        'anios_experiencia' => 'Años de experiencia',
+        'nivel_experiencia' => 'Nivel de experiencia',
+        'serie' => 'Serie',
+        'correlativo_actual' => 'Correlativo actual',
+        'control_fiscal_actual' => 'Control fiscal actual',
+        'activo' => 'Activo',
+        'serie_afectada' => 'Serie afectada',
+        'numero_control_desde' => 'N° Control desde',
+        'numero_control_hasta' => 'N° Control hasta',
+        'correlativo_desde' => 'Correlativo desde',
+        'correlativo_hasta' => 'Correlativo hasta',
+        'cantidad_documentos' => 'Cantidad de documentos',
+        'fecha_anulacion' => 'Fecha de anulación',
+        'date' => 'Fecha',
+        'usd_rate' => 'Tasa USD',
+        'eur_rate' => 'Tasa EUR',
+        'source' => 'Fuente',
+        'recorded_by' => 'Registrado por',
+        'year' => 'Año',
+        'month' => 'Mes',
+        'usd_avg' => 'Promedio USD',
+        'usd_min' => 'Mínimo USD',
+        'usd_max' => 'Máximo USD',
+        'eur_avg' => 'Promedio EUR',
+        'records_count' => 'Cantidad de registros',
+        'generated_by' => 'Generado por',
+        'prefijo' => 'Prefijo',
+        'rango_inicio' => 'Rango inicio',
+        'rango_fin' => 'Rango fin',
+        'username' => 'Nombre de usuario',
+        'created_at' => 'Fecha de creación',
+        'updated_at' => 'Fecha de actualización',
+    ];
+
+    protected static function getModelNameInSpanish(): string
+    {
+        return static::$modelNamesMap[class_basename(static::class)] ?? class_basename(static::class);
+    }
+
+    protected static function getSpanishDescription(string $eventName): string
+    {
+        $modelName = mb_strtolower(static::getModelNameInSpanish());
+
+        return match ($eventName) {
+            'created' => "Se creó un nuevo registro de {$modelName}",
+            'updated' => "Se actualizó la información de {$modelName}",
+            'deleted' => "Se eliminó el registro de {$modelName}",
+            'restored' => "Se restauró el registro de {$modelName}",
+            default => "{$eventName} {$modelName}",
+        };
+    }
+
+    public function tapActivity(Activity $activity, string $eventName): void
+    {
+        $request = request();
+        
+        $properties = $activity->properties->toArray();
+        $extra = [];
+        
+        // Conservar propiedades existentes
+        foreach ($properties as $key => $value) {
+            $extra[$key] = $value;
+        }
+
+        $extra['ip_address'] = $request->ip();
+        $extra['user_agent'] = $request->userAgent();
+        $extra['url'] = $request->fullUrl();
+        $extra['method'] = $request->method();
+        $extra['tabla'] = $this->getTable();
+        $extra['registro_id'] = $this->getKey();
+        $extra['evento'] = $eventName;
+        $extra['fecha_hora'] = now()->format('Y-m-d H:i:s');
+        
+        // Agregar detalles específicos de cambios para actualizaciones
+        if ($eventName === 'updated') {
+            $changes = $this->getChanges();
+            // Obtener valores originales ANTES de los cambios si es posible, o usar getOriginal()
+            // En created/updated events, getOriginal() ya tiene los valores actuales. 
+            // Para 'updated', activitylog suele guardar 'old' y 'attributes' en properties automáticamente si logOnlyDirty está activado.
+            // Intentaremos usar los datos que activitylog ya capturó si existen.
+            
+            $detailedChanges = [];
+            
+            // Si activitylog ya capturó 'attributes' y 'old'
+            if (isset($extra['attributes']) && isset($extra['old'])) {
+                foreach ($extra['attributes'] as $key => $newValue) {
+                     if (in_array($key, ['updated_at', 'created_at', 'deleted_at'])) continue;
+                     
+                     $oldValue = $extra['old'][$key] ?? null;
+                     $label = static::$fieldLabelsMap[$key] ?? ucfirst(str_replace('_', ' ', $key));
+                     
+                     // Formatear booleanos
+                     $oldValStr = is_bool($oldValue) ? ($oldValue ? 'Sí' : 'No') : (string)$oldValue;
+                     $newValStr = is_bool($newValue) ? ($newValue ? 'Sí' : 'No') : (string)$newValue;
+                     
+                     $detailedChanges[] = "{$label}: de '{$oldValStr}' a '{$newValStr}'";
+                }
+            } 
+            // Fallback a getChanges() si no hay datos en properties
+            elseif (!empty($changes)) {
+                 $original = $this->getOriginal(); 
+                 // Nota: getOriginal en evento 'updated' trae los valores NUEVOS en Laravel recientes, 
+                 // pero activitylog suele ejecutarse después. 
+                 // La mejor fuente son las propiedades 'old' y 'attributes' del paquete.
+                 // Si no están, intentamos inferir.
+            }
+
+            if (!empty($detailedChanges)) {
+                $descDetalle = implode(', ', $detailedChanges);
+                // Evitar descripciones excesivamente largas en la columna principal
+                if (strlen($descDetalle) > 100) {
+                    $descDetalle = substr($descDetalle, 0, 97) . '...';
+                }
+                $activity->description .= " - Cambios: " . $descDetalle;
+            }
+        }
+        
+        // Agregar identificador principal
+        $identifier = $this->name ?? $this->nombre ?? $this->nombres ?? $this->razon_social ?? $this->codigo ?? null;
+        if ($identifier) {
+             $extra['identificador_registro'] = $identifier;
+             // Solo agregar si no está ya en la descripción
+             if (!str_contains($activity->description, (string)$identifier)) {
+                 $activity->description .= " - " . $identifier;
+             }
+        }
+
+        if (auth()->check()) {
+            $user = auth()->user();
+            $extra['usuario_nombre'] = $user->name;
+            $extra['usuario_email'] = $user->email;
+            $extra['usuario_roles'] = $user->getRoleNames()->toArray();
+            $extra['empresa_id'] = $user->empresa_id;
+            $extra['sucursal_id'] = $user->sucursal_id;
+        }
+
+        $activity->properties = collect($extra);
+    }
+}
