@@ -116,7 +116,7 @@
                             <div class="flex items-center gap-3">
                                 @if($product->imagen_principal)
                                     <div class="flex h-12 w-12 items-center justify-center overflow-hidden rounded-lg border border-gray-200">
-                                        <img src="{{ asset('storage/' . $product->imagen_principal) }}" alt="{{ $product->nombre }}" class="h-full w-full object-cover" />
+                                        <img src="{{ $product->imagen_principal_url }}" alt="{{ $product->nombre }}" class="h-full w-full object-cover" />
                                     </div>
                                 @else
                                     <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-indigo-100 text-indigo-700">

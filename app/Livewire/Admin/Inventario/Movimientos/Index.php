@@ -114,19 +114,19 @@ class Index extends Component
     public function openCreate(): void
     {
         $this->resetForm();
-        $this->dispatch('open-modal', 'modal-create-movimiento');
+        $this->js('Flux.modal("modal-create-movimiento").show()');
     }
 
     public function closeModal(): void
     {
-        $this->dispatch('close-modal', 'modal-create-movimiento');
+        $this->js('Flux.modal("modal-create-movimiento").close()');
         $this->resetForm();
     }
 
     public function showDetail(int $id): void
     {
         $this->detailId = $id;
-        $this->dispatch('open-modal', 'modal-detail-movimiento');
+        $this->js('Flux.modal("modal-detail-movimiento").show()');
     }
 
     protected function resetForm(): void
@@ -183,7 +183,7 @@ class Index extends Component
 
             session()->flash('success', 'Movimiento registrado correctamente.');
             $this->closeModal();
-            $this->dispatch('close-modal', 'modal-create-movimiento');
+            $this->js('Flux.modal("modal-create-movimiento").close()');
         } catch (\Exception $e) {
             session()->flash('error', 'Error al registrar movimiento: ' . $e->getMessage());
         }

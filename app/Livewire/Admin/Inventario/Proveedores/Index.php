@@ -40,7 +40,7 @@ class Index extends Component
     {
         $this->resetForm();
         $this->editingId = null;
-        $this->dispatch('open-modal', 'modal-proveedor');
+        $this->js('Flux.modal("modal-proveedor").show()');
     }
 
     public function openEdit(int $id): void
@@ -55,12 +55,12 @@ class Index extends Component
         $this->direccion = $supplier->direccion ?? '';
         $this->notas = $supplier->notas ?? '';
         $this->status = $supplier->status;
-        $this->dispatch('open-modal', 'modal-proveedor');
+        $this->js('Flux.modal("modal-proveedor").show()');
     }
 
     public function closeModal(): void
     {
-        $this->dispatch('close-modal', 'modal-proveedor');
+        $this->js('Flux.modal("modal-proveedor").close()');
         $this->resetForm();
     }
 
@@ -112,20 +112,20 @@ class Index extends Component
             session()->flash('success', 'Proveedor creado correctamente.');
         }
 
-        $this->dispatch('close-modal', 'modal-proveedor');
+        $this->js('Flux.modal("modal-proveedor").close()');
     }
 
     public function confirmDelete(int $id): void
     {
         $this->deletingId = $id;
-        $this->dispatch('open-modal', 'modal-delete-proveedor');
+        $this->js('Flux.modal("modal-delete-proveedor").show()');
     }
 
     public function delete(): void
     {
         $supplier = Supplier::findOrFail($this->deletingId);
         $supplier->delete();
-        $this->dispatch('close-modal', 'modal-delete-proveedor');
+        $this->js('Flux.modal("modal-delete-proveedor").close()');
         $this->deletingId = null;
         session()->flash('success', 'Proveedor eliminado correctamente.');
     }

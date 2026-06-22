@@ -62,7 +62,7 @@ new class extends Component {
                 <a href="{{ route('store.product.detail', $saleProduct->slug) }}" wire:navigate
                    class="group relative bg-white/10 backdrop-blur-sm rounded-2xl border border-white/15 p-4 hover:bg-white/20 transition-all duration-300 hover:-translate-y-1">
                     <div class="aspect-square rounded-xl overflow-hidden bg-white/10 mb-3">
-                        <img src="{{ $saleProduct->imagen_principal ?? 'https://via.placeholder.com/300x300?text=Oferta' }}" alt="{{ $saleProduct->nombre }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                        <img src="{{ $saleProduct->imagen_principal_url ?? 'https://via.placeholder.com/300x300?text=Oferta' }}" alt="{{ $saleProduct->nombre }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                     </div>
                     <h4 class="text-white font-semibold text-sm line-clamp-1 mb-1">{{ $saleProduct->nombre }}</h4>
                     <div class="flex items-center gap-2">

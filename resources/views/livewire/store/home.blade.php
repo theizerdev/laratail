@@ -24,6 +24,9 @@ new #[Layout('layouts.app')] #[Title('Inicio - Laratail Store')] class extends C
     <!-- New Arrivals -->
     <livewire:store.partials.new-arrivals />
 
+    <!-- Recently Viewed -->
+    <livewire:store.partials.recently-viewed-bar />
+
     <!-- Brands -->
     <livewire:store.partials.brands-showcase />
 

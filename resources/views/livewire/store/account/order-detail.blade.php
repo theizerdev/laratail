@@ -108,7 +108,7 @@ new #[Layout('layouts.app')] class extends Component {
                         @foreach($order->items as $item)
                         <div class="flex items-center gap-4 py-4">
                             <a href="{{ route('store.product.detail', optional($item->product)->slug ?? '#') }}" wire:navigate class="flex-shrink-0">
-                                <img src="{{ optional($item->product)->imagen_principal ?? 'https://via.placeholder.com/80' }}" class="w-16 h-20 rounded-lg object-cover bg-zinc-100" alt="">
+                                <img src="{{ optional($item->product)->imagen_principal_url ?? 'https://via.placeholder.com/80' }}" class="w-16 h-20 rounded-lg object-cover bg-zinc-100" alt="">
                             </a>
                             <div class="flex-1 min-w-0">
                                 <p class="text-sm font-medium text-zinc-900">

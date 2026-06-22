@@ -82,7 +82,7 @@ new #[Layout('layouts.app')] class extends Component {
                             <div class="flex items-center gap-3">
                                 <div class="flex -space-x-2">
                                     @foreach($order->items->take(3) as $item)
-                                        <img src="{{ optional($item->product)->imagen_principal ?? 'https://via.placeholder.com/40' }}" class="w-10 h-10 rounded-lg object-cover border-2 border-white bg-zinc-100" alt="">
+                                        <img src="{{ optional($item->product)->imagen_principal_url ?? 'https://via.placeholder.com/40' }}" class="w-10 h-10 rounded-lg object-cover border-2 border-white bg-zinc-100" alt="">
                                     @endforeach
                                 </div>
                                 <div class="flex-1 min-w-0">

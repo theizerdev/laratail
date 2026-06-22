@@ -105,6 +105,31 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
         app(CartService::class)->addItem($product, 1);
         $this->dispatch('cart-updated');
     }
+
+    public function toggleCompare(int $productId): void
+    {
+        $compare = session('compare_products', []);
+        if (in_array($productId, $compare)) {
+            $compare = array_values(array_diff($compare, [$productId]));
+        } else {
+            if (count($compare) >= 4) {
+                $this->dispatch('notify', message: 'Solo puedes comparar hasta 4 productos.', type: 'warning');
+                return;
+            }
+            $compare[] = $productId;
+        }
+        session(['compare_products' => $compare]);
+    }
+
+    public function isComparing(int $productId): bool
+    {
+        return in_array($productId, session('compare_products', []));
+    }
+
+    public function clearCompare(): void
+    {
+        session()->forget('compare_products');
+    }
 };
 ?>
 
@@ -240,7 +265,7 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
                         <!-- Image -->
                         <div class="relative aspect-[4/5] overflow-hidden bg-zinc-100">
                             <a href="{{ route('store.product.detail', $product->slug) }}" wire:navigate>
-                                <img src="{{ $product->imagen_principal ?? 'https://via.placeholder.com/400x500?text=Producto' }}" alt="{{ $product->nombre }}" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" />
+                                <img src="{{ $product->imagen_principal_url ?? 'https://via.placeholder.com/400x500?text=Producto' }}" alt="{{ $product->nombre }}" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" />
                             </a>
 
                             @if($product->nuevo)
@@ -252,6 +277,11 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
                                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-600 text-white shadow-sm">-{{ $product->porcentaje_descuento }}%</span>
                                 </div>
                             @endif
+
+                            {{-- Compare button --}}
+                            <button wire:click.prevent="toggleCompare({{ $product->id }})" class="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center transition-all shadow-sm {{ $this->isComparing($product->id) ? 'bg-indigo-600 text-white' : 'bg-white/80 backdrop-blur-sm text-zinc-500 hover:text-indigo-600 border border-zinc-200' }}" title="{{ $this->isComparing($product->id) ? 'Quitar de comparación' : 'Comparar' }}">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                            </button>
 
                             <!-- Quick Add & View Detail -->
                             <div class="absolute inset-x-0 bottom-0 p-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-10 pointer-events-none">
@@ -316,4 +346,21 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
             </main>
         </div>
     </div>
+
+    {{-- Floating Compare Bar --}}
+    @php $compareCount = count(session('compare_products', [])); @endphp
+    @if($compareCount > 0)
+    <div class="fixed bottom-0 inset-x-0 z-50 bg-white border-t border-zinc-200 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                <span class="text-sm font-semibold text-zinc-900">{{ $compareCount }} producto(s) seleccionados para comparar</span>
+            </div>
+            <div class="flex gap-3">
+                <button wire:click="clearCompare" class="text-sm text-zinc-500 hover:text-zinc-700 font-medium transition-colors">Limpiar</button>
+                <a href="/comparar" wire:navigate class="bg-indigo-600 text-white text-sm font-semibold px-5 py-2 rounded-xl hover:bg-indigo-700 transition-colors">Comparar ahora</a>
+            </div>
+        </div>
+    </div>
+    @endif
 </div>

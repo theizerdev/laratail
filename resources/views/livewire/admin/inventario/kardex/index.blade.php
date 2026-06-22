@@ -86,7 +86,7 @@
         <div class="mb-4 rounded-2xl bg-white p-5 shadow-sm">
             <div class="flex items-center gap-4">
                 @if ($product->imagen_principal)
-                    <img src="{{ Storage::url($product->imagen_principal) }}" alt="{{ $product->nombre }}" class="h-12 w-12 rounded-xl object-cover">
+                    <img src="{{ $product->imagen_principal_url }}" alt="{{ $product->nombre }}" class="h-12 w-12 rounded-xl object-cover">
                 @else
                     <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gray-100">
                         <iconify-icon icon="heroicons:photo" class="h-6 w-6 text-gray-400"></iconify-icon>

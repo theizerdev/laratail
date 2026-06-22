@@ -88,7 +88,7 @@
                 <div class="flex items-center gap-4">
                     {{-- Product image --}}
                     @if ($product->imagen_principal)
-                        <img src="{{ Storage::url($product->imagen_principal) }}" alt="{{ $product->nombre }}" class="h-14 w-14 rounded-xl object-cover">
+                        <img src="{{ $product->imagen_principal_url }}" alt="{{ $product->nombre }}" class="h-14 w-14 rounded-xl object-cover">
                     @else
                         <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-gray-100">
                             <iconify-icon icon="heroicons:photo" class="h-6 w-6 text-gray-400"></iconify-icon>

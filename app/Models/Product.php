@@ -42,6 +42,7 @@ class Product extends Model
         'meta_title',
         'meta_description',
         'imagen_principal',
+        'video_url',
         'status',
         'empresa_id',
         'sucursal_id',
@@ -124,6 +125,24 @@ class Product extends Model
     }
 
     /**
+     * URL resuelta de la imagen principal (maneja URLs externas y rutas locales)
+     */
+    public function getImagenPrincipalUrlAttribute(): ?string
+    {
+        if (!$this->imagen_principal) {
+            return null;
+        }
+
+        // Si es una URL externa (Unsplash, etc.), devolverla tal cual
+        if (Str::startsWith($this->imagen_principal, ['http://', 'https://'])) {
+            return $this->imagen_principal;
+        }
+
+        // Es una ruta local subida al disco 'public'
+        return asset('storage/' . $this->imagen_principal);
+    }
+
+    /**
      * Stock bajo
      */
     public function getStockBajoAttribute(): bool
@@ -187,5 +206,26 @@ class Product extends Model
     public function purchaseOrderItems(): HasMany
     {
         return $this->hasMany(PurchaseOrderItem::class);
+    }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class)->latest();
+    }
+
+    /**
+     * Promedio de calificación
+     */
+    public function getRatingPromedioAttribute(): float
+    {
+        return round($this->reviews()->where('aprobado', true)->avg('rating') ?? 0, 1);
+    }
+
+    /**
+     * Cantidad de reseñas aprobadas
+     */
+    public function getReviewsCountAttribute(): int
+    {
+        return $this->reviews()->where('aprobado', true)->count();
     }
 }

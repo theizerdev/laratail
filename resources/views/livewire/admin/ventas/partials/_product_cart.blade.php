@@ -53,7 +53,7 @@
                                     {{-- Product Image --}}
                                     <div class="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden bg-gray-100 border border-gray-200">
                                         @if($p->imagen_principal)
-                                            <img src="{{ asset('storage/' . $p->imagen_principal) }}" alt="{{ $p->nombre }}" class="w-full h-full object-cover" />
+                                            <img src="{{ $p->imagen_principal_url }}" alt="{{ $p->nombre }}" class="w-full h-full object-cover" />
                                         @else
                                             <div class="w-full h-full flex items-center justify-center text-gray-300">
                                                 <iconify-icon icon="heroicons:photo" class="h-5 w-5"></iconify-icon>

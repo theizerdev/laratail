@@ -22,6 +22,7 @@ class Customer extends Model
         'estado_region', 'codigo_postal', 'pais_id',
         'empresa_nombre', 'notas', 'whatsapp', 'fuente',
         'fecha_nacimiento', 'activo', 'empresa_id', 'sucursal_id',
+        'puntos_acumulados', 'codigo_referido', 'referred_by',
     ];
 
     protected function casts(): array
@@ -81,6 +82,16 @@ class Customer extends Model
         return $this->hasMany(CustomerAddress::class);
     }
 
+    public function wishlists(): HasMany
+    {
+        return $this->hasMany(Wishlist::class);
+    }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class)->latest();
+    }
+
     public function defaultAddress(): HasOne
     {
         return $this->hasOne(CustomerAddress::class)->where('predeterminada', true);
@@ -104,5 +115,20 @@ class Customer extends Model
     public function sucursal(): BelongsTo
     {
         return $this->belongsTo(Sucursal::class);
+    }
+
+    public function loyaltyPoints(): HasMany
+    {
+        return $this->hasMany(LoyaltyPoint::class);
+    }
+
+    public function referrals(): HasMany
+    {
+        return $this->hasMany(Referral::class, 'referrer_customer_id');
+    }
+
+    public function giftCards(): HasMany
+    {
+        return $this->hasMany(GiftCard::class);
     }
 }

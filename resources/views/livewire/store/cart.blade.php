@@ -17,6 +17,15 @@ new #[Layout('layouts.app')] #[Title('Carrito - Laratail Store')] class extends 
         $subtotal = $cart->items->sum(fn($item) => $item->cantidad * $item->precio);
         $descuento = $cart->coupon ? $cart->coupon->calcularDescuento($subtotal) : 0;
         $total = max(0, $subtotal - $descuento);
+        $totalWeight = $cart->items->sum(fn($item) => ($item->product?->peso ?? 1) * $item->cantidad);
+
+        // Check for saved shipping estimate
+        $shippingEstimate = session('shipping_estimate');
+        $shippingCost = 0;
+        if ($shippingEstimate && $subtotal < ($shippingEstimate['gratis_desde'] ?? 999999)) {
+            $shippingCost = $shippingEstimate['costo'];
+        }
+        $totalConEnvio = $total + $shippingCost;
 
         return [
             'cart' => $cart,
@@ -24,6 +33,10 @@ new #[Layout('layouts.app')] #[Title('Carrito - Laratail Store')] class extends 
             'subtotal' => $subtotal,
             'descuento' => $descuento,
             'total' => $total,
+            'totalWeight' => $totalWeight,
+            'shippingEstimate' => $shippingEstimate,
+            'shippingCost' => $shippingCost,
+            'totalConEnvio' => $totalConEnvio,
         ];
     }
 
@@ -113,7 +126,7 @@ new #[Layout('layouts.app')] #[Title('Carrito - Laratail Store')] class extends 
                             <div class="p-4 sm:p-6 flex items-start gap-4 sm:gap-6">
                                 <!-- Image -->
                                 <a href="{{ route('store.product.detail', optional($item->product)->slug ?? '#') }}" wire:navigate class="flex-shrink-0">
-                                    <img src="{{ optional($item->product)->imagen_principal ?? 'https://via.placeholder.com/120' }}" alt="{{ optional($item->product)->nombre ?? 'Producto' }}" class="w-20 h-24 sm:w-24 sm:h-28 object-cover rounded-xl bg-zinc-100">
+                                    <img src="{{ optional($item->product)->imagen_principal_url ?? 'https://via.placeholder.com/120' }}" alt="{{ optional($item->product)->nombre ?? 'Producto' }}" class="w-20 h-24 sm:w-24 sm:h-28 object-cover rounded-xl bg-zinc-100">
                                 </a>
 
                                 <!-- Info -->
@@ -178,14 +191,22 @@ new #[Layout('layouts.app')] #[Title('Carrito - Laratail Store')] class extends 
 
                             <div class="flex justify-between">
                                 <span class="text-zinc-500">Envío</span>
-                                <span class="text-zinc-500 text-xs">Se calcula al confirmar</span>
+                                @if($shippingEstimate)
+                                    @if($shippingCost == 0)
+                                        <span class="text-green-600 font-medium text-xs">¡GRATIS!</span>
+                                    @else
+                                        <span class="text-zinc-900 font-medium">${{ number_format($shippingCost, 2) }}</span>
+                                    @endif
+                                @else
+                                    <span class="text-zinc-500 text-xs">Se calcula al confirmar</span>
+                                @endif
                             </div>
 
                             <hr class="border-zinc-100">
 
                             <div class="flex justify-between text-lg font-bold text-zinc-900 pt-2">
                                 <span>Total</span>
-                                <span>${{ number_format($total, 2) }}</span>
+                                <span>${{ number_format($totalConEnvio, 2) }}</span>
                             </div>
                         </div>
 
@@ -214,6 +235,9 @@ new #[Layout('layouts.app')] #[Title('Carrito - Laratail Store')] class extends 
                                 @endif
                             @endif
                         </div>
+
+                        <!-- Shipping Estimator -->
+                        @livewire('store.partials.shipping-estimator', ['totalWeight' => $totalWeight, 'subtotal' => $subtotal])
 
                         <!-- Checkout Button -->
                         <button wire:click="proceedToCheckout" class="mt-6 w-full bg-indigo-600 text-white py-4 rounded-xl font-semibold hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-200 flex items-center justify-center gap-2">
