@@ -1,10 +1,11 @@
 import { lazy } from 'react';
 
 // dashboard
-const Analytics = lazy(() => import('@/app/(admin)/(dashboards)/analytics'));
-const Email = lazy(() => import('@/app/(admin)/(dashboards)/email'));
-const Hr = lazy(() => import('@/app/(admin)/(dashboards)/hr'));
-const Ecommerce = lazy(() => import('@/app/(admin)/(dashboards)/index'));
+
+const Dashboard = lazy(() => import('@/app/(admin)/(app)/dashboard/index'));
+
+// perfil
+const Perfil = lazy(() => import('@/app/(admin)/(app)/perfil/index'));
 
 //auth
 const BasicCreatePassword = lazy(() => import('@/app/(auth)/basic-create-password'));
@@ -54,9 +55,10 @@ const MonitoreoAuditoria = lazy(() => import('@/app/(admin)/(app)/monitoreo/audi
 import ProtectedRoute from '@/components/ProtectedRoute';
 
 export const layoutsRoutes = [
-  { path: '/', name: 'Ecommerce', element: <Ecommerce /> },
+  { path: '/', name: 'Dashboard', element: <Dashboard /> },
 
-  { path: '/index', name: 'Ecommerce', element: <Ecommerce /> },
+  { path: '/index', name: 'Dashboard', element: <Dashboard /> },
+  { path: '/perfil', name: 'Perfil', element: <Perfil /> },
 
 
   { path: '/admin/seguridad/usuarios', name: 'Usuarios', element: <ProtectedRoute permission="users.view"><UsuariosIndex /></ProtectedRoute> },
@@ -79,10 +81,7 @@ export const layoutsRoutes = [
   { path: '/admin/monitoreo/auditoria', name: 'MonitoreoAuditoria', element: <ProtectedRoute permission="monitoreo.view"><MonitoreoAuditoria /></ProtectedRoute> },
 
 
-  { path: '/analytics', name: 'Analytics', element: <Analytics /> },
-  { path: '/', name: 'Ecommerce', element: <Ecommerce /> },
-  { path: '/email', name: 'Email', element: <Email /> },
-  { path: '/hr', name: 'Hr', element: <Hr /> },
+
 
 
 

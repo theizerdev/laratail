@@ -81,15 +81,15 @@ class AuthEventSubscriber
             // Omitimos la búsqueda por session_id porque Laravel regenera el ID 
             // de la sesión inmediatamente después del evento de Login por seguridad,
             // por lo que el ID guardado al inicio no coincidirá con el del cierre.
-            $sessionHistory = SessionHistory::where('user_id', $event->user->id)
+            $sessionHistory = SessionHistory::withoutGlobalScopes()
+                ->where('user_id', $event->user->id)
                 ->whereNull('logout_at')
                 ->latest('login_at')
                 ->first();
 
             if ($sessionHistory) {
-                $sessionHistory->update([
-                    'logout_at' => now(),
-                ]);
+                $sessionHistory->logout_at = now();
+                $sessionHistory->saveQuietly();
             }
             
             activity('acceso_sistema')

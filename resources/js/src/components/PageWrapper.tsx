@@ -4,6 +4,7 @@ import Footer from '@/components/layouts/Footer';
 import Sidebar from '@/components/layouts/SideNav';
 import Topbar from '@/components/layouts/topbar';
 import Customizer from '@/components/layouts/customizer';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const PageWrapper = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
@@ -25,9 +26,18 @@ const PageWrapper = ({ children }: { children: ReactNode }) => {
         <Sidebar />
         <div className="page-content">
           <Topbar />
-          <div key={location.pathname} className="page-transition">
-            {children}
-          </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={location.pathname}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="flex-grow w-full"
+            >
+              {children}
+            </motion.div>
+          </AnimatePresence>
           <Footer />
         </div>
       </div>

@@ -9,9 +9,20 @@ use Illuminate\Http\Request;
 
 class SucursalController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $sucursales = Sucursal::with('empresa')->get();
+        $query = Sucursal::with('empresa');
+
+        if ($request->has('search') && !empty($request->search)) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('nombre', 'like', "%{$search}%")
+                  ->orWhere('telefono', 'like', "%{$search}%")
+                  ->orWhere('direccion', 'like', "%{$search}%");
+            });
+        }
+
+        $sucursales = $query->paginate(15);
         return response()->json($sucursales);
     }
 

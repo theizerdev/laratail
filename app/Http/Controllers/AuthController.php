@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use PragmaRX\Google2FA\Google2FA;
 
 class AuthController extends Controller
 {
@@ -40,12 +41,22 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        if (Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
+        $user = User::where('email', $request->email)->first();
+
+        if ($user && Hash::check($request->password, $user->password)) {
+            if ($user->google2fa_enabled) {
+                $request->session()->put('2fa:user:id', $user->id);
+                $request->session()->put('2fa:remember', $request->boolean('remember'));
+                return response()->json(['requires_2fa' => true]);
+            }
+
+            Auth::login($user, $request->boolean('remember'));
             $request->session()->regenerate();
-            $user = Auth::user();
+            
             $user->load('roles.permissions', 'permissions');
             $user->roles_list = $user->roles->pluck('name');
             $user->permissions_list = $user->getAllPermissions()->pluck('name');
+            
             return response()->json($user);
         }
 
@@ -112,5 +123,47 @@ class AuthController extends Controller
         $request->user()->sendEmailVerificationNotification();
 
         return response()->json(['status' => 'Verification link sent!']);
+    }
+
+    public function verify2fa(Request $request)
+    {
+        $request->validate([
+            'code' => 'required|string',
+        ]);
+
+        $userId = $request->session()->get('2fa:user:id');
+        if (!$userId) {
+            throw ValidationException::withMessages([
+                'code' => ['La sesión de 2FA ha expirado o es inválida.'],
+            ]);
+        }
+
+        $user = User::find($userId);
+        if (!$user) {
+            throw ValidationException::withMessages([
+                'code' => ['Usuario inválido.'],
+            ]);
+        }
+
+        $google2fa = new Google2FA();
+        $valid = $google2fa->verifyKey($user->google2fa_secret, $request->code);
+
+        if ($valid) {
+            $remember = $request->session()->pull('2fa:remember', false);
+            $request->session()->forget('2fa:user:id');
+
+            Auth::login($user, $remember);
+            $request->session()->regenerate();
+            
+            $user->load('roles.permissions', 'permissions');
+            $user->roles_list = $user->roles->pluck('name');
+            $user->permissions_list = $user->getAllPermissions()->pluck('name');
+            
+            return response()->json($user);
+        }
+
+        throw ValidationException::withMessages([
+            'code' => ['El código proporcionado no es válido.'],
+        ]);
     }
 }

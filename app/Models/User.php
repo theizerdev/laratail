@@ -29,8 +29,8 @@ use App\Traits\Multitenantable;
  * @property int|null $empresa_id
  * @property int|null $sucursal_id
  */
-#[Fillable(['name', 'email', 'password', 'status', 'telefono', 'empresa_id', 'sucursal_id'])]
-#[Hidden(['password', 'remember_token'])]
+#[Fillable(['name', 'email', 'password', 'status', 'telefono', 'empresa_id', 'sucursal_id', 'google2fa_secret', 'google2fa_enabled'])]
+#[Hidden(['password', 'remember_token', 'google2fa_secret'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */

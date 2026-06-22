@@ -34,14 +34,28 @@ export default function RolesIndex() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [activeDropdownId, setActiveDropdownId] = useState<number | null>(null);
+  
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [lastPage, setLastPage] = useState(1);
+  const [totalRecords, setTotalRecords] = useState(0);
+  
   const navigate = useNavigate();
 
-  const fetchRoles = async () => {
+  const fetchRoles = async (page = 1, search = '') => {
     try {
       setLoading(true);
-      const res = await axios.get('/api/admin/roles');
+      const params: any = { page };
+      if (search) params.search = search;
+      
+      const res = await axios.get('/api/admin/roles', { params });
       const data = res.data;
-      setRoles(Array.isArray(data) ? data : (Array.isArray(data?.data) ? data.data : []));
+      
+      const fetchedRoles = Array.isArray(data.data) ? data.data : (Array.isArray(data) ? data : []);
+      setRoles(fetchedRoles);
+      setCurrentPage(data.current_page || 1);
+      setLastPage(data.last_page || 1);
+      setTotalRecords(data.total || fetchedRoles.length);
     } catch (error: any) {
       console.error('Error fetching roles:', error);
       if (error.response?.status === 403) {
@@ -56,8 +70,20 @@ export default function RolesIndex() {
   };
 
   useEffect(() => {
-    fetchRoles();
-  }, []);
+    fetchRoles(currentPage, searchTerm);
+  }, [currentPage]);
+  
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      if(currentPage !== 1) {
+          setCurrentPage(1);
+      } else {
+          fetchRoles(1, searchTerm);
+      }
+    }, 500);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchTerm]);
 
   // Close dropdowns when clicking outside
   useEffect(() => {
@@ -70,7 +96,7 @@ export default function RolesIndex() {
     if (!confirm('¿Estás seguro de que deseas eliminar este rol?')) return;
     try {
       await axios.delete(`/api/admin/roles/${id}`);
-      fetchRoles();
+      fetchRoles(currentPage, searchTerm);
     } catch (error: any) {
       alert(error.response?.data?.message || 'Error eliminando rol.');
     }
@@ -80,11 +106,8 @@ export default function RolesIndex() {
     setSearchTerm('');
   };
 
-  // Filter logic
-  const filteredRoles = roles.filter(role => 
-    (role.display_name || '').toLowerCase().includes(searchTerm.toLowerCase()) || 
-    role.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Filter logic (now using purely server-side search)
+  const filteredRoles = roles;
 
   // Export CSV
   const handleExport = () => {
@@ -276,6 +299,33 @@ export default function RolesIndex() {
               )}
             </TableBody>
           </Table>
+          
+          {/* Pagination Controls */}
+          {lastPage > 1 && (
+            <div className="flex items-center justify-between px-6 py-3 border-t border-gray-200">
+              <div className="text-sm text-gray-500">
+                Mostrando página {currentPage} de {lastPage} ({totalRecords} registros)
+              </div>
+              <div className="flex gap-2">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                  disabled={currentPage === 1 || loading}
+                >
+                  Anterior
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, lastPage))}
+                  disabled={currentPage === lastPage || loading}
+                >
+                  Siguiente
+                </Button>
+              </div>
+            </div>
+          )}
         </TableCard>
 
       </main>

@@ -25,6 +25,7 @@ import {
   LuMoveRight,
   LuSettings,
   LuShoppingBag,
+  LuUser,
 } from 'react-icons/lu';
 import type { ReactNode } from 'react';
 import { useAuth } from '@/context/AuthContext';
@@ -182,6 +183,11 @@ const notifications: Record<string, Notification[]> = {
 };
 
 const profileMenu: ProfileMenuItem[] = [
+  {
+    icon: <LuUser className="size-4" />,
+    label: 'Mi perfil',
+    to: '/perfil',
+  },
   {
     icon: <LuMail className="size-4" />,
     label: 'Inbox',

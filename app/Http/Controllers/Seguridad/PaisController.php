@@ -8,9 +8,20 @@ use Illuminate\Http\Request;
 
 class PaisController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $paises = Pais::orderBy('nombre', 'asc')->get();
+        $query = Pais::orderBy('nombre', 'asc');
+
+        if ($request->has('search') && !empty($request->search)) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('nombre', 'like', "%{$search}%")
+                  ->orWhere('codigo_iso2', 'like', "%{$search}%")
+                  ->orWhere('codigo_iso3', 'like', "%{$search}%");
+            });
+        }
+
+        $paises = $query->paginate(15);
         return response()->json($paises);
     }
 

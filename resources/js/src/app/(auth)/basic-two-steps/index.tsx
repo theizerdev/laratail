@@ -1,9 +1,35 @@
 import logoDark from '@/assets/images/logo-dark.png';
 import logoLight from '@/assets/images/logo-light.png';
 import PageMeta from '@/components/PageMeta';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
+import { useState } from 'react';
+import axios from '@/lib/axios';
+import { useAuth } from '@/context/AuthContext';
 
 const Index = () => {
+  const [code, setCode] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { checkAuth } = useAuth();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (code.length < 6) return;
+
+    setError('');
+    setLoading(true);
+
+    try {
+      await axios.post('/api/login/2fa-verify', { code });
+      await checkAuth();
+      navigate('/');
+    } catch (err: any) {
+      setError(err.response?.data?.message || 'Invalid code.');
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <>
       <PageMeta title="Two Steps" />
@@ -16,43 +42,34 @@ const Index = () => {
             </Link>
 
             <div className="mt-8">
-              <h4 className="mb-4 text-primary text-xl font-semibold">Verify Email</h4>
+              <h4 className="mb-4 text-primary text-xl font-semibold">Verificación 2FA</h4>
               <p className="text-base/normal mb-8 text-default-500">
-                Please enter the 4 digit code sent to tailwick@themesdesign.in
+                Por favor, ingresa el código de 6 dígitos de tu aplicación autenticadora.
               </p>
             </div>
 
-            <form action="index" className="mt-">
-              <div className="grid grid-cols-4 gap-2">
+            <form onSubmit={handleSubmit} className="mt-6 text-left">
+              {error && (
+                <div className="mb-4 text-sm text-red-600 bg-red-100 border border-red-200 p-2 rounded">
+                  {error}
+                </div>
+              )}
+              <div className="mb-4">
                 <input
                   type="text"
-                  className="form-input text-center"
-                  placeholder="•"
-                  maxLength={1}
-                />
-                <input
-                  type="text"
-                  className="form-input text-center"
-                  placeholder="•"
-                  maxLength={1}
-                />
-                <input
-                  type="text"
-                  className="form-input text-center"
-                  placeholder="•"
-                  maxLength={1}
-                />
-                <input
-                  type="text"
-                  className="form-input text-center"
-                  placeholder="•"
-                  maxLength={1}
+                  className="form-input text-center text-2xl tracking-widest font-mono"
+                  placeholder="000000"
+                  maxLength={6}
+                  value={code}
+                  onChange={(e) => setCode(e.target.value)}
+                  required
+                  autoFocus
                 />
               </div>
 
               <div className="mt-6">
-                <button type="submit" className="btn text-white bg-primary w-full">
-                  Confirm
+                <button type="submit" disabled={loading || code.length < 6} className="btn text-white bg-primary w-full">
+                  {loading ? 'Verificando...' : 'Confirmar'}
                 </button>
               </div>
             </form>

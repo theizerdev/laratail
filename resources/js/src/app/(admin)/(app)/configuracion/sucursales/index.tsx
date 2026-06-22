@@ -40,6 +40,11 @@ export default function SucursalesIndex() {
   const [selectedEmpresa, setSelectedEmpresa] = useState('Todas');
   const [selectedEstado, setSelectedEstado] = useState('Todos');
 
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [lastPage, setLastPage] = useState(1);
+  const [totalRecords, setTotalRecords] = useState(0);
+
   // Dropdown list control
   const [activeDropdownId, setActiveDropdownId] = useState<number | null>(null);
 
@@ -47,11 +52,20 @@ export default function SucursalesIndex() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingSucursal, setEditingSucursal] = useState<any | null>(null);
 
-  const fetchSucursales = async () => {
+  const fetchSucursales = async (page = 1, search = '') => {
     try {
       setLoading(true);
-      const res = await axios.get('/api/admin/configuracion/sucursales');
-      setSucursales(Array.isArray(res.data) ? res.data : []);
+      const params: any = { page };
+      if (search) params.search = search;
+
+      const res = await axios.get('/api/admin/configuracion/sucursales', { params });
+      const data = res.data;
+
+      const fetchedSucursales = Array.isArray(data.data) ? data.data : (Array.isArray(data) ? data : []);
+      setSucursales(fetchedSucursales);
+      setCurrentPage(data.current_page || 1);
+      setLastPage(data.last_page || 1);
+      setTotalRecords(data.total || fetchedSucursales.length);
     } catch (error) {
       console.error('Error fetching sucursales:', error);
       setSucursales([]);
@@ -61,8 +75,20 @@ export default function SucursalesIndex() {
   };
 
   useEffect(() => {
-    fetchSucursales();
-  }, []);
+    fetchSucursales(currentPage, searchTerm);
+  }, [currentPage]);
+  
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      if(currentPage !== 1) {
+          setCurrentPage(1);
+      } else {
+          fetchSucursales(1, searchTerm);
+      }
+    }, 500);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchTerm]);
 
   // Close dropdowns on window click
   useEffect(() => {
@@ -75,7 +101,7 @@ export default function SucursalesIndex() {
     if (!confirm('¿Estás seguro de que deseas eliminar esta sucursal?')) return;
     try {
       await axios.delete(`/api/admin/configuracion/sucursales/${id}`);
-      fetchSucursales();
+      fetchSucursales(currentPage, searchTerm);
     } catch (error) {
       alert('Error eliminando la sucursal.');
     }
@@ -94,7 +120,7 @@ export default function SucursalesIndex() {
   const handleToggleEstado = async (id: number) => {
     try {
       await axios.put(`/api/admin/configuracion/sucursales/${id}/status`);
-      fetchSucursales();
+      fetchSucursales(currentPage, searchTerm);
     } catch (error) {
       alert('Error actualizando el estado de la sucursal.');
     }
@@ -106,12 +132,8 @@ export default function SucursalesIndex() {
     setSelectedEstado('Todos');
   };
 
-  // Filter Logic
+  // Filter Logic (Search is server-side now)
   const filteredSucursales = sucursales.filter(sucursal => {
-    const matchesSearch = 
-      sucursal.nombre.toLowerCase().includes(searchTerm.toLowerCase()) || 
-      (sucursal.empresa?.razon_social || '').toLowerCase().includes(searchTerm.toLowerCase());
-
     const matchesEmpresa = selectedEmpresa === 'Todas' || sucursal.empresa?.razon_social === selectedEmpresa;
     
     const matchesEstado = 
@@ -119,7 +141,7 @@ export default function SucursalesIndex() {
       (selectedEstado === 'Activas' && sucursal.status) || 
       (selectedEstado === 'Inactivas' && !sucursal.status);
 
-    return matchesSearch && matchesEmpresa && matchesEstado;
+    return matchesEmpresa && matchesEstado;
   });
 
   // Unique Empresas for filter
@@ -348,6 +370,33 @@ export default function SucursalesIndex() {
                   )}
                 </TableBody>
               </Table>
+              
+              {/* Pagination Controls */}
+              {lastPage > 1 && (
+                <div className="flex items-center justify-between px-6 py-3 border-t border-gray-200">
+                  <div className="text-sm text-gray-500">
+                    Mostrando página {currentPage} de {lastPage} ({totalRecords} registros)
+                  </div>
+                  <div className="flex gap-2">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                      disabled={currentPage === 1 || loading}
+                    >
+                      Anterior
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      onClick={() => setCurrentPage(prev => Math.min(prev + 1, lastPage))}
+                      disabled={currentPage === lastPage || loading}
+                    >
+                      Siguiente
+                    </Button>
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </TableCard>
@@ -359,7 +408,7 @@ export default function SucursalesIndex() {
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
         sucursal={editingSucursal} 
-        onSuccess={fetchSucursales} 
+        onSuccess={() => fetchSucursales(currentPage, searchTerm)} 
       />
 
     </>

@@ -56,6 +56,11 @@ export default function UsuariosIndex() {
   const [roles, setRoles] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   
+  // Pagination & Filters
+  const [currentPage, setCurrentPage] = useState(1);
+  const [lastPage, setLastPage] = useState(1);
+  const [totalRecords, setTotalRecords] = useState(0);
+
   // Interactive filters
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedEmpresa, setSelectedEmpresa] = useState('Todas');
@@ -72,12 +77,20 @@ export default function UsuariosIndex() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingUser, setEditingUser] = useState<any | null>(null);
 
-  const fetchUsers = async () => {
+  const fetchUsers = async (page = 1, search = '') => {
     try {
       setLoading(true);
-      const res = await axios.get('/api/admin/usuarios');
-      const data = res.data;      const fetchedUsers = Array.isArray(data) ? data : (Array.isArray(data?.data) ? data.data : []);
+      const params: any = { page };
+      if (search) params.search = search;
+      
+      const res = await axios.get('/api/admin/usuarios', { params });
+      const data = res.data;
+      
+      const fetchedUsers = Array.isArray(data.data) ? data.data : (Array.isArray(data) ? data : []);
       setUsers(fetchedUsers);
+      setCurrentPage(data.current_page || 1);
+      setLastPage(data.last_page || 1);
+      setTotalRecords(data.total || fetchedUsers.length);
       
       // Initialize status toggles for users that don't have one yet
       setUserStatuses(prev => {
@@ -114,9 +127,22 @@ export default function UsuariosIndex() {
   };
 
   useEffect(() => {
-    fetchUsers();
+    fetchUsers(currentPage, searchTerm);
     fetchRoles();
-  }, []);
+  }, [currentPage]); // We only trigger on page change, search will be triggered via button or debounce
+
+  // Add a handler for search submit
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      if(currentPage !== 1) {
+          setCurrentPage(1); // changing page will trigger fetchUsers
+      } else {
+          fetchUsers(1, searchTerm);
+      }
+    }, 500);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchTerm]);
 
   // Close dropdowns when clicking outside
   useEffect(() => {
@@ -129,7 +155,7 @@ export default function UsuariosIndex() {
     if (!confirm('¿Estás seguro de que deseas eliminar este usuario?')) return;
     try {
       await axios.delete(`/api/admin/usuarios/${id}`);
-      fetchUsers();
+      fetchUsers(currentPage, searchTerm);
     } catch (error) {
       alert('Error eliminando usuario. Es posible que no tengas permisos o sea tu propio usuario.');
     }
@@ -167,12 +193,8 @@ export default function UsuariosIndex() {
     return user.empresa ? user.empresa.razon_social : '-';
   };
 
-  // Filter logic
+  // Filter logic (only for frontend specific filters like Empresa and Estado now, search is server-side)
   const filteredUsers = users.filter(user => {
-    const matchesSearch = 
-      user.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-      user.email.toLowerCase().includes(searchTerm.toLowerCase());
-
     const matchesEmpresa = selectedEmpresa === 'Todas' || getUserEmpresa(user) === selectedEmpresa;
     const matchesSucursal = selectedSucursal === 'Todas' || getUserSucursal(user) === selectedSucursal;
 
@@ -182,7 +204,7 @@ export default function UsuariosIndex() {
       (selectedEstado === 'Activos' && isUserActive) || 
       (selectedEstado === 'Inactivos' && !isUserActive);
 
-    return matchesSearch && matchesEmpresa && matchesSucursal && matchesEstado;
+    return matchesEmpresa && matchesSucursal && matchesEstado;
   });
 
   // Export CSV
@@ -460,6 +482,33 @@ export default function UsuariosIndex() {
               )}
             </TableBody>
           </Table>
+          
+          {/* Pagination Controls */}
+          {lastPage > 1 && (
+            <div className="flex items-center justify-between px-6 py-3 border-t border-gray-200">
+              <div className="text-sm text-gray-500">
+                Mostrando página {currentPage} de {lastPage} ({totalRecords} registros)
+              </div>
+              <div className="flex gap-2">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                  disabled={currentPage === 1 || loading}
+                >
+                  Anterior
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, lastPage))}
+                  disabled={currentPage === lastPage || loading}
+                >
+                  Siguiente
+                </Button>
+              </div>
+            </div>
+          )}
         </TableCard>
 
       </main>
@@ -471,7 +520,7 @@ export default function UsuariosIndex() {
           onClose={() => setIsModalOpen(false)} 
           user={editingUser} 
           roles={roles}
-          onSuccess={fetchUsers}
+          onSuccess={() => fetchUsers(currentPage, searchTerm)}
         />
       )}
     </>

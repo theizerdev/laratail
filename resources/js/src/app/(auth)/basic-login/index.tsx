@@ -23,7 +23,13 @@ const Index = () => {
     
     try {
       await axios.get('/sanctum/csrf-cookie');
-      await axios.post('/api/login', { email, password, remember });
+      const res = await axios.post('/api/login', { email, password, remember });
+      
+      if (res.data.requires_2fa) {
+        navigate('/basic-two-steps');
+        return;
+      }
+      
       await checkAuth();
       navigate('/');
     } catch (err: any) {

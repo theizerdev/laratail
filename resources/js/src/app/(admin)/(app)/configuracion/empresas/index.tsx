@@ -61,16 +61,27 @@ export default function EmpresasIndex() {
   // Local state for active/inactive status toggles
   const [empresaStatuses, setEmpresaStatuses] = useState<Record<number, boolean>>({});
 
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [lastPage, setLastPage] = useState(1);
+  const [totalRecords, setTotalRecords] = useState(0);
+
   // Dropdown list control
   const [activeDropdownId, setActiveDropdownId] = useState<number | null>(null);
 
-  const fetchEmpresas = async () => {
+  const fetchEmpresas = async (page = 1, search = '') => {
     try {
       setLoading(true);
-      const res = await axios.get('/api/admin/configuracion/empresas');
+      const params: any = { page };
+      if (search) params.search = search;
+
+      const res = await axios.get('/api/admin/configuracion/empresas', { params });
       const data = res.data;
-      const fetched = Array.isArray(data) ? data : (Array.isArray(data?.data) ? data.data : []);
+      const fetched = Array.isArray(data.data) ? data.data : (Array.isArray(data) ? data : []);
       setEmpresas(fetched);
+      setCurrentPage(data.current_page || 1);
+      setLastPage(data.last_page || 1);
+      setTotalRecords(data.total || fetched.length);
 
       setEmpresaStatuses(prev => {
         const next = { ...prev };
@@ -90,8 +101,20 @@ export default function EmpresasIndex() {
   };
 
   useEffect(() => {
-    fetchEmpresas();
-  }, []);
+    fetchEmpresas(currentPage, searchTerm);
+  }, [currentPage]);
+  
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      if(currentPage !== 1) {
+          setCurrentPage(1);
+      } else {
+          fetchEmpresas(1, searchTerm);
+      }
+    }, 500);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchTerm]);
 
   useEffect(() => {
     const handleGlobalClick = () => setActiveDropdownId(null);
@@ -103,7 +126,7 @@ export default function EmpresasIndex() {
     if (!confirm('¿Estás seguro de que deseas eliminar esta empresa?')) return;
     try {
       await axios.delete(`/api/admin/configuracion/empresas/${id}`);
-      fetchEmpresas();
+      fetchEmpresas(currentPage, searchTerm);
     } catch (error) {
       alert('Error eliminando empresa.');
     }
@@ -128,17 +151,13 @@ export default function EmpresasIndex() {
   };
 
   const filteredEmpresas = empresas.filter(emp => {
-    const matchesSearch =
-      emp.razon_social.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      emp.documento.toLowerCase().includes(searchTerm.toLowerCase());
-
     const isEmpresaActive = empresaStatuses[emp.id] !== false;
     const matchesEstado =
       selectedEstado === 'Todos' ||
       (selectedEstado === 'Activas' && isEmpresaActive) ||
       (selectedEstado === 'Inactivas' && !isEmpresaActive);
 
-    return matchesSearch && matchesEstado;
+    return matchesEstado;
   });
 
   const handleExport = () => {
@@ -349,6 +368,33 @@ export default function EmpresasIndex() {
               )}
             </TableBody>
           </Table>
+          
+          {/* Pagination Controls */}
+          {lastPage > 1 && (
+            <div className="flex items-center justify-between px-6 py-3 border-t border-gray-200">
+              <div className="text-sm text-gray-500">
+                Mostrando página {currentPage} de {lastPage} ({totalRecords} registros)
+              </div>
+              <div className="flex gap-2">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                  disabled={currentPage === 1 || loading}
+                >
+                  Anterior
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, lastPage))}
+                  disabled={currentPage === lastPage || loading}
+                >
+                  Siguiente
+                </Button>
+              </div>
+            </div>
+          )}
         </TableCard>
 
       </main>

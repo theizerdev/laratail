@@ -50,6 +50,11 @@ export default function PaisesIndex() {
   const [paises, setPaises] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [lastPage, setLastPage] = useState(1);
+  const [totalRecords, setTotalRecords] = useState(0);
+
   // Filters
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedContinente, setSelectedContinente] = useState('Todos');
@@ -62,11 +67,20 @@ export default function PaisesIndex() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingPais, setEditingPais] = useState<any | null>(null);
 
-  const fetchPaises = async () => {
+  const fetchPaises = async (page = 1, search = '') => {
     try {
       setLoading(true);
-      const res = await axios.get('/api/admin/paises');
-      setPaises(Array.isArray(res.data) ? res.data : []);
+      const params: any = { page };
+      if (search) params.search = search;
+      
+      const res = await axios.get('/api/admin/paises', { params });
+      const data = res.data;
+      
+      const fetchedPaises = Array.isArray(data.data) ? data.data : (Array.isArray(data) ? data : []);
+      setPaises(fetchedPaises);
+      setCurrentPage(data.current_page || 1);
+      setLastPage(data.last_page || 1);
+      setTotalRecords(data.total || fetchedPaises.length);
     } catch (error) {
       console.error('Error fetching countries:', error);
       setPaises([]);
@@ -76,8 +90,20 @@ export default function PaisesIndex() {
   };
 
   useEffect(() => {
-    fetchPaises();
-  }, []);
+    fetchPaises(currentPage, searchTerm);
+  }, [currentPage]);
+  
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      if(currentPage !== 1) {
+          setCurrentPage(1);
+      } else {
+          fetchPaises(1, searchTerm);
+      }
+    }, 500);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [searchTerm]);
 
   // Close dropdowns on window click
   useEffect(() => {
@@ -90,7 +116,7 @@ export default function PaisesIndex() {
     if (!confirm('¿Estás seguro de que deseas eliminar este país?')) return;
     try {
       await axios.delete(`/api/admin/paises/${id}`);
-      fetchPaises();
+      fetchPaises(currentPage, searchTerm);
     } catch (error) {
       alert('Error eliminando el país.');
     }
@@ -112,7 +138,7 @@ export default function PaisesIndex() {
         ...pais,
         activo: !pais.activo
       });
-      fetchPaises();
+      fetchPaises(currentPage, searchTerm);
     } catch (error) {
       alert('Error actualizando el estado del país.');
     }
@@ -124,13 +150,8 @@ export default function PaisesIndex() {
     setSelectedEstado('Todos');
   };
 
-  // Filter Logic
+  // Filter Logic (Search is server-side now)
   const filteredPaises = paises.filter(pais => {
-    const matchesSearch = 
-      pais.nombre.toLowerCase().includes(searchTerm.toLowerCase()) || 
-      pais.codigo_iso2.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      pais.codigo_iso3.toLowerCase().includes(searchTerm.toLowerCase());
-
     const matchesContinente = selectedContinente === 'Todos' || pais.continente === selectedContinente;
     
     const matchesEstado = 
@@ -138,7 +159,7 @@ export default function PaisesIndex() {
       (selectedEstado === 'Activos' && pais.activo) || 
       (selectedEstado === 'Inactivos' && !pais.activo);
 
-    return matchesSearch && matchesContinente && matchesEstado;
+    return matchesContinente && matchesEstado;
   });
 
   // Export CSV
@@ -386,6 +407,33 @@ export default function PaisesIndex() {
               )}
             </TableBody>
           </Table>
+          
+          {/* Pagination Controls */}
+          {lastPage > 1 && (
+            <div className="flex items-center justify-between px-6 py-3 border-t border-gray-200">
+              <div className="text-sm text-gray-500">
+                Mostrando página {currentPage} de {lastPage} ({totalRecords} registros)
+              </div>
+              <div className="flex gap-2">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                  disabled={currentPage === 1 || loading}
+                >
+                  Anterior
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, lastPage))}
+                  disabled={currentPage === lastPage || loading}
+                >
+                  Siguiente
+                </Button>
+              </div>
+            </div>
+          )}
         </TableCard>
       </main>
 
@@ -393,7 +441,7 @@ export default function PaisesIndex() {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         pais={editingPais}
-        onSuccess={fetchPaises}
+        onSuccess={() => fetchPaises(currentPage, searchTerm)}
       />
     </>
   );

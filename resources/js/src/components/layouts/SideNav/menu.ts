@@ -41,15 +41,10 @@ export const menuItemsData: MenuItemType[] = [
     isTitle: true,
   },
   {
-    key: 'Dashboards',
-    label: 'Dashboards',
+    key: 'Dashboard',
+    label: 'Dashboard',
     icon: LuMonitorDot,
-    children: [
-      { key: 'Analytics', label: 'Analytics', href: '/analytics' },
-      { key: 'Ecommerce', label: 'Ecommerce', href: '/index' },
-      { key: 'Email', label: 'Email', href: '/email' },
-      { key: 'HR', label: 'HR', href: '/hr' },
-    ],
+    href: '/index',
   },
   {
     key: 'Landing Page',
