@@ -1008,3 +1008,13 @@
 {"category":"whatsapp","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 11:11:54","version":"v2"}
 {"category":"whatsapp","connection":"open","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 11:11:54","version":"v2"}
 {"category":"whatsapp","level":"info","message":"✅ Conectado a WhatsApp exitosamente","service":"whatsapp-api-v2","timestamp":"2026-06-22 11:11:54","version":"v2"}
+{"category":"whatsapp","connection":"close","lastDisconnect":428,"level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 12:25:01","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Desconectado de WhatsApp:","reason":428,"reconnectAttempts":0,"service":"whatsapp-api-v2","shouldReconnect":true,"timestamp":"2026-06-22 12:25:01","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Reintentando conexión en 2000ms (intento 1/5)","service":"whatsapp-api-v2","timestamp":"2026-06-22 12:25:01","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Inicializando autenticación...","service":"whatsapp-api-v2","timestamp":"2026-06-22 12:25:03","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Autenticación cargada exitosamente","service":"whatsapp-api-v2","timestamp":"2026-06-22 12:25:03","version":"v2"}
+{"category":"whatsapp","connection":"connecting","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 12:25:03","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 12:25:05","version":"v2"}
+{"category":"whatsapp","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 12:25:05","version":"v2"}
+{"category":"whatsapp","connection":"open","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 12:25:05","version":"v2"}
+{"category":"whatsapp","level":"info","message":"✅ Conectado a WhatsApp exitosamente","service":"whatsapp-api-v2","timestamp":"2026-06-22 12:25:05","version":"v2"}

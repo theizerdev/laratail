@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 use App\Traits\HasSpanishActivityLog;
+use App\Traits\Multitenantable;
+
 class Sucursal extends Model
 {
-    use HasFactory, LogsActivity, HasSpanishActivityLog;
+    use HasFactory, LogsActivity, HasSpanishActivityLog, Multitenantable;
 
     protected $table = 'sucursales';
 

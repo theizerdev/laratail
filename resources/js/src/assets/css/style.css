@@ -45,3 +45,19 @@ Contact: themesdesign.in@gmail.com
 
 /* Calendar */
 @import './custom/_calendar.css';
+
+/* Page Transitions */
+.page-transition {
+    animation: fadeInPage 0.4s ease-in-out;
+}
+
+@keyframes fadeInPage {
+    0% {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -8,9 +8,12 @@ use Illuminate\Support\Facades\Storage;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 use App\Traits\HasSpanishActivityLog;
+use App\Traits\Multitenantable;
+
 class Empresa extends Model
 {
-    use HasFactory, LogsActivity, HasSpanishActivityLog;
+    use HasFactory, LogsActivity, HasSpanishActivityLog, Multitenantable;
+
 
     protected $fillable = [
         'razon_social',
