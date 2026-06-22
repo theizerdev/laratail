@@ -60,4 +60,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/chat/users', [\App\Http\Controllers\ChatController::class, 'users']);
     Route::get('/chat/messages/{user}', [\App\Http\Controllers\ChatController::class, 'messages']);
     Route::post('/chat/messages', [\App\Http\Controllers\ChatController::class, 'send']);
+    
+    // Módulo Base de Estudiantes
+    Route::apiResource('estudiantes', \App\Http\Controllers\EstudianteController::class);
+    Route::apiResource('representantes', \App\Http\Controllers\RepresentanteController::class);
 });

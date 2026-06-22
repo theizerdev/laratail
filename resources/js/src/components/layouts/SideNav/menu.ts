@@ -19,6 +19,7 @@ import {
   LuShieldCheck,
   LuShoppingBag,
   LuSquareUserRound,
+  LuGraduationCap,
 } from 'react-icons/lu';
 
 export type MenuItemType = {
@@ -54,6 +55,12 @@ export const menuItemsData: MenuItemType[] = [
       { key: 'One Page', label: 'One Page', href: '/onepage-landing', target: '_blank' },
       { key: 'Product', label: 'Product', href: '/product-landing', target: '_blank' },
     ],
+  },
+  {
+    key: 'Estudiantes',
+    label: 'Estudiantes',
+    icon: LuGraduationCap,
+    href: '/estudiantes',
   },
 
   {

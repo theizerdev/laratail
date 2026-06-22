@@ -1053,3 +1053,12 @@
 {"category":"whatsapp","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 14:03:03","version":"v2"}
 {"category":"whatsapp","connection":"open","level":"info","message":"Actualización de conexión:","service":"whatsapp-api-v2","timestamp":"2026-06-22 14:03:03","version":"v2"}
 {"category":"whatsapp","level":"info","message":"✅ Conectado a WhatsApp exitosamente","service":"whatsapp-api-v2","timestamp":"2026-06-22 14:03:03","version":"v2"}
+{"category":"message","from":"120363405128558463@newsletter","level":"info","message":"Message received","messageType":"imageMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 14:33:42","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"senderKeyDistributionMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 14:40:30","version":"v2"}
+{"category":"message","from":"status@broadcast","level":"info","message":"Message received","messageType":"imageMessage","service":"whatsapp-api-v2","timestamp":"2026-06-22 14:40:52","version":"v2"}
+{"ip":"::ffff:127.0.0.1","level":"info","message":"POST /api/whatsapp/send","service":"whatsapp-api-v2","timestamp":"2026-06-22 15:08:48","userAgent":"GuzzleHttp/7","version":"v2"}
+{"companyId":1,"level":"info","message":"Anti-block: Message validated and delayed for 584241703465@s.whatsapp.net","messageLength":140,"service":"whatsapp-api-v2","timestamp":"2026-06-22 15:08:48","to":"584241703465@s.whatsapp.net","version":"v2"}
+{"category":"message","level":"info","message":"Message sent","messageId":"3EB03C931D206C5D6F44FF","service":"whatsapp-api-v2","timestamp":"2026-06-22 15:08:49","to":"584241703465@s.whatsapp.net","version":"v2"}
+{"category":"message","level":"info","message":"Message updated","messageId":"3EB03C931D206C5D6F44FF","service":"whatsapp-api-v2","status":3,"timestamp":"2026-06-22 15:08:49","version":"v2"}
+{"category":"message","level":"info","message":"Message updated","messageId":"3EB03C931D206C5D6F44FF","service":"whatsapp-api-v2","status":3,"timestamp":"2026-06-22 15:08:49","version":"v2"}
+{"category":"message","level":"info","message":"Message updated","messageId":"3EB03C931D206C5D6F44FF","service":"whatsapp-api-v2","status":3,"timestamp":"2026-06-22 15:08:50","version":"v2"}
