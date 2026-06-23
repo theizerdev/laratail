@@ -31,6 +31,9 @@ Route::middleware(['auth', 'verified', 'role:admin|super-admin'])->prefix('admin
 
     require __DIR__.'/modules/empleados.php';
 
+    // Perfil del Usuario
+    Route::get('/perfil', \App\Livewire\Admin\Profile\Index::class)->name('profile');
+
     // PDF Generation Routes
     Route::get('/facturas/{id}/pdf', [\App\Http\Controllers\Admin\PdfController::class, 'downloadInvoice'])->name('facturas.pdf');
     Route::get('/pedidos/{id}/ticket', [\App\Http\Controllers\Admin\PdfController::class, 'downloadTicket'])->name('pedidos.ticket');

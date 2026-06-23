@@ -48,7 +48,7 @@
                         </div>
                     </flux:menu.heading>
                     <flux:menu.separator />
-                    <flux:menu.item icon="cog" href="#">Settings</flux:menu.item>
+                    <flux:menu.item icon="user" href="{{ route('admin.profile') }}" wire:navigate>My Profile</flux:menu.item>
                     <flux:menu.separator />
                     <flux:menu.item
                         icon="arrow-right-end-on-rectangle"

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data="{ darkMode: localStorage.getItem('darkMode') === 'true' }" :class="{ 'dark': darkMode }">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -33,6 +33,19 @@
     @endif
 
     @livewireStyles
+
+    <!-- Dark mode base -->
+    <style>
+        .dark body { background-color: #09090b; color: #fafafa; }
+        .dark .bg-white { background-color: #18181b !important; }
+        .dark .bg-zinc-50 { background-color: #09090b !important; }
+        .dark .border-zinc-100, .dark .border-zinc-200 { border-color: #27272a !important; }
+        .dark .text-zinc-900 { color: #fafafa !important; }
+        .dark .text-zinc-700 { color: #d4d4d8 !important; }
+        .dark .text-zinc-600 { color: #a1a1aa !important; }
+        .dark .text-zinc-500 { color: #71717a !important; }
+        .dark .bg-zinc-100 { background-color: #27272a !important; }
+    </style>
 </head>
 <body class="min-h-screen bg-zinc-50 font-sans text-zinc-900 antialiased selection:bg-indigo-500 selection:text-white">
 

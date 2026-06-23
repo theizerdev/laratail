@@ -2,6 +2,7 @@
 use Livewire\Volt\Component;
 use App\Models\Product;
 use App\Services\CartService;
+use Illuminate\Support\Facades\Auth;
 
 new class extends Component {
     public function addToCart(int $productId): void
@@ -12,15 +13,43 @@ new class extends Component {
         $this->dispatch('cart-updated');
     }
 
+    public function toggleWishlist(int $productId): void
+    {
+        if (!Auth::check()) {
+            $this->redirect('/acceso', navigate: true);
+            return;
+        }
+        $customer = \App\Models\Customer::where('user_id', Auth::id())->first();
+        if (!$customer) return;
+
+        $added = \App\Models\Wishlist::toggle($customer->id, $productId);
+        $this->dispatch('wishlist-updated');
+        $this->dispatch('notify', 
+            message: $added ? 'Producto añadido a favoritos.' : 'Producto eliminado de favoritos.', 
+            type: $added ? 'success' : 'info'
+        );
+    }
+
     public function with()
     {
+        $wishlistProductIds = [];
+        if (Auth::check()) {
+            $customer = \App\Models\Customer::where('user_id', Auth::id())->first();
+            if ($customer) {
+                $wishlistProductIds = \App\Models\Wishlist::where('customer_id', $customer->id)
+                    ->pluck('product_id')
+                    ->toArray();
+            }
+        }
+
         return [
             'products' => Product::with('category', 'brand')
                 ->where('status', true)
                 ->where('destacado', true)
                 ->latest()
                 ->take(12)
-                ->get()
+                ->get(),
+            'wishlistProductIds' => $wishlistProductIds,
         ];
     }
 };
@@ -60,7 +89,7 @@ new class extends Component {
                 <div class="swiper-slide !h-auto px-2">
                     <div class="group relative flex flex-col bg-white rounded-2xl border border-zinc-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden h-full">
                         <!-- Image Container -->
-                        <div class="relative aspect-[4/5] overflow-hidden bg-zinc-100">
+                        <div class="relative z-10 aspect-[4/5] overflow-hidden bg-zinc-100">
                             <a href="{{ route('store.product.detail', $product->slug) }}" wire:navigate>
                                 <img src="{{ $product->imagen_principal_url ?? 'https://via.placeholder.com/400x500?text=Producto' }}" alt="{{ $product->nombre }}" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700" loading="lazy" />
                             </a>
@@ -79,8 +108,17 @@ new class extends Component {
                                 @endif
                             </div>
 
+                            <!-- Wishlist Button -->
+                            <button wire:click.prevent="toggleWishlist({{ $product->id }})" class="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-white/95 backdrop-blur shadow-md flex items-center justify-center text-zinc-400 hover:text-red-500 transition-all hover:scale-105 active:scale-95" title="Añadir a favoritos">
+                                @if(in_array($product->id, $wishlistProductIds))
+                                    <svg class="w-5 h-5 text-red-500 fill-current" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                                @else
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                                @endif
+                            </button>
+
                             <!-- Quick Add Button Overlay -->
-                            <div class="absolute inset-x-0 bottom-0 p-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                            <div class="absolute inset-x-0 bottom-0 p-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-20">
                                 <button wire:click="addToCart({{ $product->id }})" class="w-full bg-white/90 backdrop-blur-sm text-zinc-900 font-semibold py-3 px-4 rounded-xl shadow-lg hover:bg-white hover:text-indigo-600 flex items-center justify-center gap-2 transition-colors">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                                     Agregar al carrito

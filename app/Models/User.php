@@ -34,8 +34,8 @@ use Spatie\Permission\Traits\HasRoles;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
-#[Fillable(['name', 'email', 'password', 'group_id', 'telefono', 'empresa_id', 'sucursal_id', 'whatsapp_otp', 'phone_verified_at', 'provider', 'provider_id', 'avatar'])]
-#[Hidden(['password', 'remember_token'])]
+#[Fillable(['name', 'email', 'password', 'group_id', 'telefono', 'empresa_id', 'sucursal_id', 'whatsapp_otp', 'phone_verified_at', 'provider', 'provider_id', 'avatar', 'two_factor_secret', 'two_factor_recovery_codes', 'two_factor_confirmed_at'])]
+#[Hidden(['password', 'remember_token', 'two_factor_secret', 'two_factor_recovery_codes'])]
 class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<UserFactory> */
@@ -61,8 +61,18 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'two_factor_confirmed_at' => 'datetime',
         ];
     }
+
+    /**
+     * Check if the user has Two-Factor Authentication enabled.
+     */
+    public function hasTwoFactorEnabled(): bool
+    {
+        return !is_null($this->two_factor_confirmed_at);
+    }
+
 
     public function getActivitylogOptions(): LogOptions
     {

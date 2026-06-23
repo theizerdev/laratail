@@ -10,6 +10,9 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (DB::getDriverName() === 'sqlite') {
+            return;
+        }
         // Add 'asignado' to the enum
         DB::statement("ALTER TABLE orders MODIFY COLUMN estado ENUM('borrador', 'pendiente', 'confirmado', 'asignado', 'procesando', 'enviado', 'entregado', 'cancelado', 'devuelto') DEFAULT 'borrador'");
     }
@@ -19,6 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        if (DB::getDriverName() === 'sqlite') {
+            return;
+        }
         // Revert back
         DB::statement("ALTER TABLE orders MODIFY COLUMN estado ENUM('borrador', 'pendiente', 'confirmado', 'procesando', 'enviado', 'entregado', 'cancelado', 'devuelto') DEFAULT 'borrador'");
     }

@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Brand;
 use App\Services\CartService;
+use Illuminate\Support\Facades\Auth;
 
 new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extends Component {
     // Filters
@@ -78,6 +79,16 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
             default => $query->latest(),
         };
 
+        $wishlistProductIds = [];
+        if (Auth::check()) {
+            $customer = \App\Models\Customer::where('user_id', Auth::id())->first();
+            if ($customer) {
+                $wishlistProductIds = \App\Models\Wishlist::where('customer_id', $customer->id)
+                    ->pluck('product_id')
+                    ->toArray();
+            }
+        }
+
         return [
             'products' => $query->paginate(12)->withQueryString(),
             'categories' => Category::whereNull('parent_id')
@@ -90,6 +101,7 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
                 ->orderBy('nombre')
                 ->get(),
             'activeCategory' => $this->category ? Category::where('slug', $this->category)->first() : null,
+            'wishlistProductIds' => $wishlistProductIds,
         ];
     }
 
@@ -104,6 +116,23 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
         if (!$product) return;
         app(CartService::class)->addItem($product, 1);
         $this->dispatch('cart-updated');
+    }
+
+    public function toggleWishlist(int $productId): void
+    {
+        if (!Auth::check()) {
+            $this->redirect('/acceso', navigate: true);
+            return;
+        }
+        $customer = \App\Models\Customer::where('user_id', Auth::id())->first();
+        if (!$customer) return;
+
+        $added = \App\Models\Wishlist::toggle($customer->id, $productId);
+        $this->dispatch('wishlist-updated');
+        $this->dispatch('notify', 
+            message: $added ? 'Producto añadido a favoritos.' : 'Producto eliminado de favoritos.', 
+            type: $added ? 'success' : 'info'
+        );
     }
 
     public function toggleCompare(int $productId): void
@@ -263,7 +292,7 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
                     @forelse($products as $product)
                     <div class="group relative flex flex-col bg-white rounded-2xl border border-zinc-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
                         <!-- Image -->
-                        <div class="relative aspect-[4/5] overflow-hidden bg-zinc-100">
+                        <div class="relative z-10 aspect-[4/5] overflow-hidden bg-zinc-100">
                             <a href="{{ route('store.product.detail', $product->slug) }}" wire:navigate>
                                 <img src="{{ $product->imagen_principal_url ?? 'https://via.placeholder.com/400x500?text=Producto' }}" alt="{{ $product->nombre }}" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" />
                             </a>
@@ -278,13 +307,22 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
                                 </div>
                             @endif
 
+                            {{-- Wishlist button --}}
+                            <button wire:click.prevent="toggleWishlist({{ $product->id }})" class="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm text-zinc-500 hover:text-red-500 flex items-center justify-center transition-all shadow-sm" title="Guardar en favoritos">
+                                @if(in_array($product->id, $wishlistProductIds))
+                                    <svg class="w-4 h-4 text-red-500 fill-current" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                                @else
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                                @endif
+                            </button>
+
                             {{-- Compare button --}}
-                            <button wire:click.prevent="toggleCompare({{ $product->id }})" class="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center transition-all shadow-sm {{ $this->isComparing($product->id) ? 'bg-indigo-600 text-white' : 'bg-white/80 backdrop-blur-sm text-zinc-500 hover:text-indigo-600 border border-zinc-200' }}" title="{{ $this->isComparing($product->id) ? 'Quitar de comparación' : 'Comparar' }}">
+                            <button wire:click.prevent="toggleCompare({{ $product->id }})" class="absolute top-14 right-4 z-20 w-8 h-8 rounded-full flex items-center justify-center transition-all shadow-sm {{ $this->isComparing($product->id) ? 'bg-indigo-600 text-white' : 'bg-white/80 backdrop-blur-sm text-zinc-500 hover:text-indigo-600 border border-zinc-200' }}" title="{{ $this->isComparing($product->id) ? 'Quitar de comparación' : 'Comparar' }}">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
                             </button>
 
                             <!-- Quick Add & View Detail -->
-                            <div class="absolute inset-x-0 bottom-0 p-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-10 pointer-events-none">
+                            <div class="absolute inset-x-0 bottom-0 p-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-20 pointer-events-none">
                                 <div class="flex gap-2 w-full bg-white/90 backdrop-blur-sm p-1 rounded-xl shadow-lg pointer-events-auto">
                                     <flux:button href="{{ route('store.product.detail', $product->slug) }}" wire:navigate variant="subtle" class="flex-1 !px-2">
                                         <svg class="w-4 h-4 mr-1 hidden sm:inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>

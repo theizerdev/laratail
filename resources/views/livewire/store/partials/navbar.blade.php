@@ -26,10 +26,34 @@ new class extends Component {
     {
         unset($this->cartData); // Clears computed property cache to trigger re-calculation
     }
+
+    #[Computed]
+    public function wishlistData()
+    {
+        $customer = Auth::check() ? \App\Models\Customer::where('user_id', Auth::id())->first() : null;
+
+        $items = $customer
+            ? \App\Models\Wishlist::with(['product'])
+                ->where('customer_id', $customer->id)
+                ->latest()
+                ->get()
+            : collect();
+
+        return [
+            'count' => $items->count(),
+            'items' => $items,
+        ];
+    }
+
+    #[On('wishlist-updated')]
+    public function refreshWishlist(): void
+    {
+        unset($this->wishlistData);
+    }
 };
 ?>
-
-<nav x-data="{ mobileOpen: false }" class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-zinc-100 shadow-sm transition-all">
+<div>
+    <nav x-data="{ mobileOpen: false }" class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-zinc-100 shadow-sm transition-all">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
             <!-- Logo -->
@@ -42,14 +66,14 @@ new class extends Component {
 
             <!-- Main Menu (Desktop) -->
             <div class="hidden md:flex space-x-8 items-center">
-                <a href="/catalogo" wire:navigate class="text-zinc-600 hover:text-indigo-600 transition-colors font-medium">Catálogo</a>
-                <a href="/catalogo?nuevo=1" wire:navigate class="text-zinc-600 hover:text-indigo-600 transition-colors font-medium">Novedades</a>
-                <a href="/catalogo?oferta=1" wire:navigate class="text-zinc-600 hover:text-indigo-600 transition-colors font-medium">Ofertas</a>
-                <a href="/comparar" wire:navigate class="text-zinc-600 hover:text-indigo-600 transition-colors font-medium flex items-center gap-1">
+                <a href="/catalogo" wire:navigate class="text-zinc-600 hover:text-indigo-600 font-semibold relative py-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-indigo-600 after:transition-all after:duration-300 transition-colors">Catálogo</a>
+                <a href="/catalogo?nuevo=1" wire:navigate class="text-zinc-600 hover:text-indigo-600 font-semibold relative py-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-indigo-600 after:transition-all after:duration-300 transition-colors">Novedades</a>
+                <a href="/catalogo?oferta=1" wire:navigate class="text-zinc-600 hover:text-indigo-600 font-semibold relative py-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-indigo-600 after:transition-all after:duration-300 transition-colors">Ofertas</a>
+                <a href="/comparar" wire:navigate class="text-zinc-600 hover:text-indigo-600 font-semibold relative py-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-indigo-600 after:transition-all after:duration-300 transition-colors flex items-center gap-1.5">
                     Comparar
                     @php $cmpCount = count(session('compare_products', [])); @endphp
                     @if($cmpCount > 0)
-                        <span class="bg-indigo-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">{{ $cmpCount }}</span>
+                        <span class="bg-indigo-600 text-white text-[10px] font-bold rounded-full h-4.5 w-4.5 flex items-center justify-center">{{ $cmpCount }}</span>
                     @endif
                 </a>
             </div>
@@ -95,6 +119,70 @@ new class extends Component {
                         @else
                             <a href="/acceso" wire:navigate class="block px-4 py-2.5 text-sm text-zinc-700 hover:bg-zinc-50 transition-colors">Iniciar Sesión</a>
                             <a href="/registro" wire:navigate class="block px-4 py-2.5 text-sm text-indigo-600 hover:bg-indigo-50 font-medium transition-colors">Registrarse</a>
+                        @endauth
+                    </div>
+                </div>
+
+                <!-- Wishlist Dropdown -->
+                <div x-data="{ open: false }" class="relative" @click.away="open = false">
+                    <button @click="open = !open" class="text-zinc-400 hover:text-red-500 transition-colors relative flex items-center p-1.5 rounded-full hover:bg-zinc-50">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        @if(Auth::check() && $this->wishlistData['count'] > 0)
+                            <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full h-4.5 w-4.5 flex items-center justify-center animate-pulse">
+                                {{ $this->wishlistData['count'] }}
+                            </span>
+                        @endif
+                    </button>
+                    
+                    <div x-show="open" x-transition
+                         class="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-2xl border border-zinc-100 py-4 z-[60] overflow-hidden hidden"
+                         :class="{ 'hidden': !open, 'block': open }">
+                        <div class="px-4 pb-3 border-b border-zinc-100 flex justify-between items-center">
+                            <h3 class="font-bold text-zinc-900">Mis Favoritos</h3>
+                            @auth
+                                <span class="text-sm text-zinc-500">{{ $this->wishlistData['count'] }} items</span>
+                            @endauth
+                        </div>
+                        <div class="max-h-72 overflow-y-auto p-4 space-y-4">
+                            @auth
+                                @forelse($this->wishlistData['items'] as $item)
+                                <div class="flex items-center gap-3">
+                                    <img src="{{ $item->product->imagen_principal_url ?? 'https://via.placeholder.com/100' }}" alt="{{ $item->product->nombre }}" class="w-12 h-12 rounded-lg object-cover border border-zinc-100 flex-shrink-0">
+                                    <div class="flex-1 min-w-0">
+                                        <h4 class="text-sm font-medium text-zinc-900 truncate">
+                                            <a href="{{ route('store.product.detail', $item->product->slug) }}" wire:navigate class="hover:text-indigo-600 transition-colors">
+                                                {{ $item->product->nombre }}
+                                            </a>
+                                        </h4>
+                                        <p class="text-xs text-zinc-500">
+                                            @if($item->product->tiene_descuento)
+                                                ${{ number_format($item->product->precio_oferta, 2) }}
+                                            @else
+                                                ${{ number_format($item->product->precio, 2) }}
+                                            @endif
+                                        </p>
+                                    </div>
+                                </div>
+                                @empty
+                                <div class="text-center py-6">
+                                    <svg class="w-12 h-12 text-zinc-200 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                                    <p class="text-sm text-zinc-500">Tu lista está vacía.</p>
+                                </div>
+                                @endforelse
+                            @else
+                                <div class="text-center py-6">
+                                    <svg class="w-12 h-12 text-zinc-200 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                    <p class="text-sm text-zinc-500 mb-3">Inicia sesión para usar favoritos.</p>
+                                    <flux:button href="/acceso" wire:navigate variant="primary" class="w-full text-center">Iniciar Sesión</flux:button>
+                                </div>
+                            @endauth
+                        </div>
+                        @auth
+                            @if($this->wishlistData['count'] > 0)
+                            <div class="px-4 pt-3 border-t border-zinc-100 bg-zinc-50/50">
+                                <flux:button href="/favoritos" wire:navigate class="w-full text-center" variant="primary">Ver favoritos</flux:button>
+                            </div>
+                            @endif
                         @endauth
                     </div>
                 </div>
@@ -167,8 +255,64 @@ new class extends Component {
                 <hr class="border-zinc-100">
                 <a href="/mi-cuenta" wire:navigate class="text-zinc-600 py-2 font-medium">Mi Cuenta</a>
                 <a href="/mi-cuenta/pedidos" wire:navigate class="text-zinc-600 py-2 font-medium">Mis Pedidos</a>
-                <a href="/favoritos" wire:navigate class="text-zinc-600 py-2 font-medium">Mis Favoritos</a>
+                <a href="/favoritos" wire:navigate class="text-zinc-600 py-2 font-medium flex items-center justify-between">
+                    <span>Mis Favoritos</span>
+                    @if(Auth::check() && $this->wishlistData['count'] > 0)
+                        <span class="bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">{{ $this->wishlistData['count'] }}</span>
+                    @endif
+                </a>
             @endauth
         </div>
     </div>
 </nav>
+
+<!-- Toast Notification Container -->
+<div x-data="{
+    toasts: [],
+    addToast(message, type = 'info') {
+        const id = Date.now();
+        this.toasts.push({ id, message, type });
+        setTimeout(() => this.removeToast(id), 4000);
+    },
+    removeToast(id) {
+        this.toasts = this.toasts.filter(t => t.id !== id);
+    }
+}"
+@notify.window="addToast($event.detail.message, $event.detail.type)"
+class="fixed bottom-6 right-6 z-[100] flex flex-col gap-3 max-w-sm w-full pointer-events-none">
+    <template x-for="toast in toasts" :key="toast.id">
+        <div x-show="true"
+             x-transition:enter="transition ease-out duration-300 transform"
+             x-transition:enter-start="opacity-0 translate-y-2 translate-x-2"
+             x-transition:enter-end="opacity-100 translate-y-0 translate-x-0"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-end="opacity-0 scale-95"
+             class="pointer-events-auto p-4 rounded-2xl shadow-xl border flex items-center justify-between gap-3 text-sm font-medium"
+             :class="{
+                 'bg-zinc-900 text-white border-zinc-800': toast.type === 'dark' || toast.type === 'info',
+                 'bg-emerald-500 text-white border-emerald-600': toast.type === 'success',
+                 'bg-amber-500 text-white border-amber-600': toast.type === 'warning',
+                 'bg-red-500 text-white border-red-600': toast.type === 'error'
+             }">
+            <div class="flex items-center gap-2">
+                <template x-if="toast.type === 'success'">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </template>
+                <template x-if="toast.type === 'warning'">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                </template>
+                <template x-if="toast.type === 'error'">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </template>
+                <template x-if="toast.type === 'info'">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </template>
+                <span x-text="toast.message"></span>
+            </div>
+            <button @click="removeToast(toast.id)" class="text-white/70 hover:text-white transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+        </div>
+    </template>
+</div>
+</div>
