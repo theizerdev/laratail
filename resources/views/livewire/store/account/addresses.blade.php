@@ -23,7 +23,7 @@ new #[Layout('layouts.app')] class extends Component {
     public string $estado_region = '';
     #[Validate('nullable|max:20')]
     public string $codigo_postal = '';
-    #[Validate('required|integer|exists:paises,id')]
+    #[Validate('required|integer|exists:pais,id')]
     public int $pais_id = 0;
     #[Validate('nullable|max:50')]
     public string $alias = '';
@@ -31,7 +31,47 @@ new #[Layout('layouts.app')] class extends Component {
     public string $tipo = 'casa';
     public bool $predeterminada = false;
 
+    public ?float $latitud = null;
+    public ?float $longitud = null;
+
     public ?string $successMessage = null;
+
+    public function setLocation(float $lat, float $lng): void
+    {
+        $this->latitud = $lat;
+        $this->longitud = $lng;
+        
+        try {
+            $response = \Illuminate\Support\Facades\Http::withHeaders([
+                'User-Agent' => 'LaratailStore/1.0'
+            ])->get("https://nominatim.openstreetmap.org/reverse", [
+                'lat' => $lat,
+                'lon' => $lng,
+                'format' => 'json',
+                'addressdetails' => 1
+            ]);
+
+            if ($response->successful()) {
+                $data = $response->json();
+                $address = $data['address'] ?? [];
+                
+                $this->direccion = $data['display_name'] ?? trim(($address['road'] ?? $address['pedestrian'] ?? $address['suburb'] ?? '') . ' ' . ($address['house_number'] ?? ''));
+                $this->ciudad = $address['city'] ?? $address['town'] ?? $address['village'] ?? '';
+                $this->estado_region = $address['state'] ?? $address['county'] ?? '';
+                $this->codigo_postal = $address['postcode'] ?? '';
+                
+                $countryCode = strtoupper($address['country_code'] ?? '');
+                if ($countryCode) {
+                    $pais = Pais::where('codigo_iso2', $countryCode)->first();
+                    if ($pais) {
+                        $this->pais_id = $pais->id;
+                    }
+                }
+            }
+        } catch (\Exception $e) {
+            // Fails silently
+        }
+    }
 
     public function with(): array
     {
@@ -165,15 +205,15 @@ new #[Layout('layouts.app')] class extends Component {
                 <div class="flex items-center justify-between mb-6">
                     <h1 class="text-2xl font-bold text-zinc-900">Mis Direcciones</h1>
                     @if(!$showForm)
-                        <button wire:click="openCreate" class="inline-flex items-center gap-2 bg-indigo-600 text-white px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-indigo-700 transition-colors">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        <flux:button wire:click="openCreate" variant="primary" class="!bg-indigo-600 hover:!bg-indigo-700">
+                            <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                             Nueva Dirección
-                        </button>
+                        </flux:button>
                     @endif
                 </div>
 
                 @if($successMessage)
-                    <div class="mb-6 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl text-sm">
+                    <div class="mb-6 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl text-sm shadow-sm">
                         {{ $successMessage }}
                     </div>
                 @endif
@@ -181,74 +221,72 @@ new #[Layout('layouts.app')] class extends Component {
                 <!-- Address Form -->
                 @if($showForm)
                 <div class="bg-white rounded-2xl border border-zinc-100 shadow-sm p-6 sm:p-8 mb-6">
-                    <h2 class="text-lg font-bold text-zinc-900 mb-6">{{ $editingId ? 'Editar Dirección' : 'Nueva Dirección' }}</h2>
+                    <div class="flex items-center justify-between mb-6 border-b border-zinc-100 pb-4">
+                        <h2 class="text-lg font-bold text-zinc-900">{{ $editingId ? 'Editar Dirección' : 'Nueva Dirección' }}</h2>
+                        <flux:button 
+                            variant="subtle" 
+                            size="sm"
+                            x-data="{ loading: false }"
+                            @click="
+                                if (navigator.geolocation) {
+                                    loading = true;
+                                    navigator.geolocation.getCurrentPosition(
+                                        (position) => {
+                                            $wire.setLocation(position.coords.latitude, position.coords.longitude).then(() => {
+                                                loading = false;
+                                            });
+                                        },
+                                        (error) => {
+                                            alert('No se pudo obtener la ubicación. Verifica los permisos de tu navegador.');
+                                            loading = false;
+                                        }
+                                    );
+                                } else {
+                                    alert('La geolocalización no está soportada en este navegador.');
+                                }
+                            "
+                        >
+                            <svg x-show="!loading" class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            <svg x-show="loading" style="display: none;" class="w-4 h-4 mr-2 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
+                            <span x-show="!loading">Ubicación actual</span>
+                            <span x-show="loading" style="display: none;">Buscando...</span>
+                        </flux:button>
+                    </div>
+
                     <form wire:submit="save" class="space-y-5">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-zinc-700 mb-1">Nombre del destinatario *</label>
-                                <input type="text" wire:model="nombre_destinatario" class="w-full rounded-xl border-zinc-300 focus:ring-indigo-500 focus:border-indigo-500">
-                                @error('nombre_destinatario') <p class="text-xs text-red-600 mt-1">{{ $message }}</p> @enderror
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-zinc-700 mb-1">Teléfono</label>
-                                <input type="tel" wire:model="telefono_destinatario" class="w-full rounded-xl border-zinc-300 focus:ring-indigo-500 focus:border-indigo-500">
-                            </div>
+                            <flux:input wire:model="nombre_destinatario" label="Nombre del destinatario *" />
+                            <flux:input wire:model="telefono_destinatario" type="tel" label="Teléfono" />
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-zinc-700 mb-1">Dirección *</label>
-                            <input type="text" wire:model="direccion" class="w-full rounded-xl border-zinc-300 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Calle, número, apt...">
-                            @error('direccion') <p class="text-xs text-red-600 mt-1">{{ $message }}</p> @enderror
+                        <flux:input wire:model="direccion" label="Dirección *" placeholder="Calle, número, apt..." />
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <flux:input wire:model="ciudad" label="Ciudad *" />
+                            <flux:input wire:model="estado_region" label="Estado / Región" />
+                            <flux:input wire:model="codigo_postal" label="Código Postal" />
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-zinc-700 mb-1">Ciudad *</label>
-                                <input type="text" wire:model="ciudad" class="w-full rounded-xl border-zinc-300 focus:ring-indigo-500 focus:border-indigo-500">
-                                @error('ciudad') <p class="text-xs text-red-600 mt-1">{{ $message }}</p> @enderror
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-zinc-700 mb-1">Estado / Región</label>
-                                <input type="text" wire:model="estado_region" class="w-full rounded-xl border-zinc-300 focus:ring-indigo-500 focus:border-indigo-500">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-zinc-700 mb-1">Código Postal</label>
-                                <input type="text" wire:model="codigo_postal" class="w-full rounded-xl border-zinc-300 focus:ring-indigo-500 focus:border-indigo-500">
-                            </div>
+                            <flux:select wire:model="pais_id" label="País *" placeholder="Seleccionar...">
+                                @foreach($paises as $pais)
+                                    <flux:select.option value="{{ $pais->id }}">{{ $pais->nombre }}</flux:select.option>
+                                @endforeach
+                            </flux:select>
+                            <flux:select wire:model="tipo" label="Tipo">
+                                <flux:select.option value="casa">Casa</flux:select.option>
+                                <flux:select.option value="oficina">Oficina</flux:select.option>
+                                <flux:select.option value="otro">Otro</flux:select.option>
+                            </flux:select>
+                            <flux:input wire:model="alias" label="Alias (opcional)" placeholder="Mi casa, Trabajo..." />
                         </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium text-zinc-700 mb-1">País *</label>
-                                <select wire:model="pais_id" class="w-full rounded-xl border-zinc-300 focus:ring-indigo-500 focus:border-indigo-500">
-                                    <option value="0">Seleccionar...</option>
-                                    @foreach($paises as $pais)
-                                        <option value="{{ $pais->id }}">{{ $pais->nombre }}</option>
-                                    @endforeach
-                                </select>
-                                @error('pais_id') <p class="text-xs text-red-600 mt-1">{{ $message }}</p> @enderror
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-zinc-700 mb-1">Tipo</label>
-                                <select wire:model="tipo" class="w-full rounded-xl border-zinc-300 focus:ring-indigo-500 focus:border-indigo-500">
-                                    <option value="casa">Casa</option>
-                                    <option value="oficina">Oficina</option>
-                                    <option value="otro">Otro</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-zinc-700 mb-1">Alias (opcional)</label>
-                                <input type="text" wire:model="alias" class="w-full rounded-xl border-zinc-300 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Mi casa, Trabajo...">
-                            </div>
+                        <div class="pt-2">
+                            <flux:checkbox wire:model="predeterminada" label="Establecer como dirección predeterminada" />
                         </div>
-                        <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="checkbox" wire:model="predeterminada" class="rounded border-zinc-300 text-indigo-600 focus:ring-indigo-500">
-                            <span class="text-sm text-zinc-600">Establecer como dirección predeterminada</span>
-                        </label>
-                        <div class="flex gap-3">
-                            <button type="submit" class="bg-indigo-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-indigo-700 transition-colors">
+                        <div class="flex gap-3 pt-2">
+                            <flux:button type="submit" variant="primary" class="!bg-indigo-600 hover:!bg-indigo-700">
                                 {{ $editingId ? 'Actualizar' : 'Guardar' }}
-                            </button>
-                            <button type="button" wire:click="$set('showForm', false)" class="px-6 py-3 border border-zinc-300 rounded-xl font-medium text-zinc-700 hover:bg-zinc-50 transition-colors">
+                            </flux:button>
+                            <flux:button type="button" wire:click="$set('showForm', false)" variant="subtle">
                                 Cancelar
-                            </button>
+                            </flux:button>
                         </div>
                     </form>
                 </div>
@@ -260,32 +298,35 @@ new #[Layout('layouts.app')] class extends Component {
                         <svg class="w-16 h-16 mx-auto text-zinc-200 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                         <h3 class="text-lg font-semibold text-zinc-700 mb-2">Sin direcciones guardadas</h3>
                         <p class="text-zinc-500 mb-6">Agrega una dirección para agilizar tus compras.</p>
-                        <button wire:click="openCreate" class="inline-flex items-center px-6 py-3 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 transition-colors">
+                        <flux:button wire:click="openCreate" variant="primary" class="!bg-indigo-600 hover:!bg-indigo-700">
                             Agregar Dirección
-                        </button>
+                        </flux:button>
                     </div>
                 @else
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         @foreach($addresses as $addr)
-                        <div class="bg-white rounded-2xl border shadow-sm p-5 {{ $addr->predeterminada ? 'border-indigo-200 ring-1 ring-indigo-100' : 'border-zinc-100' }}">
+                        <div class="bg-white rounded-2xl border shadow-sm p-5 transition-all hover:shadow-md {{ $addr->predeterminada ? 'border-indigo-200 ring-1 ring-indigo-100' : 'border-zinc-100' }}">
                             <div class="flex items-start justify-between mb-3">
                                 <div>
                                     <p class="font-semibold text-zinc-900">{{ $addr->nombre_destinatario }}</p>
                                     @if($addr->alias)
-                                        <span class="text-xs text-zinc-500">{{ ucfirst($addr->alias) }}</span>
+                                        <span class="text-xs font-semibold bg-zinc-100 text-zinc-600 px-2 py-0.5 rounded-md">{{ ucfirst($addr->alias) }}</span>
                                     @else
-                                        <span class="text-xs text-zinc-500">{{ ucfirst($addr->tipo ?? 'casa') }}</span>
+                                        <span class="text-xs font-semibold bg-zinc-100 text-zinc-600 px-2 py-0.5 rounded-md">{{ ucfirst($addr->tipo ?? 'casa') }}</span>
                                     @endif
                                 </div>
                                 @if($addr->predeterminada)
-                                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-700">Predeterminada</span>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-100">Predeterminada</span>
                                 @endif
                             </div>
-                            <p class="text-sm text-zinc-600 mb-4">{{ $addr->direccion_completa }}</p>
+                            <p class="text-sm text-zinc-600 mb-4 leading-relaxed">{{ $addr->direccion_completa }}</p>
                             @if($addr->telefono_destinatario)
-                                <p class="text-xs text-zinc-500 mb-3">Tel: {{ $addr->telefono_destinatario }}</p>
+                                <p class="text-xs text-zinc-500 mb-3 flex items-center gap-1">
+                                    <svg class="w-3.5 h-3.5 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                                    {{ $addr->telefono_destinatario }}
+                                </p>
                             @endif
-                            <div class="flex items-center gap-2 pt-3 border-t border-zinc-100">
+                            <div class="flex items-center gap-2 pt-3 border-t border-zinc-100 mt-2">
                                 <button wire:click="edit({{ $addr->id }})" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium transition-colors">Editar</button>
                                 @if(!$addr->predeterminada)
                                     <span class="text-zinc-300">·</span>

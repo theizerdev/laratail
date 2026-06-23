@@ -15,21 +15,9 @@ Volt::route('/catalogo/{category:slug}', 'store.catalog')->name('store.catalog.c
 Volt::route('/carrito', 'store.cart')->name('store.cart');
 
 // Checkout
-Route::get('/checkout', function () {
-   if (auth()->check()) {
-     Volt::route('/checkout', 'store.checkout')->name('store.checkout');
-   } else {
-     return redirect()->route('store.login');
-   }
-
-});
-Route::get('/checkout/confirmacion/{order}', function () {
-   if (auth()->check()) {
-     Volt::route('/checkout/confirmacion/{order}', 'store.checkout-confirmation')->name('store.checkout.confirmation');
-   } else {
-     return redirect()->route('store.login');
-   }
-
+Route::middleware('auth')->group(function () {
+    Volt::route('/checkout', 'store.checkout')->name('store.checkout');
+    Volt::route('/checkout/confirmacion/{order}', 'store.checkout-confirmation')->name('store.checkout.confirmation');
 });
 
  

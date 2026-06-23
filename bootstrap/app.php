@@ -17,7 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
         },
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->redirectGuestsTo('/login');
+        $middleware->redirectGuestsTo(fn ($request) => $request->is('admin/*') || $request->is('admin') ? '/login' : '/acceso');
         $middleware->redirectUsersTo('/');
          $middleware->web(append: [
             //\App\Http\Middleware\SetLocale::class,

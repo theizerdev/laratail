@@ -70,24 +70,34 @@ new class extends Component {
     <!-- Script de inicialización de Swiper -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var swiper = new Swiper(".mySwiper", {
-                loop: true,
-                effect: "fade",
-                speed: 1000,
-                autoplay: {
-                    delay: 5000,
-                    disableOnInteraction: false,
-                },
-                pagination: {
-                    el: ".swiper-pagination",
-                    clickable: true,
-                },
-                navigation: {
-                    nextEl: ".swiper-button-next",
-                    prevEl: ".swiper-button-prev",
-                },
-            });
+            initHeroSwiper();
         });
+
+        document.addEventListener('livewire:navigated', function() {
+            initHeroSwiper();
+        });
+
+        function initHeroSwiper() {
+            if (document.querySelector('.mySwiper')) {
+                new Swiper(".mySwiper", {
+                    loop: true,
+                    effect: "fade",
+                    speed: 1000,
+                    autoplay: {
+                        delay: 5000,
+                        disableOnInteraction: false,
+                    },
+                    pagination: {
+                        el: ".swiper-pagination",
+                        clickable: true,
+                    },
+                    navigation: {
+                        nextEl: ".swiper-button-next",
+                        prevEl: ".swiper-button-prev",
+                    },
+                });
+            }
+        }
     </script>
     
     <style>

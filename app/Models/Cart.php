@@ -85,6 +85,8 @@ class Cart extends Model
      */
     public function recalcular(): void
     {
+        $this->unsetRelation('items');
+
         $this->subtotal = $this->items->sum(fn($item) => $item->cantidad * $item->precio);
         $this->total = $this->subtotal;
 

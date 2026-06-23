@@ -1,4 +1,5 @@
 <?php
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
@@ -27,6 +28,7 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
     public int $maxPrice = 10000;
 
     public bool $showMobileFilters = false;
+    public ?int $quickViewProductId = null;
 
     public function with(): array
     {
@@ -103,6 +105,20 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
             'activeCategory' => $this->category ? Category::where('slug', $this->category)->first() : null,
             'wishlistProductIds' => $wishlistProductIds,
         ];
+    }
+
+    #[Computed]
+    public function quickViewProduct()
+    {
+        return $this->quickViewProductId 
+            ? Product::with(['category', 'brand'])->find($this->quickViewProductId) 
+            : null;
+    }
+
+    public function openQuickView(int $productId): void
+    {
+        $this->quickViewProductId = $productId;
+        $this->js('Flux.modal("quick-view-modal").show()');
     }
 
     public function clearFilters(): void
@@ -324,7 +340,7 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
                             <!-- Quick Add & View Detail -->
                             <div class="absolute inset-x-0 bottom-0 p-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-20 pointer-events-none">
                                 <div class="flex gap-2 w-full bg-white/90 backdrop-blur-sm p-1 rounded-xl shadow-lg pointer-events-auto">
-                                    <flux:button href="{{ route('store.product.detail', $product->slug) }}" wire:navigate variant="subtle" class="flex-1 !px-2">
+                                    <flux:button wire:click.prevent="openQuickView({{ $product->id }})" variant="subtle" class="flex-1 !px-2">
                                         <svg class="w-4 h-4 mr-1 hidden sm:inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
                                         Detalle
                                     </flux:button>
@@ -401,4 +417,111 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
         </div>
     </div>
     @endif
+
+    {{-- Quick View Modal --}}
+    <flux:modal name="quick-view-modal" class="!max-w-2xl sm:p-6 overflow-hidden">
+        @if($this->quickViewProduct)
+            @php $qp = $this->quickViewProduct; @endphp
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                
+                {{-- Left: Image --}}
+                <div class="relative aspect-[4/5] rounded-xl overflow-hidden bg-zinc-50 border border-zinc-100/80 shadow-xs flex items-center justify-center">
+                    <img 
+                        src="{{ $qp->imagen_principal_url ?? 'https://via.placeholder.com/400x500?text=Producto' }}" 
+                        alt="{{ $qp->nombre }}" 
+                        class="w-full h-full object-cover object-center"
+                    />
+                    
+                    @if($qp->nuevo)
+                        <div class="absolute top-3 left-3">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-zinc-950 text-white shadow-sm">Nuevo</span>
+                        </div>
+                    @elseif($qp->tiene_descuento)
+                        <div class="absolute top-3 left-3">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-600 text-white shadow-sm">-{{ $qp->porcentaje_descuento }}%</span>
+                        </div>
+                    @endif
+                </div>
+
+                {{-- Right: Content --}}
+                <div class="flex flex-col h-full space-y-4">
+                    {{-- Categories / Brand --}}
+                    <div class="flex flex-wrap gap-1.5 text-[10px] font-bold uppercase tracking-wider text-zinc-400">
+                        <span>{{ optional($qp->category)->nombre ?? 'General' }}</span>
+                        @if($qp->brand)
+                            <span class="text-zinc-300">&middot;</span>
+                            <span class="text-indigo-600">{{ $qp->brand->nombre }}</span>
+                        @endif
+                    </div>
+
+                    {{-- Title --}}
+                    <h2 class="text-xl font-bold text-zinc-900 leading-tight">{{ $qp->nombre }}</h2>
+
+                    {{-- Pricing --}}
+                    <div class="flex items-baseline gap-2">
+                        @if($qp->tiene_descuento)
+                            <span class="text-2xl font-black text-red-600">${{ number_format($qp->precio_oferta, 2) }}</span>
+                            <span class="text-sm text-zinc-400 line-through">${{ number_format($qp->precio, 2) }}</span>
+                        @else
+                            <span class="text-2xl font-black text-zinc-900">${{ number_format($qp->precio, 2) }}</span>
+                        @endif
+                    </div>
+
+                    {{-- Stock Badge --}}
+                    <div>
+                        @if($qp->stock > 5)
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-100/80">
+                                <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+                                En Stock
+                            </span>
+                        @elseif($qp->stock <= 5 && $qp->stock > 0)
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-orange-50 text-orange-700 border border-orange-100/80">
+                                <span class="h-1.5 w-1.5 rounded-full bg-orange-500 animate-pulse"></span>
+                                Últimas {{ $qp->stock }} unidades
+                            </span>
+                        @else
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-red-50 text-red-700 border border-red-100/80">
+                                <span class="h-1.5 w-1.5 rounded-full bg-red-500"></span>
+                                Agotado
+                            </span>
+                        @endif
+                    </div>
+
+                    {{-- Short description --}}
+                    <p class="text-xs text-zinc-600 leading-relaxed max-h-36 overflow-y-auto pr-2">
+                        {{ $qp->descripcion_corta ?: ($qp->descripcion ?: 'No hay descripción disponible para este producto.') }}
+                    </p>
+
+                    {{-- Actions block --}}
+                    <div class="pt-4 border-t border-zinc-100 flex items-center gap-2 mt-auto">
+                        {{-- Add to Cart --}}
+                        <flux:button 
+                            wire:click.prevent="addToCart({{ $qp->id }})" 
+                            variant="primary" 
+                            class="flex-1 !bg-indigo-600 hover:!bg-indigo-700"
+                            :disabled="$qp->stock <= 0"
+                        >
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                            Añadir al carrito
+                        </flux:button>
+                        
+                        {{-- Add to Wishlist --}}
+                        <button 
+                            wire:click.prevent="toggleWishlist({{ $qp->id }})" 
+                            class="w-10 h-10 rounded-xl border border-zinc-200 bg-white flex items-center justify-center text-zinc-500 hover:text-red-500 hover:border-red-200 transition-all shadow-xs shrink-0"
+                            title="Añadir a favoritos"
+                        >
+                            @if(in_array($qp->id, $wishlistProductIds))
+                                <svg class="w-5 h-5 text-red-500 fill-current" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                            @else
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                            @endif
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        @endif
+    </flux:modal>
 </div>
