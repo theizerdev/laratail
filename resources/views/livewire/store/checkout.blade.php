@@ -186,12 +186,31 @@ new #[Layout('layouts.app')] #[Title('Checkout - Laratail Store')] class extends
         $descuento = $cart->coupon ? $cart->coupon->calcularDescuento($subtotal) : 0;
         $total = max(0, $subtotal - $descuento);
 
+        // Pre-check estricta de inventario para evitar sobreventa por carrera.
+        // Importante: se hace antes de crear el Order.
+        foreach ($items as $item) {
+            $product = $item->product;
+            if (!$product) {
+                $this->addError('order', 'Uno de los productos del carrito ya no está disponible.');
+                return;
+            }
+
+            // Si rastreamiento está habilitado, validar stock actual vs cantidad.
+            if ($product->rastrear_inventario) {
+                if ((int) $product->stock < (int) $item->cantidad) {
+                    $this->addError('order', 'Stock insuficiente para ' . ($product->nombre ?? 'producto') . '. Solo quedan ' . (int) $product->stock . '.');
+                    return;
+                }
+            }
+        }
+
         DB::beginTransaction();
         try {
             $customer = null;
             if (Auth::check()) {
                 $customer = Customer::where('user_id', Auth::id())->first();
             }
+
 
             $pais = Pais::find($this->pais_id);
 

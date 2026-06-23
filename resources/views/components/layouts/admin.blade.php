@@ -11,7 +11,7 @@
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
     <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap" rel="stylesheet" />
 
     @fonts
     @fluxAppearance
@@ -22,97 +22,109 @@
     {{-- Iconify Icons --}}
     <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
 </head>
-<body class="min-h-screen bg-gray-50 font-[Inter] ">
-    {{-- Sidebar --}}
-    <aside
-        id="sidebar"
-        class="fixed inset-y-0 left-0 z-40 flex w-[260px] flex-col  bg-blue-50 border-r border-gray-100 transition-transform duration-300 lg:translate-x-0 -translate-x-full"
-    >
-        {{-- Brand --}}
-        <div class="flex h-[72px] items-center gap-3 px-6">
-            <div class="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-500 text-sm font-bold text-white shadow-sm shadow-emerald-200">
-                F
+<body class="min-h-screen bg-white dark:bg-zinc-900 antialiased font-[Inter]">
+
+    {{-- Sidebar Nativo de Flux --}}
+    <flux:sidebar sticky collapsible class="bg-zinc-50 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-800">
+        <flux:sidebar.header>
+            <div class="flex items-center gap-3">
+                <div class="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-500 text-sm font-bold text-white shadow-sm shadow-emerald-200">
+                    F
+                </div>
+                <span class="text-xl font-bold tracking-tight text-zinc-900 dark:text-white">Flux</span>
             </div>
-            <span class="text-xl font-bold tracking-tight text-gray-900">Flux</span>
-        </div>
+            <flux:sidebar.collapse />
+        </flux:sidebar.header>
 
-        {{-- Navigation --}}
-        <nav class="flex-1 overflow-y-auto px-4 py-2">
+        <flux:sidebar.nav>
             @include('components.layouts.partials.menu')
-        </nav>
+        </flux:sidebar.nav>
 
-        {{-- User section at bottom --}}
-        <div class="border-t border-gray-100 p-4">
-            <flux:dropdown position="top" align="start">
-                <button class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 transition hover:bg-gray-50">
-                    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-xs font-bold text-emerald-700">
-                        {{ Auth::user()->initials() }}
+        <flux:spacer />
+
+        {{-- Perfil del Usuario en la parte inferior --}}
+        <flux:dropdown position="top" align="start">
+            <button class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 transition hover:bg-zinc-100 dark:hover:bg-zinc-800">
+                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-950 text-xs font-bold text-emerald-700 dark:text-emerald-300">
+                    {{ Auth::user()->initials() }}
+                </div>
+                <div class="min-w-0 flex-1 text-left">
+                    <p class="truncate text-sm font-semibold text-zinc-900 dark:text-zinc-100">{{ Auth::user()->name }}</p>
+                    <p class="truncate text-xs text-zinc-400 dark:text-zinc-500">{{ Auth::user()->email }}</p>
+                </div>
+                <iconify-icon icon="heroicons:chevron-up-down" class="h-4 w-4 text-zinc-400"></iconify-icon>
+            </button>
+
+            <flux:menu>
+                <flux:menu.item icon="cog" href="#">Configuración</flux:menu.item>
+                <flux:menu.separator />
+                <flux:menu.item
+                    icon="arrow-right-end-on-rectangle"
+                    href="{{ route('logout') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                >
+                    Cerrar sesión
+                </flux:menu.item>
+            </flux:menu>
+        </flux:dropdown>
+    </flux:sidebar>
+
+    {{-- Header superior unificado --}}
+    <flux:header class="border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
+        <flux:sidebar.toggle class="lg:hidden" />
+        
+        <flux:heading class="hidden lg:block">{{ $title ?? 'Dashboard' }}</flux:heading>
+        
+        <flux:spacer />
+        
+        {{-- Notificaciones e Mensajes --}}
+        <flux:button variant="subtle" icon="bell" class="relative">
+            <span class="absolute top-1 right-1 h-2 w-2 rounded-full bg-red-500"></span>
+        </flux:button>
+        <flux:button variant="subtle" icon="chat-bubble-left-right" class="hidden sm:inline-flex" />
+
+        <div class="mx-2 h-6 w-px bg-zinc-200 dark:bg-zinc-800 hidden sm:block"></div>
+
+        {{-- Dropdown del perfil móvil/compacto --}}
+        <flux:dropdown position="bottom" align="end">
+            <button class="flex items-center gap-2 rounded-xl p-1 transition hover:bg-zinc-100 dark:hover:bg-zinc-800">
+                <div class="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-950 text-xs font-bold text-emerald-700 dark:text-emerald-300">
+                    {{ Auth::user()->initials() }}
+                </div>
+                <iconify-icon icon="heroicons:chevron-down" class="h-4 w-4 text-zinc-400"></iconify-icon>
+            </button>
+            <flux:menu>
+                <flux:menu.heading>
+                    <div class="px-1">
+                        <p class="text-sm font-medium text-zinc-900 dark:text-white">{{ Auth::user()->name }}</p>
+                        <p class="text-xs text-zinc-500">{{ Auth::user()->email }}</p>
                     </div>
-                    <div class="min-w-0 flex-1 text-left">
-                        <p class="truncate text-sm font-semibold text-gray-900">{{ Auth::user()->name }}</p>
-                        <p class="truncate text-xs text-gray-400">{{ Auth::user()->email }}</p>
-                    </div>
-                    <iconify-icon icon="heroicons:chevron-up-down" class="h-4 w-4 text-gray-400"></iconify-icon>
-                </button>
+                </flux:menu.heading>
+                <flux:menu.separator />
+                <flux:menu.item icon="cog" href="#">Configuración</flux:menu.item>
+                <flux:menu.separator />
+                <flux:menu.item
+                    icon="arrow-right-end-on-rectangle"
+                    href="{{ route('logout') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                >
+                    Cerrar sesión
+                </flux:menu.item>
+            </flux:menu>
+        </flux:dropdown>
+    </flux:header>
 
-                <flux:menu>
-                    <flux:menu.item icon="cog" href="#">Settings</flux:menu.item>
-                    <flux:menu.separator />
-                    <flux:menu.item
-                        icon="arrow-right-end-on-rectangle"
-                        href="{{ route('logout') }}"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                    >
-                        Log out
-                    </flux:menu.item>
-                </flux:menu>
-            </flux:dropdown>
-        </div>
-    </aside>
+    {{-- Contenido Principal --}}
+    <flux:main>
+        {{ $slot }}
+    </flux:main>
 
-    {{-- Mobile overlay --}}
-    <div
-        id="sidebar-overlay"
-        class="fixed inset-0 z-30 bg-gray-900/40 opacity-0 pointer-events-none transition-opacity duration-300 lg:hidden"
-        onclick="toggleSidebar()"
-    ></div>
-
-    {{-- Main content area --}}
-    <div class="lg:pl-[260px]">
-        {{-- Top navbar --}}
-        @include('components.layouts.partials.navbar', ['pageTitle' => $title ?? 'Dashboard'])
-
-        {{-- Page content --}}
-        <main class="p-6 lg:p-8">
-            {{ $slot }}
-        </main>
-    </div>
-
-    {{-- Hidden logout form --}}
+    {{-- Formulario oculto de logout --}}
     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
         @csrf
     </form>
 
     @livewireScripts
     @fluxScripts
-
-    {{-- Sidebar toggle script --}}
-    <script>
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebar-overlay');
-            const isOpen = !sidebar.classList.contains('-translate-x-full');
-
-            if (isOpen) {
-                sidebar.classList.add('-translate-x-full');
-                overlay.classList.add('opacity-0', 'pointer-events-none');
-                overlay.classList.remove('opacity-100');
-            } else {
-                sidebar.classList.remove('-translate-x-full');
-                overlay.classList.remove('opacity-0', 'pointer-events-none');
-                overlay.classList.add('opacity-100');
-            }
-        }
-    </script>
 </body>
 </html>
