@@ -182,7 +182,7 @@ new #[Layout('layouts.app')] #[Title('Rastrear Pedido - Laratail Store')] class 
                 <div class="divide-y divide-zinc-100">
                     @foreach($trackedOrder->items as $item)
                     <div class="flex items-center gap-3 py-3">
-                        <img src="{{ optional($item->product)->imagen_principal_url ?? 'https://via.placeholder.com/50' }}" class="w-12 h-12 rounded-lg object-cover bg-zinc-100 flex-shrink-0" alt="">
+                        <img src="{{ optional($item->product)->imagen_principal_url ?? 'https://placehold.co/50' }}" class="w-12 h-12 rounded-lg object-cover bg-zinc-100 flex-shrink-0" alt="">
                         <div class="flex-1 min-w-0">
                             <p class="text-sm font-medium text-zinc-900 truncate">{{ optional($item->product)->nombre ?? 'Producto' }}</p>
                             <p class="text-xs text-zinc-500">{{ $item->cantidad }} × ${{ number_format($item->precio, 2) }}</p>

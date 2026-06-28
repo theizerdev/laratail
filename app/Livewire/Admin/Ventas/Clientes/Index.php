@@ -190,6 +190,9 @@ class Index extends Component
                 if ($this->crear_usuario && $this->email) {
                     $password = Str::random(10);
 
+                    $group = \App\Models\Group::where('name', 'Clientes')->first();
+                    $groupId = $group ? $group->id : null;
+
                     $user = User::create([
                         'name' => trim($this->nombre . ' ' . $this->apellido),
                         'email' => $this->email,
@@ -197,13 +200,11 @@ class Index extends Component
                         'telefono' => $this->telefono ?: null,
                         'empresa_id' => auth()->user()->empresa_id,
                         'sucursal_id' => auth()->user()->sucursal_id,
+                        'group_id' => $groupId,
                     ]);
 
                     // Assign client role if exists
-                    $clientRole = \Spatie\Permission\Models\Role::where('name', 'viewer')->first();
-                    if ($clientRole) {
-                        $user->assignRole($clientRole);
-                    }
+                    $user->assignRole('cliente');
 
                     $data['user_id'] = $user->id;
                 }

@@ -217,6 +217,7 @@ class CartService
                 'email' => $user->email,
                 'telefono' => $user->telefono,
                 'activo' => true,
+                'empresa_id' => $user->empresa_id ?: 1,
             ]);
         }
         return $customer;

@@ -45,6 +45,10 @@ new #[Layout('layouts.app')] #[Title('Registrarse - Laratail Store')] class exte
 
         DB::beginTransaction();
         try {
+            // Find Clientes group
+            $group = \App\Models\Group::where('name', 'Clientes')->first();
+            $groupId = $group ? $group->id : null;
+
             // Create user
             $user = User::create([
                 'name' => $this->nombre . ' ' . $this->apellido,
@@ -52,7 +56,12 @@ new #[Layout('layouts.app')] #[Title('Registrarse - Laratail Store')] class exte
                 'password' => Hash::make($this->password),
                 'telefono' => $phoneFormatted,
                 'whatsapp_otp' => $otp,
+                'empresa_id' => 1,
+                'group_id' => $groupId,
             ]);
+
+            // Assign role 'cliente'
+            $user->assignRole('cliente');
 
             // Create customer record
             Customer::create([
@@ -62,6 +71,8 @@ new #[Layout('layouts.app')] #[Title('Registrarse - Laratail Store')] class exte
                 'email' => $this->email,
                 'telefono' => $phoneFormatted,
                 'activo' => true,
+                'empresa_id' => 1,
+                'sucursal_id' => 1,
             ]);
 
             DB::commit();
@@ -83,6 +94,7 @@ new #[Layout('layouts.app')] #[Title('Registrarse - Laratail Store')] class exte
 
         } catch (\Exception $e) {
             DB::rollBack();
+            \Illuminate\Support\Facades\Log::error("Error en el registro de usuario/cliente: " . $e->getMessage() . "\n" . $e->getTraceAsString());
             $this->addError('email', 'Ocurrió un error al crear tu cuenta. Intenta de nuevo.');
         }
     }

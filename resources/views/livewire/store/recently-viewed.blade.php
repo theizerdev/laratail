@@ -49,7 +49,7 @@ new #[Layout('layouts.app')] #[Title('Vistos Recientemente - Laratail Store')] c
                 @foreach($products as $product)
                 <a href="{{ route('store.product.detail', $product->slug) }}" wire:navigate class="group flex flex-col bg-white rounded-xl border border-zinc-100 shadow-sm hover:shadow-md transition-all overflow-hidden">
                     <div class="relative aspect-square overflow-hidden bg-zinc-100">
-                        <img src="{{ $product->imagen_principal_url ?? 'https://via.placeholder.com/200' }}" alt="{{ $product->nombre }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                        <img src="{{ $product->imagen_principal_url ?? 'https://placehold.co/200' }}" alt="{{ $product->nombre }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                         @if($product->tiene_descuento)
                             <span class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">-{{ $product->porcentaje_descuento }}%</span>
                         @endif

@@ -29,6 +29,11 @@ class GroupSeeder extends Seeder
                 'description' => 'Grupo con acceso de solo lectura',
                 'role' => 'viewer',
             ],
+            [
+                'name' => 'Clientes',
+                'description' => 'Grupo para los clientes registrados en la tienda',
+                'role' => 'cliente',
+            ],
         ];
 
         foreach ($groups as $groupData) {

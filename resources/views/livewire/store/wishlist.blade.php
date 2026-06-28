@@ -74,7 +74,7 @@ new #[Layout('layouts.app')] #[Title('Mis Favoritos - Laratail Store')] class ex
                 <div class="flex items-center gap-4 sm:gap-6 bg-white rounded-2xl border border-zinc-100 shadow-sm p-4 sm:p-5 hover:shadow-md transition-shadow">
                     <!-- Image -->
                     <a href="{{ route('store.product.detail', $product->slug) }}" wire:navigate class="flex-shrink-0">
-                        <img src="{{ $product->imagen_principal_url ?? 'https://via.placeholder.com/120' }}" alt="{{ $product->nombre }}" class="w-20 h-24 sm:w-24 sm:h-28 object-cover rounded-xl bg-zinc-100">
+                        <img src="{{ $product->imagen_principal_url ?? 'https://placehold.co/120' }}" alt="{{ $product->nombre }}" class="w-20 h-24 sm:w-24 sm:h-28 object-cover rounded-xl bg-zinc-100">
                     </a>
 
                     <!-- Info -->

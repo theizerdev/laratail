@@ -98,10 +98,11 @@
             <div class="rounded-2xl bg-white p-6 shadow-sm space-y-4">
                 <h3 class="text-sm font-semibold text-gray-900">Precio e Inventario</h3>
 
-                <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-4">
                     <flux:input wire:model="precio" label="Precio de Venta" type="number" step="0.01" placeholder="0.00" :error="$errors->first('precio')" required />
                     <flux:input wire:model="precio_oferta" label="Precio Oferta" type="number" step="0.01" placeholder="Sin oferta" :error="$errors->first('precio_oferta')" />
                     <flux:input wire:model="precio_compra" label="Precio de Compra (Costo)" type="number" step="0.01" placeholder="0.00" :error="$errors->first('precio_compra')" />
+                    <flux:input wire:model="precio_bs" label="Precio en Bs." type="number" step="0.01" placeholder="0.00" :error="$errors->first('precio_bs')" />
                 </div>
 
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">

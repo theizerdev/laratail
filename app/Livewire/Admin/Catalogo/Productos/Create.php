@@ -32,6 +32,7 @@ class Create extends Component
     public float $precio = 0;
     public ?float $precio_oferta = null;
     public ?float $precio_compra = null;
+    public ?float $precio_bs = null;
 
     // Inventory
     public int $stock = 0;
@@ -80,6 +81,7 @@ class Create extends Component
             'precio' => 'required|numeric|min:0',
             'precio_oferta' => 'nullable|numeric|min:0',
             'precio_compra' => 'nullable|numeric|min:0',
+            'precio_bs' => 'nullable|numeric|min:0',
             'stock' => 'integer|min:0',
             'stock_minimo' => 'integer|min:0',
             'rastrear_inventario' => 'boolean',
@@ -199,6 +201,7 @@ class Create extends Component
             'precio' => $this->precio,
             'precio_oferta' => $this->precio_oferta,
             'precio_compra' => $this->precio_compra,
+            'precio_bs' => $this->precio_bs,
             'stock' => $this->tiene_variantes ? 0 : $this->stock,
             'stock_minimo' => $this->stock_minimo,
             'rastrear_inventario' => $this->rastrear_inventario,

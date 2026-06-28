@@ -34,6 +34,7 @@ class Edit extends Component
     public float $precio = 0;
     public ?float $precio_oferta = null;
     public ?float $precio_compra = null;
+    public ?float $precio_bs = null;
 
     // Inventory
     public int $stock = 0;
@@ -85,6 +86,7 @@ class Edit extends Component
         $this->precio = (float) $this->product->precio;
         $this->precio_oferta = $this->product->precio_oferta ? (float) $this->product->precio_oferta : null;
         $this->precio_compra = $this->product->precio_compra ? (float) $this->product->precio_compra : null;
+        $this->precio_bs = $this->product->precio_bs ? (float) $this->product->precio_bs : null;
         $this->stock = $this->product->stock;
         $this->stock_minimo = $this->product->stock_minimo;
         $this->rastrear_inventario = $this->product->rastrear_inventario;
@@ -155,6 +157,7 @@ class Edit extends Component
             'precio' => 'required|numeric|min:0',
             'precio_oferta' => 'nullable|numeric|min:0',
             'precio_compra' => 'nullable|numeric|min:0',
+            'precio_bs' => 'nullable|numeric|min:0',
             'stock' => 'integer|min:0',
             'stock_minimo' => 'integer|min:0',
             'rastrear_inventario' => 'boolean',
@@ -304,6 +307,7 @@ class Edit extends Component
             'precio' => $this->precio,
             'precio_oferta' => $this->precio_oferta,
             'precio_compra' => $this->precio_compra,
+            'precio_bs' => $this->precio_bs,
             'stock' => $this->tiene_variantes ? 0 : $this->stock,
             'stock_minimo' => $this->stock_minimo,
             'rastrear_inventario' => $this->rastrear_inventario,

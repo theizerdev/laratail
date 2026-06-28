@@ -3,6 +3,7 @@ use Livewire\Volt\Component;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Brand;
+use App\Services\CartService;
 
 new class extends Component {
     public string $query = '';
@@ -10,6 +11,18 @@ new class extends Component {
     public $suggestions = [];
     public bool $isOpen = false;
     public int $selectedIdx = -1;
+
+    public function addToCart(int $productId): void
+    {
+        $product = Product::find($productId);
+        if (!$product) return;
+        app(CartService::class)->addItem($product, 1);
+        $this->dispatch('cart-updated');
+        $this->dispatch('notify', 
+            message: 'Producto añadido al carrito.', 
+            type: 'success'
+        );
+    }
 
     public function updatedQuery(): void
     {
@@ -193,26 +206,39 @@ new class extends Component {
                             <p class="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">Productos</p>
                             @foreach($results as $rIdx => $result)
                                 @php $globalIdx = count($suggestions) + $rIdx; @endphp
-                                <a href="/producto/{{ $result['slug'] }}" wire:navigate
-                                   class="flex items-center gap-4 px-3 py-2.5 rounded-lg transition-colors {{ $selectedIdx === $globalIdx ? 'bg-indigo-50' : 'hover:bg-zinc-50' }}"
-                                   x-on:click="$wire.close()">
-                                    <img src="{{ $result['imagen_principal_url'] ?? 'https://via.placeholder.com/50' }}" class="w-12 h-12 rounded-lg object-cover bg-zinc-100 flex-shrink-0" alt="">
-                                    <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-medium text-zinc-900 truncate">{{ $result['nombre'] }}</p>
-                                        <div class="flex items-center gap-2 mt-0.5">
-                                            @if(!empty($result['precio_oferta']) && $result['precio_oferta'] < $result['precio'])
-                                                <span class="text-sm font-bold text-red-600">${{ number_format($result['precio_oferta'], 2) }}</span>
-                                                <span class="text-xs text-zinc-400 line-through">${{ number_format($result['precio'], 2) }}</span>
-                                            @else
-                                                <span class="text-sm font-bold text-zinc-900">${{ number_format($result['precio'], 2) }}</span>
-                                            @endif
-                                            @if(($result['stock'] ?? 0) <= 0)
-                                                <span class="text-xs text-red-500 font-medium">Agotado</span>
-                                            @endif
+                                <div class="group/item flex items-center justify-between rounded-lg transition-colors {{ $selectedIdx === $globalIdx ? 'bg-indigo-50' : 'hover:bg-zinc-50' }}">
+                                    <!-- Product Info Link -->
+                                    <a href="/producto/{{ $result['slug'] }}" wire:navigate
+                                       class="flex items-center gap-4 px-3 py-2.5 flex-1 min-w-0"
+                                       x-on:click="$wire.close()">
+                                        <img src="{{ $result['imagen_principal_url'] ?? 'https://placehold.co/50' }}" class="w-12 h-12 rounded-lg object-cover bg-zinc-100 flex-shrink-0" alt="">
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-zinc-900 truncate">{{ $result['nombre'] }}</p>
+                                            <div class="flex items-center gap-2 mt-0.5">
+                                                @if(!empty($result['precio_oferta']) && $result['precio_oferta'] < $result['precio'])
+                                                    <span class="text-sm font-bold text-red-600">${{ number_format($result['precio_oferta'], 2) }}</span>
+                                                    <span class="text-xs text-zinc-400 line-through">${{ number_format($result['precio'], 2) }}</span>
+                                                @else
+                                                    <span class="text-sm font-bold text-zinc-900">${{ number_format($result['precio'], 2) }}</span>
+                                                @endif
+                                                @if(($result['stock'] ?? 0) <= 0)
+                                                    <span class="text-xs text-red-500 font-medium">Agotado</span>
+                                                @endif
+                                            </div>
                                         </div>
+                                    </a>
+                                    <!-- Action Buttons -->
+                                    <div class="flex items-center gap-1.5 px-3 py-2.5 flex-shrink-0">
+                                        @if(($result['stock'] ?? 0) > 0)
+                                            <button wire:click.stop.prevent="addToCart({{ $result['id'] }})"
+                                                    class="p-2 text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 rounded-full transition-colors flex items-center justify-center"
+                                                    title="Añadir al carrito">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                                            </button>
+                                        @endif
+                                        <svg class="w-4 h-4 text-zinc-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                                     </div>
-                                    <svg class="w-4 h-4 text-zinc-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                                </a>
+                                </div>
                             @endforeach
                         </div>
 

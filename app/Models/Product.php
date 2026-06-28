@@ -17,6 +17,10 @@ class Product extends Model
 {
     use Multitenantable, HasSpanishActivityLog, LogsActivity, SoftDeletes;
 
+    protected $appends = [
+        'imagen_principal_url',
+    ];
+
     protected $fillable = [
         'nombre',
         'slug',
@@ -26,6 +30,7 @@ class Product extends Model
         'precio',
         'precio_oferta',
         'precio_compra',
+        'precio_bs',
         'stock',
         'stock_minimo',
         'rastrear_inventario',
@@ -54,6 +59,7 @@ class Product extends Model
             'precio' => 'decimal:2',
             'precio_oferta' => 'decimal:2',
             'precio_compra' => 'decimal:2',
+            'precio_bs' => 'decimal:2',
             'stock' => 'integer',
             'stock_minimo' => 'integer',
             'rastrear_inventario' => 'boolean',
@@ -136,6 +142,11 @@ class Product extends Model
         // Si es una URL externa (Unsplash, etc.), devolverla tal cual
         if (Str::startsWith($this->imagen_principal, ['http://', 'https://'])) {
             return $this->imagen_principal;
+        }
+
+        // Si es una ruta pública directa (como las importadas en public/app/productos)
+        if (Str::startsWith($this->imagen_principal, ['app/', 'build/'])) {
+            return asset($this->imagen_principal);
         }
 
         // Es una ruta local subida al disco 'public'

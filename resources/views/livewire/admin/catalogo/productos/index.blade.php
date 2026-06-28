@@ -150,6 +150,9 @@
                             @else
                                 <span class="text-sm font-bold text-gray-900">${{ number_format($product->precio, 2) }}</span>
                             @endif
+                            @if($product->precio_bs)
+                                <span class="block text-xs font-medium text-indigo-600 mt-0.5" title="Precio en Bolívares">Bs. {{ number_format($product->precio_bs, 2) }}</span>
+                            @endif
                         </td>
                         <td class="px-4 py-3">
                             @php $totalStock = $product->stock_total; @endphp

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class ProductVariant extends Model
 {
@@ -15,6 +16,7 @@ class ProductVariant extends Model
         'nombre',
         'precio',
         'precio_oferta',
+        'precio_bs',
         'stock',
         'stock_minimo',
         'peso',
@@ -27,6 +29,7 @@ class ProductVariant extends Model
         return [
             'precio' => 'decimal:2',
             'precio_oferta' => 'decimal:2',
+            'precio_bs' => 'decimal:2',
             'stock' => 'integer',
             'stock_minimo' => 'integer',
             'peso' => 'decimal:3',
@@ -60,6 +63,26 @@ class ProductVariant extends Model
         }
 
         return $this->attributeValues->pluck('valor')->implode(' / ');
+    }
+
+    /**
+     * URL resuelta de la imagen de la variante
+     */
+    public function getImagenUrlAttribute(): ?string
+    {
+        if (!$this->imagen) {
+            return null;
+        }
+
+        if (Str::startsWith($this->imagen, ['http://', 'https://'])) {
+            return $this->imagen;
+        }
+
+        if (Str::startsWith($this->imagen, ['app/', 'build/'])) {
+            return asset($this->imagen);
+        }
+
+        return asset('storage/' . $this->imagen);
     }
 
     public function product(): BelongsTo

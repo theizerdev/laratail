@@ -147,7 +147,7 @@ new class extends Component {
                             @auth
                                 @forelse($this->wishlistData['items'] as $item)
                                 <div class="flex items-center gap-3">
-                                    <img src="{{ $item->product->imagen_principal_url ?? 'https://via.placeholder.com/100' }}" alt="{{ $item->product->nombre }}" class="w-12 h-12 rounded-lg object-cover border border-zinc-100 flex-shrink-0">
+                                    <img src="{{ $item->product->imagen_principal_url ?? 'https://placehold.co/100' }}" alt="{{ $item->product->nombre }}" class="w-12 h-12 rounded-lg object-cover border border-zinc-100 flex-shrink-0">
                                     <div class="flex-1 min-w-0">
                                         <h4 class="text-sm font-medium text-zinc-900 truncate">
                                             <a href="{{ route('store.product.detail', $item->product->slug) }}" wire:navigate class="hover:text-indigo-600 transition-colors">
@@ -208,7 +208,7 @@ new class extends Component {
                         <div class="max-h-72 overflow-y-auto p-4 space-y-4">
                             @forelse($this->cartData['items'] as $item)
                             <div class="flex items-center gap-3">
-                                <img src="{{ $item->product->imagen_principal_url ?? 'https://via.placeholder.com/100' }}" alt="{{ $item->product->nombre }}" class="w-12 h-12 rounded-lg object-cover border border-zinc-100 flex-shrink-0">
+                                <img src="{{ $item->product->imagen_principal_url ?? 'https://placehold.co/100' }}" alt="{{ $item->product->nombre }}" class="w-12 h-12 rounded-lg object-cover border border-zinc-100 flex-shrink-0">
                                 <div class="flex-1 min-w-0">
                                     <h4 class="text-sm font-medium text-zinc-900 truncate">{{ $item->product->nombre }}</h4>
                                     <p class="text-xs text-zinc-500">{{ $item->cantidad }} x ${{ number_format($item->precio, 2) }}</p>
@@ -279,7 +279,7 @@ new class extends Component {
     }
 }"
 @notify.window="addToast($event.detail.message, $event.detail.type)"
-class="fixed bottom-6 right-6 z-[100] flex flex-col gap-3 max-w-sm w-full pointer-events-none">
+class="fixed bottom-6 right-6 z-[150] flex flex-col gap-3 max-w-sm w-full pointer-events-none">
     <template x-for="toast in toasts" :key="toast.id">
         <div x-show="true"
              x-transition:enter="transition ease-out duration-300 transform"

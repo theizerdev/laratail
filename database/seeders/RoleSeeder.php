@@ -41,6 +41,9 @@ class RoleSeeder extends Seeder
             Permission::where('name', 'like', '%.view')->get()
         );
 
+        // Cliente: storefront customers
+        $cliente = Role::firstOrCreate(['name' => 'cliente', 'guard_name' => 'web']);
+
         // Reset cached roles and permissions
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
     }

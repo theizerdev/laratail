@@ -126,7 +126,7 @@ new #[Layout('layouts.app')] #[Title('Carrito - Laratail Store')] class extends 
                             <div class="p-4 sm:p-6 flex items-start gap-4 sm:gap-6">
                                 <!-- Image -->
                                 <a href="{{ route('store.product.detail', optional($item->product)->slug ?? '#') }}" wire:navigate class="flex-shrink-0">
-                                    <img src="{{ optional($item->product)->imagen_principal_url ?? 'https://via.placeholder.com/120' }}" alt="{{ optional($item->product)->nombre ?? 'Producto' }}" class="w-20 h-24 sm:w-24 sm:h-28 object-cover rounded-xl bg-zinc-100">
+                                    <img src="{{ optional($item->product)->imagen_principal_url ?? 'https://placehold.co/120' }}" alt="{{ optional($item->product)->nombre ?? 'Producto' }}" class="w-20 h-24 sm:w-24 sm:h-28 object-cover rounded-xl bg-zinc-100">
                                 </a>
 
                                 <!-- Info -->

@@ -488,7 +488,7 @@ new #[Layout('layouts.app')] #[Title('Checkout - Laratail Store')] class extends
                     <div class="border border-zinc-100 rounded-xl divide-y divide-zinc-100 mb-6">
                         @foreach($items as $item)
                         <div class="flex items-center gap-4 p-4">
-                            <img src="{{ optional($item->product)->imagen_principal_url ?? 'https://via.placeholder.com/60' }}" class="w-14 h-14 rounded-lg object-cover bg-zinc-100" alt="">
+                            <img src="{{ optional($item->product)->imagen_principal_url ?? 'https://placehold.co/60' }}" class="w-14 h-14 rounded-lg object-cover bg-zinc-100" alt="">
                             <div class="flex-1 min-w-0">
                                 <p class="text-sm font-medium text-zinc-900 truncate">{{ optional($item->product)->nombre ?? 'Producto' }}</p>
                                 <p class="text-xs text-zinc-500">Cantidad: {{ $item->cantidad }}</p>

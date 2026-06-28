@@ -282,15 +282,25 @@ new #[Layout('layouts.app')] class extends Component {
         }
         foreach ($this->product->images as $img) {
             $ruta = $img->ruta;
-            $url = \Illuminate\Support\Str::startsWith($ruta, ['http://', 'https://'])
-                ? $ruta
-                : asset('storage/' . $ruta);
+            if (\Illuminate\Support\Str::startsWith($ruta, ['http://', 'https://'])) {
+                $url = $ruta;
+            } elseif (\Illuminate\Support\Str::startsWith($ruta, ['app/', 'build/'])) {
+                $url = asset($ruta);
+            } else {
+                $url = asset('storage/' . $ruta);
+            }
             $allImages->push(['url' => $url, 'alt' => $img->alt_text ?? $this->product->nombre]);
         }
+
+        $variantImagesMap = $this->product->variants
+            ->filter(fn($v) => !empty($v->imagen))
+            ->mapWithKeys(fn($v) => [$v->id => $v->imagen_url])
+            ->toArray();
 
         return [
             'relatedProducts' => $relatedProducts,
             'allImages' => $allImages,
+            'variantImagesMap' => $variantImagesMap,
             'approvedReviews' => Review::with('customer')
                 ->where('product_id', $this->product->id)
                 ->where('aprobado', true)
@@ -375,7 +385,21 @@ new #[Layout('layouts.app')] class extends Component {
             activeImg: 0,
             zooming: false,
             images: {{ Js::from($allImages->pluck('url')->values()) }},
-            variantImages: {},
+            variantImages: {{ Js::from($variantImagesMap) }},
+            init() {
+                this.$watch('$wire.selectedVariantId', (id) => {
+                    if (id && this.variantImages[id]) {
+                        let url = this.variantImages[id];
+                        let idx = this.images.indexOf(url);
+                        if (idx !== -1) {
+                            this.activeImg = idx;
+                        } else {
+                            this.images.push(url);
+                            this.activeImg = this.images.length - 1;
+                        }
+                    }
+                });
+            }
         }" class="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16">
 
             {{-- GALLERY --}}
@@ -808,7 +832,7 @@ new #[Layout('layouts.app')] class extends Component {
                 @foreach($relatedProducts as $rp)
                 <a href="{{ route('store.product.detail', $rp->slug) }}" wire:navigate class="group flex flex-col bg-white rounded-2xl border border-zinc-100 shadow-sm hover:shadow-lg transition-all overflow-hidden">
                     <div class="relative aspect-square overflow-hidden bg-zinc-100">
-                        <img src="{{ $rp->imagen_principal_url ?? 'https://via.placeholder.com/300' }}" alt="{{ $rp->nombre }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                        <img src="{{ $rp->imagen_principal_url ?? 'https://placehold.co/300' }}" alt="{{ $rp->nombre }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                         @if($rp->tiene_descuento)
                             <span class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">-{{ $rp->porcentaje_descuento }}%</span>
                         @endif
@@ -836,7 +860,7 @@ new #[Layout('layouts.app')] class extends Component {
                 @foreach($recentlyViewed as $rv)
                 <a href="{{ route('store.product.detail', $rv->slug) }}" wire:navigate class="group flex flex-col bg-white rounded-xl border border-zinc-100 shadow-sm hover:shadow-md transition-all overflow-hidden">
                     <div class="relative aspect-square overflow-hidden bg-zinc-100">
-                        <img src="{{ $rv->imagen_principal_url ?? 'https://via.placeholder.com/200' }}" alt="{{ $rv->nombre }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                        <img src="{{ $rv->imagen_principal_url ?? 'https://placehold.co/200' }}" alt="{{ $rv->nombre }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                         @if($rv->tiene_descuento)
                             <span class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">-{{ $rv->porcentaje_descuento }}%</span>
                         @endif

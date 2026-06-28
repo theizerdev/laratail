@@ -40,7 +40,7 @@ new class extends Component {
             'city' => $order->ciudad_envio ?? $order->customer->ciudad,
             'product_name' => optional($firstItem?->product)->nombre ?? 'un producto',
             'product_slug' => optional($firstItem?->product)->slug,
-            'product_image' => optional($firstItem?->product)->imagen_principal_url ?? 'https://via.placeholder.com/40',
+            'product_image' => optional($firstItem?->product)->imagen_principal_url ?? 'https://placehold.co/40',
             'time_ago' => $order->created_at->diffForHumans(),
             'items_count' => $order->items->count(),
         ];

@@ -112,7 +112,7 @@ new #[Layout('layouts.app')] #[Title('Comparar Productos - Laratail Store')] cla
                     </button>
                     <a href="{{ route('store.product.detail', $product->slug) }}" wire:navigate>
                         <div class="aspect-square overflow-hidden bg-zinc-100">
-                            <img src="{{ $product->imagen_principal_url ?? 'https://via.placeholder.com/300' }}" alt="{{ $product->nombre }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                            <img src="{{ $product->imagen_principal_url ?? 'https://placehold.co/300' }}" alt="{{ $product->nombre }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                         </div>
                     </a>
                     <div class="p-4 space-y-1">

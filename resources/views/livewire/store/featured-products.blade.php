@@ -45,9 +45,9 @@ new class extends Component {
         return [
             'products' => Product::with('category', 'brand')
                 ->where('status', true)
-                ->where('destacado', true)
+                
                 ->latest()
-                ->take(12)
+                ->take(30)
                 ->get(),
             'wishlistProductIds' => $wishlistProductIds,
         ];
@@ -90,8 +90,8 @@ new class extends Component {
                     <div class="group relative flex flex-col bg-white rounded-2xl border border-zinc-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden h-full">
                         <!-- Image Container -->
                         <div class="relative z-10 aspect-[4/5] overflow-hidden bg-zinc-100">
-                            <a href="{{ route('store.product.detail', $product->slug) }}" wire:navigate>
-                                <img src="{{ $product->imagen_principal_url ?? 'https://via.placeholder.com/400x500?text=Producto' }}" alt="{{ $product->nombre }}" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+                            <a href="{{ route('store.product.detail', $product->slug) }}" wire:navigate class="block w-full h-full">
+                                <img src="{{ $product->imagen_principal_url ?? 'https://placehold.co/400x500?text=Producto' }}" alt="{{ $product->nombre }}" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700" loading="lazy" />
                             </a>
 
                             <!-- Badges -->
@@ -119,7 +119,7 @@ new class extends Component {
 
                             <!-- Quick Add Button Overlay -->
                             <div class="absolute inset-x-0 bottom-0 p-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-20">
-                                <button wire:click="addToCart({{ $product->id }})" class="w-full bg-white/90 backdrop-blur-sm text-zinc-900 font-semibold py-3 px-4 rounded-xl shadow-lg hover:bg-white hover:text-indigo-600 flex items-center justify-center gap-2 transition-colors">
+                                <button wire:click.stop.prevent="addToCart({{ $product->id }})" class="w-full bg-white/90 backdrop-blur-sm text-zinc-900 font-semibold py-3 px-4 rounded-xl shadow-lg hover:bg-white hover:text-indigo-600 flex items-center justify-center gap-2 transition-colors">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                                     Agregar al carrito
                                 </button>

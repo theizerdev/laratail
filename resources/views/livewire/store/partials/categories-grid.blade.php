@@ -73,7 +73,7 @@ new class extends Component {
                                 : null;
                         @endphp
                         <div class="swiper-slide h-auto">
-                            <a href="{{ route('store.catalog.category', $category->slug) }}" wire:navigate
+                            <a href="{{ route('store.catalog.category', $category->slug) }}" 
                                class="group relative flex flex-col items-center p-5 rounded-[32px] bg-white border border-zinc-100 hover:shadow-xl hover:shadow-indigo-100/50 hover:border-indigo-100 transition-all duration-300 h-full">
                                 <div class="relative w-full aspect-square mb-5 rounded-2xl bg-zinc-50 overflow-hidden shadow-inner flex items-center justify-center">
                                     @if($imageUrl)

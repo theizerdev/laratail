@@ -29,6 +29,7 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
 
     public bool $showMobileFilters = false;
     public ?int $quickViewProductId = null;
+    public bool $showBreadcrumbs = true;
 
     public function with(): array
     {
@@ -180,6 +181,7 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
 
 <div>
     <!-- Breadcrumb -->
+    @if($showBreadcrumbs)
     <div class="bg-white border-b border-zinc-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <nav class="flex items-center gap-2 text-sm">
@@ -192,103 +194,19 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
             </nav>
         </div>
     </div>
+    @endif
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="flex flex-col lg:flex-row gap-8">
-
-            <!-- Mobile Filter flux:button -->
-            <div class="lg:hidden">
-                <flux:button wire:click="$toggle('showMobileFilters')" class="w-full flex items-center justify-center gap-2 px-4 py-3 bg-white border border-zinc-200 rounded-xl text-zinc-700 font-medium hover:bg-zinc-50 transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
-                    Filtros
-                    @if($category || $nuevo || $oferta || !empty($brands))
-                        <span class="bg-indigo-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
-                            {{ ($category ? 1 : 0) + ($nuevo ? 1 : 0) + ($oferta ? 1 : 0) + (!empty($brands) ? 1 : 0) }}
-                        </span>
-                    @endif
-                </flux:button>
-            </div>
-
-            <!-- Sidebar Filters -->
-            <aside class="{{ $showMobileFilters ? 'block' : 'hidden' }} lg:block w-full lg:w-64 flex-shrink-0">
-                <div class="bg-white rounded-2xl border border-zinc-100 shadow-sm p-6 space-y-6 lg:sticky lg:top-24">
-                    <div class="flex items-center justify-between">
-                        <h3 class="font-bold text-zinc-900 text-lg">Filtros</h3>
-                        <flux:button wire:click="clearFilters" class="text-xs text-indigo-600 hover:text-indigo-800 transition-colors font-medium">Limpiar</flux:button>
-                    </div>
-
-                    <!-- Categories -->
-                    <div>
-                        <h4 class="text-sm font-semibold text-zinc-700 mb-3">Categorías</h4>
-                        <div class="space-y-1">
-                            <flux:button wire:click="$set('category', '')" class="block w-full text-left px-3 py-1.5 rounded-lg text-sm transition-colors {{ !$category ? 'bg-indigo-50 text-indigo-700 font-medium' : 'text-zinc-600 hover:bg-zinc-50' }}">
-                                Todas
-                            </flux:button>
-                            @foreach($categories as $cat)
-                                <flux:button wire:click="$set('category', '{{ $cat->slug }}')" class="block w-full text-left px-3 py-1.5 rounded-lg text-sm transition-colors {{ $category === $cat->slug ? 'bg-indigo-50 text-indigo-700 font-medium' : 'text-zinc-600 hover:bg-zinc-50' }}">
-                                    {{ $cat->nombre }}
-                                </flux:button>
-                                @foreach($cat->children as $child)
-                                    <flux:button wire:click="$set('category', '{{ $child->slug }}')" class="block w-full text-left pl-7 pr-3 py-1 rounded-lg text-sm transition-colors {{ $category === $child->slug ? 'bg-indigo-50 text-indigo-700 font-medium' : 'text-zinc-500 hover:bg-zinc-50' }}">
-                                        {{ $child->nombre }}
-                                    </flux:button>
-                                @endforeach
-                            @endforeach
-                        </div>
-                    </div>
-
-                    <!-- Brands -->
-                    @if($availableBrands->count() > 0)
-                    <div>
-                        <h4 class="text-sm font-semibold text-zinc-700 mb-3">Marcas</h4>
-                        <div class="space-y-2">
-                            @foreach($availableBrands as $brand)
-                                <label class="flex items-center gap-2 cursor-pointer">
-                                    <flux:checkbox type="checkbox" wire:model.live="brands" value="{{ $brand->id }}" class="rounded border-zinc-300 text-indigo-600 focus:ring-indigo-500">
-                                        </flux:checkbox>
-                                    <span class="text-sm text-zinc-600">{{ $brand->nombre }}</span>
-                                </label>
-                            @endforeach
-                        </div>
-                    </div>
-                    @endif
-
-                    <!-- Price Range -->
-                    <div>
-                        <h4 class="text-sm font-semibold text-zinc-700 mb-3">Precio</h4>
-                        <div class="flex items-center gap-2">
-                             <flux:input
-                wire:model="minPrice"
-                type="number"
-                placeholder="Min"
-            />
-                            <span class="text-zinc-400 text-sm">—</span>
-                            <flux:input
-                                wire:model="maxPrice"
-                                type="number"
-                                placeholder="Max"
-                         />
-                        </div>
-                    </div>
-
-                    <!-- Quick Filters -->
-                    <div class="space-y-2">
-                        <label class="flex items-center gap-2 cursor-pointer">
-                            <flux:checkbox type="checkbox" wire:model.live="nuevo" class="rounded border-zinc-300 text-indigo-600 focus:ring-indigo-500">   
-                                </flux:checkbox>
-                            <span class="text-sm text-zinc-600">Solo novedades</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer">
-                            <flux:checkbox type="checkbox" wire:model.live="oferta" class="rounded border-zinc-300 text-indigo-600 focus:ring-indigo-500">
-                                </flux:checkbox>
-                            <span class="text-sm text-zinc-600">Solo en oferta</span>
-                        </label>
-                    </div>
+        <!-- Product Grid -->
+        <main class="w-full">
+                <!-- Section Header -->
+                <div class="mb-8">
+                    <span class="text-indigo-600 text-sm font-semibold tracking-wider uppercase">Nuestra Tienda</span>
+                    <h2 class="text-3xl font-extrabold text-zinc-900 tracking-tight mt-1">
+                        {{ $activeCategory?->nombre ?? 'Catálogo de Productos' }}
+                    </h2>
                 </div>
-            </aside>
 
-            <!-- Product Grid -->
-            <main class="flex-1 min-w-0">
                 <!-- Top bar -->
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
                     <p class="text-sm text-zinc-500">
@@ -304,13 +222,13 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
                 </div>
 
                 <!-- Grid -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
                     @forelse($products as $product)
                     <div class="group relative flex flex-col bg-white rounded-2xl border border-zinc-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
                         <!-- Image -->
                         <div class="relative z-10 aspect-[4/5] overflow-hidden bg-zinc-100">
-                            <a href="{{ route('store.product.detail', $product->slug) }}" wire:navigate>
-                                <img src="{{ $product->imagen_principal_url ?? 'https://via.placeholder.com/400x500?text=Producto' }}" alt="{{ $product->nombre }}" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" />
+                            <a href="{{ route('store.product.detail', $product->slug) }}" wire:navigate class="block w-full h-full">
+                                <img src="{{ $product->imagen_principal_url ?? 'https://placehold.co/400x500?text=Producto' }}" alt="{{ $product->nombre }}" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" />
                             </a>
 
                             @if($product->nuevo)
@@ -324,7 +242,7 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
                             @endif
 
                             {{-- Wishlist button --}}
-                            <button wire:click.prevent="toggleWishlist({{ $product->id }})" class="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm text-zinc-500 hover:text-red-500 flex items-center justify-center transition-all shadow-sm" title="Guardar en favoritos">
+                            <button wire:click.prevent.stop="toggleWishlist({{ $product->id }})" class="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm text-zinc-500 hover:text-red-500 flex items-center justify-center transition-all shadow-sm" title="Guardar en favoritos">
                                 @if(in_array($product->id, $wishlistProductIds))
                                     <svg class="w-4 h-4 text-red-500 fill-current" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                                 @else
@@ -333,18 +251,18 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
                             </button>
 
                             {{-- Compare button --}}
-                            <button wire:click.prevent="toggleCompare({{ $product->id }})" class="absolute top-14 right-4 z-20 w-8 h-8 rounded-full flex items-center justify-center transition-all shadow-sm {{ $this->isComparing($product->id) ? 'bg-indigo-600 text-white' : 'bg-white/80 backdrop-blur-sm text-zinc-500 hover:text-indigo-600 border border-zinc-200' }}" title="{{ $this->isComparing($product->id) ? 'Quitar de comparación' : 'Comparar' }}">
+                            <button wire:click.prevent.stop="toggleCompare({{ $product->id }})" class="absolute top-14 right-4 z-20 w-8 h-8 rounded-full flex items-center justify-center transition-all shadow-sm {{ $this->isComparing($product->id) ? 'bg-indigo-600 text-white' : 'bg-white/80 backdrop-blur-sm text-zinc-500 hover:text-indigo-600 border border-zinc-200' }}" title="{{ $this->isComparing($product->id) ? 'Quitar de comparación' : 'Comparar' }}">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
                             </button>
 
                             <!-- Quick Add & View Detail -->
                             <div class="absolute inset-x-0 bottom-0 p-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-20 pointer-events-none">
                                 <div class="flex gap-2 w-full bg-white/90 backdrop-blur-sm p-1 rounded-xl shadow-lg pointer-events-auto">
-                                    <flux:button wire:click.prevent="openQuickView({{ $product->id }})" variant="subtle" class="flex-1 !px-2">
+                                    <flux:button wire:click.prevent.stop="openQuickView({{ $product->id }})" variant="subtle" class="flex-1 !px-2">
                                         <svg class="w-4 h-4 mr-1 hidden sm:inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
                                         Detalle
                                     </flux:button>
-                                    <flux:button wire:click.prevent="addToCart({{ $product->id }})" variant="primary" class="flex-1 !px-2">
+                                    <flux:button wire:click.prevent.stop="addToCart({{ $product->id }})" variant="primary" class="flex-1 !px-2">
                                         <svg class="w-4 h-4 mr-1 hidden sm:inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                                         Añadir
                                     </flux:button>
@@ -398,7 +316,6 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
                     </div>
                 @endif
             </main>
-        </div>
     </div>
 
     {{-- Floating Compare Bar --}}
@@ -427,7 +344,7 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
                 {{-- Left: Image --}}
                 <div class="relative aspect-[4/5] rounded-xl overflow-hidden bg-zinc-50 border border-zinc-100/80 shadow-xs flex items-center justify-center">
                     <img 
-                        src="{{ $qp->imagen_principal_url ?? 'https://via.placeholder.com/400x500?text=Producto' }}" 
+                        src="{{ $qp->imagen_principal_url ?? 'https://placehold.co/400x500?text=Producto' }}" 
                         alt="{{ $qp->nombre }}" 
                         class="w-full h-full object-cover object-center"
                     />

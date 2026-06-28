@@ -15,8 +15,8 @@ new #[Layout('layouts.app')] #[Title('Inicio - Laratail Store')] class extends C
     <!-- Categories -->
     <livewire:store.partials.categories-grid />
 
-    <!-- Featured Products -->
-    <livewire:store.featured-products />
+    <!-- Product Catalog -->
+    <livewire:store.catalog :show-breadcrumbs="false" />
 
     <!-- Sale Banner -->
     <livewire:store.partials.sale-banner />

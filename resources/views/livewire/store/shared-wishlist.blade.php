@@ -51,7 +51,7 @@ new #[Layout('layouts.app')] #[Title('Lista de Regalos - Laratail Store')] class
                 @php $product = $item->product; @endphp
                 <div class="flex gap-4 bg-white rounded-2xl border border-zinc-100 shadow-sm p-4 hover:shadow-md transition-shadow">
                     <a href="{{ route('store.product.detail', $product->slug) }}" wire:navigate class="flex-shrink-0">
-                        <img src="{{ $product->imagen_principal_url ?? 'https://via.placeholder.com/100' }}" alt="{{ $product->nombre }}" class="w-20 h-24 object-cover rounded-xl bg-zinc-100">
+                        <img src="{{ $product->imagen_principal_url ?? 'https://placehold.co/100' }}" alt="{{ $product->nombre }}" class="w-20 h-24 object-cover rounded-xl bg-zinc-100">
                     </a>
                     <div class="flex-1 min-w-0">
                         <p class="text-xs text-zinc-400 uppercase tracking-wider">{{ optional($product->category)->nombre ?? '' }}</p>
