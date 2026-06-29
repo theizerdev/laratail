@@ -10,6 +10,10 @@ const Perfil = lazy(() => import('@/app/(admin)/(app)/perfil/index'));
 // estudiantes
 const EstudiantesIndex = lazy(() => import('@/app/(admin)/(app)/estudiantes/index'));
 
+// acceso
+const AccesoKiosko = lazy(() => import('@/app/(admin)/(app)/acceso/kiosko/index'));
+const AccesoHistorial = lazy(() => import('@/app/(admin)/(app)/acceso/historial/index'));
+
 //auth
 const BasicCreatePassword = lazy(() => import('@/app/(auth)/basic-create-password'));
 const BasicLogin = lazy(() => import('@/app/(auth)/basic-login'));
@@ -63,6 +67,7 @@ export const layoutsRoutes = [
   { path: '/index', name: 'Dashboard', element: <Dashboard /> },
   { path: '/perfil', name: 'Perfil', element: <Perfil /> },
   { path: '/estudiantes', name: 'Estudiantes', element: <EstudiantesIndex /> },
+  { path: '/acceso/historial', name: 'AccesoHistorial', element: <AccesoHistorial /> },
 
   { path: '/admin/seguridad/usuarios', name: 'Usuarios', element: <ProtectedRoute permission="users.view"><UsuariosIndex /></ProtectedRoute> },
   { path: '/admin/seguridad/roles', name: 'Roles', element: <ProtectedRoute permission="roles.view"><RolesIndex /></ProtectedRoute> },
@@ -108,4 +113,5 @@ export const singlePageRoutes = [
   { path: '/coming-soon', name: 'ComingSoon', element: <CommingSoon /> },
   { path: '/maintenance', name: 'Maintenance', element: <Maintenance /> },
   { path: '/offline', name: 'Offline', element: <Offline /> },
+  { path: '/acceso/kiosko', name: 'AccesoKiosko', element: <AccesoKiosko /> },
 ];

@@ -64,4 +64,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // Módulo Base de Estudiantes
     Route::apiResource('estudiantes', \App\Http\Controllers\EstudianteController::class);
     Route::apiResource('representantes', \App\Http\Controllers\RepresentanteController::class);
+
+    // Módulo de Control de Acceso
+    Route::get('acceso/historial', [\App\Http\Controllers\RegistroAccesoController::class, 'index']);
+    Route::post('acceso/escanear', [\App\Http\Controllers\RegistroAccesoController::class, 'escanear']);
 });

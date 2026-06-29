@@ -3,58 +3,84 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use Spatie\Permission\Models\Role;
-use Spatie\Activitylog\Models\Activity;
+use App\Models\Estudiante;
+use App\Models\RegistroAcceso;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        // Gracias a Multitenantable Global Scope, estas consultas ya vienen filtradas 
-        // para la Empresa y Sucursal correspondiente del usuario autenticado.
-        
-        $usersCount = User::count();
-        
-        // Role no tiene Multitenantable por defecto a menos que lo hayamos añadido, 
-        // pero podemos asumir que se limita por guardia o que cuenta los globales.
-        $rolesCount = Role::count();
+        // Total estudiantes
+        $totalEstudiantes = Estudiante::count();
         
         // Accesos de hoy
-        $loginsToday = Activity::where('log_name', 'acceso_sistema')
-            ->where('description', 'Inicio de sesión exitoso')
-            ->whereDate('created_at', today())
+        $hoy = Carbon::today();
+        
+        $accesosHoy = RegistroAcceso::whereDate('fecha_hora', $hoy)->count();
+        
+        $entradasHoy = RegistroAcceso::whereDate('fecha_hora', $hoy)
+            ->where('tipo', 'entrada')
             ->count();
             
-        // Intentos fallidos hoy
-        $failedLoginsToday = Activity::where('log_name', 'acceso_sistema')
-            ->where('description', 'Intento de inicio de sesión fallido')
-            ->whereDate('created_at', today())
+        $salidasHoy = RegistroAcceso::whereDate('fecha_hora', $hoy)
+            ->where('tipo', 'salida')
             ->count();
 
-        // Últimos 5 accesos al sistema
-        $recentActivity = Activity::with('causer')
-            ->where('log_name', 'acceso_sistema')
-            ->latest()
-            ->take(5)
+        // Gráfica semanal (últimos 7 días)
+        $fechas = [];
+        $entradasData = [];
+        $salidasData = [];
+
+        $period = CarbonPeriod::create(Carbon::today()->subDays(6), Carbon::today());
+        
+        // Agrupar los accesos por fecha y tipo
+        $registrosSemana = RegistroAcceso::where('fecha_hora', '>=', Carbon::today()->subDays(6))
+            ->selectRaw('DATE(fecha_hora) as date, tipo, COUNT(*) as count')
+            ->groupBy('date', 'tipo')
+            ->get();
+
+        foreach ($period as $date) {
+            $dateString = $date->format('Y-m-d');
+            $fechas[] = $date->isoFormat('ddd D'); // ej. "lun 22"
+            
+            $entradas = $registrosSemana->where('date', $dateString)->where('tipo', 'entrada')->first();
+            $entradasData[] = $entradas ? $entradas->count : 0;
+            
+            $salidas = $registrosSemana->where('date', $dateString)->where('tipo', 'salida')->first();
+            $salidasData[] = $salidas ? $salidas->count : 0;
+        }
+
+        // Feed de Accesos Recientes (últimos 8)
+        $recentActivity = RegistroAcceso::with('estudiante')
+            ->latest('fecha_hora')
+            ->take(8)
             ->get()
-            ->map(function ($activity) {
+            ->map(function ($acceso) {
                 return [
-                    'id' => $activity->id,
-                    'description' => $activity->description,
-                    'causer_name' => $activity->causer ? $activity->causer->name : ($activity->properties['email_attempted'] ?? 'Desconocido'),
-                    'ip_address' => $activity->properties['ip_address'] ?? null,
-                    'status' => $activity->properties['status'] ?? null,
-                    'created_at' => $activity->created_at->format('Y-m-d H:i:s'),
+                    'id' => $acceso->id,
+                    'estudiante_nombre' => $acceso->estudiante ? $acceso->estudiante->nombre . ' ' . $acceso->estudiante->apellido : 'Desconocido',
+                    'grado' => $acceso->estudiante ? $acceso->estudiante->grado : '-',
+                    'foto_url' => $acceso->estudiante ? $acceso->estudiante->foto_url : null,
+                    'tipo' => $acceso->tipo, // entrada o salida
+                    'metodo' => $acceso->metodo,
+                    'hora' => Carbon::parse($acceso->fecha_hora)->format('h:i A'),
+                    'fecha' => Carbon::parse($acceso->fecha_hora)->format('d/m/Y')
                 ];
             });
 
         return response()->json([
             'metrics' => [
-                'users' => $usersCount,
-                'roles' => $rolesCount,
-                'logins_today' => $loginsToday,
-                'failed_logins_today' => $failedLoginsToday,
+                'total_estudiantes' => $totalEstudiantes,
+                'accesos_hoy' => $accesosHoy,
+                'entradas_hoy' => $entradasHoy,
+                'salidas_hoy' => $salidasHoy,
+            ],
+            'chart_data' => [
+                'labels' => $fechas,
+                'entradas' => $entradasData,
+                'salidas' => $salidasData,
             ],
             'recent_activity' => $recentActivity
         ]);

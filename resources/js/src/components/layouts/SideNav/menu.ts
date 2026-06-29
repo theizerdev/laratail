@@ -62,6 +62,15 @@ export const menuItemsData: MenuItemType[] = [
     icon: LuGraduationCap,
     href: '/estudiantes',
   },
+  {
+    key: 'Control de Acceso',
+    label: 'Control de Acceso',
+    icon: LuFingerprint,
+    children: [
+      { key: 'Kiosko', label: 'Escaner (Kiosko)', href: '/acceso/kiosko' },
+      { key: 'Historial', label: 'Historial', href: '/acceso/historial' },
+    ],
+  },
 
   {
     key: 'Seguridad',
