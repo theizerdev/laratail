@@ -64,5 +64,9 @@ Route::middleware('auth')->group(function () {
     Volt::route('/verificar-telefono', 'store.verify-otp')->name('store.verify-otp');
 });
 
+// Test Regional Configuration
+Route::get('/test/regional-configuration', \App\Livewire\TestRegionalConfiguration::class)
+    ->name('test.regional-configuration');
+
 // Authentication routes (admin)
 require __DIR__.'/auth.php';

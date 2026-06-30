@@ -7,6 +7,24 @@ use Illuminate\Support\Facades\Auth;
 
 new class extends Component {
     public bool $showSearch = false;
+    public string $currency = 'usd';
+
+    public function mount(): void
+    {
+        $this->currency = get_current_currency();
+    }
+
+    public function updatedCurrency($value): void
+    {
+        session(['currency' => strtolower($value)]);
+        $this->dispatch('currency-updated', currency: $value);
+    }
+
+    #[On('currency-updated')]
+    public function updateSelectedCurrency($currency): void
+    {
+        $this->currency = $currency;
+    }
 
     #[Computed]
     public function cartData()
@@ -14,10 +32,26 @@ new class extends Component {
         $cartService = app(CartService::class);
         $cart = $cartService->getCart();
         
+        $items = $cart ? $cart->items->load('product', 'variant') : collect();
+        
+        $usdSubtotal = 0.0;
+        $vesSubtotal = 0.0;
+        foreach ($items as $item) {
+            $usdSubtotal += $item->cantidad * (float)$item->precio;
+            $vesSubtotal += $item->cantidad * (float)format_cart_item_price($item, true);
+        }
+        
+        $usdDescuento = $cart && $cart->coupon ? $cart->coupon->calcularDescuento($usdSubtotal) : 0.0;
+        $vesDescuento = $cart && $cart->coupon ? $cart->coupon->calcularDescuento($vesSubtotal) : 0.0;
+        
+        $usdTotal = max(0.0, $usdSubtotal - $usdDescuento);
+        $vesTotal = max(0.0, $vesSubtotal - $vesDescuento);
+
         return [
             'count' => $cartService->getCartCount(),
-            'items' => $cart ? $cart->items : [],
-            'total' => $cart ? $cart->total : 0,
+            'items' => $items,
+            'usdTotal' => $usdTotal,
+            'vesTotal' => $vesTotal,
         ];
     }
 
@@ -90,6 +124,16 @@ new class extends Component {
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 </button>
 
+                <!-- Currency Selector (only for Venezuela) -->
+                @if(is_venezuela_company())
+                    <div class="relative">
+                        <select wire:model.live="currency" class="bg-zinc-50 border border-zinc-200 rounded-xl px-2 py-1 text-xs font-semibold text-zinc-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer">
+                            <option value="usd">USD ($)</option>
+                            <option value="bs">VES (Bs.)</option>
+                        </select>
+                    </div>
+                @endif
+
                 <!-- Dark Mode Toggle -->
                 <button type="button" @click="darkMode = !darkMode; localStorage.setItem('darkMode', darkMode)" class="text-zinc-400 hover:text-zinc-600 transition-colors" title="Cambiar tema">
                     <svg x-show="!darkMode" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
@@ -156,9 +200,9 @@ new class extends Component {
                                         </h4>
                                         <p class="text-xs text-zinc-500">
                                             @if($item->product->tiene_descuento)
-                                                ${{ number_format($item->product->precio_oferta, 2) }}
+                                                {{ money_product($item->product, true) }}
                                             @else
-                                                ${{ number_format($item->product->precio, 2) }}
+                                                {{ money_product($item->product, false) }}
                                             @endif
                                         </p>
                                     </div>
@@ -211,7 +255,7 @@ new class extends Component {
                                 <img src="{{ $item->product->imagen_principal_url ?? 'https://placehold.co/100' }}" alt="{{ $item->product->nombre }}" class="w-12 h-12 rounded-lg object-cover border border-zinc-100 flex-shrink-0">
                                 <div class="flex-1 min-w-0">
                                     <h4 class="text-sm font-medium text-zinc-900 truncate">{{ $item->product->nombre }}</h4>
-                                    <p class="text-xs text-zinc-500">{{ $item->cantidad }} x ${{ number_format($item->precio, 2) }}</p>
+                                    <p class="text-xs text-zinc-500">{{ $item->cantidad }} x {{ format_cart_item_price($item) }}</p>
                                 </div>
                             </div>
                             @empty
@@ -225,7 +269,7 @@ new class extends Component {
                         <div class="px-4 pt-3 border-t border-zinc-100 bg-zinc-50/50">
                             <div class="flex justify-between font-bold text-zinc-900 mb-4">
                                 <span>Total:</span>
-                                <span>${{ number_format($this->cartData['total'], 2) }}</span>
+                                <span>{{ format_display_price($this->cartData['usdTotal'], $this->cartData['vesTotal']) }}</span>
                             </div>
                             <flux:button href="/carrito" wire:navigate class="w-full text-center" variant="primary">Ir al carrito</flux:button>
                         </div>

@@ -434,6 +434,15 @@ class MenuHelper
                         ]
                     ],
                     [
+                        'label' => 'Tasas de Cambio',
+                        'icon' => 'heroicons:currency-dollar-solid',
+                        'permissions' => ['paises.view'],
+                        'active' => 'admin.tasas*',
+                        'children' => [
+                            ['label' => 'Listado', 'permission' => 'paises.view', 'route' => 'admin.tasas', 'active' => 'admin.tasas'],
+                        ]
+                    ],
+                    [
                         'label' => 'Empresas',
                         'icon' => 'heroicons:building-office-2-solid',
                         'permissions' => ['empresas.view', 'empresas.create', 'empresas.edit', 'empresas.delete'],

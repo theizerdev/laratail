@@ -14,29 +14,52 @@ new #[Layout('layouts.app')] #[Title('Carrito - Laratail Store')] class extends 
     public function with(): array
     {
         $cart = app(CartService::class)->getOrCreate();
-        $subtotal = $cart->items->sum(fn($item) => $item->cantidad * $item->precio);
-        $descuento = $cart->coupon ? $cart->coupon->calcularDescuento($subtotal) : 0;
-        $total = max(0, $subtotal - $descuento);
-        $totalWeight = $cart->items->sum(fn($item) => ($item->product?->peso ?? 1) * $item->cantidad);
-
-        // Check for saved shipping estimate
-        $shippingEstimate = session('shipping_estimate');
-        $shippingCost = 0;
-        if ($shippingEstimate && $subtotal < ($shippingEstimate['gratis_desde'] ?? 999999)) {
-            $shippingCost = $shippingEstimate['costo'];
+        $items = $cart->items->load('product', 'variant');
+        
+        $usdSubtotal = 0.0;
+        $vesSubtotal = 0.0;
+        foreach ($items as $item) {
+            $usdSubtotal += $item->cantidad * (float)$item->precio;
+            $vesSubtotal += $item->cantidad * (float)format_cart_item_price($item, true);
         }
-        $totalConEnvio = $total + $shippingCost;
-
+        
+        $usdDescuento = $cart->coupon ? $cart->coupon->calcularDescuento($usdSubtotal) : 0.0;
+        $vesDescuento = $cart->coupon ? $cart->coupon->calcularDescuento($vesSubtotal) : 0.0;
+        
+        $usdTotal = max(0.0, $usdSubtotal - $usdDescuento);
+        $vesTotal = max(0.0, $vesSubtotal - $vesDescuento);
+        
+        $totalWeight = $items->sum(fn($item) => ($item->product?->peso ?? 1) * $item->cantidad);
+        
+        // Shipping cost
+        $shippingEstimate = session('shipping_estimate');
+        $usdShippingCost = 0.0;
+        $vesShippingCost = 0.0;
+        if ($shippingEstimate && $usdSubtotal < ($shippingEstimate['gratis_desde'] ?? 999999)) {
+            $usdShippingCost = (float) $shippingEstimate['costo'];
+            
+            $rate = \App\Models\ExchangeRate::getLatestRate('USD') ?? 1.0;
+            $vesShippingCost = $usdShippingCost * $rate;
+        }
+        
+        $usdTotalConEnvio = $usdTotal + $usdShippingCost;
+        $vesTotalConEnvio = $vesTotal + $vesShippingCost;
+        
         return [
             'cart' => $cart,
-            'items' => $cart->items->load('product'),
-            'subtotal' => $subtotal,
-            'descuento' => $descuento,
-            'total' => $total,
+            'items' => $items,
+            
+            'usdSubtotal' => $usdSubtotal,
+            'vesSubtotal' => $vesSubtotal,
+            'usdDescuento' => $usdDescuento,
+            'vesDescuento' => $vesDescuento,
+            'usdShippingCost' => $usdShippingCost,
+            'vesShippingCost' => $vesShippingCost,
+            'usdTotalConEnvio' => $usdTotalConEnvio,
+            'vesTotalConEnvio' => $vesTotalConEnvio,
+            
             'totalWeight' => $totalWeight,
             'shippingEstimate' => $shippingEstimate,
-            'shippingCost' => $shippingCost,
-            'totalConEnvio' => $totalConEnvio,
         ];
     }
 
@@ -139,7 +162,7 @@ new #[Layout('layouts.app')] #[Title('Carrito - Laratail Store')] class extends 
                                     @if($item->variant)
                                         <p class="text-xs text-zinc-500 mt-1">{{ $item->variant->nombre_completo ?? 'Variante' }}</p>
                                     @endif
-                                    <p class="text-sm text-zinc-500 mt-1">${{ number_format($item->precio, 2) }} c/u</p>
+                                    <p class="text-sm text-zinc-500 mt-1">{{ format_cart_item_price($item) }} c/u</p>
 
                                     <!-- Quantity Stepper -->
                                     <div class="mt-3 flex items-center gap-3">
@@ -157,7 +180,7 @@ new #[Layout('layouts.app')] #[Title('Carrito - Laratail Store')] class extends 
 
                                 <!-- Subtotal -->
                                 <p class="text-right font-bold text-zinc-900 whitespace-nowrap">
-                                    ${{ number_format($item->cantidad * $item->precio, 2) }}
+                                    {{ format_display_price($item->cantidad * $item->precio, $item->cantidad * format_cart_item_price($item, true)) }}
                                 </p>
                             </div>
                             @endforeach
@@ -179,13 +202,13 @@ new #[Layout('layouts.app')] #[Title('Carrito - Laratail Store')] class extends 
                         <div class="space-y-3 text-sm">
                             <div class="flex justify-between">
                                 <span class="text-zinc-500">Subtotal ({{ $items->sum('cantidad') }} artículos)</span>
-                                <span class="text-zinc-900 font-medium">${{ number_format($subtotal, 2) }}</span>
+                                <span class="text-zinc-900 font-medium">{{ format_display_price($usdSubtotal, $vesSubtotal) }}</span>
                             </div>
 
-                            @if($descuento > 0)
+                            @if($usdDescuento > 0)
                             <div class="flex justify-between text-green-600">
                                 <span>Descuento cupón</span>
-                                <span class="font-medium">-${{ number_format($descuento, 2) }}</span>
+                                <span class="font-medium">-{{ format_display_price($usdDescuento, $vesDescuento) }}</span>
                             </div>
                             @endif
 
@@ -195,7 +218,7 @@ new #[Layout('layouts.app')] #[Title('Carrito - Laratail Store')] class extends 
                                     @if($shippingCost == 0)
                                         <span class="text-green-600 font-medium text-xs">¡GRATIS!</span>
                                     @else
-                                        <span class="text-zinc-900 font-medium">${{ number_format($shippingCost, 2) }}</span>
+                                        <span class="text-zinc-900 font-medium">{{ format_display_price($usdShippingCost, $vesShippingCost) }}</span>
                                     @endif
                                 @else
                                     <span class="text-zinc-500 text-xs">Se calcula al confirmar</span>
@@ -206,7 +229,7 @@ new #[Layout('layouts.app')] #[Title('Carrito - Laratail Store')] class extends 
 
                             <div class="flex justify-between text-lg font-bold text-zinc-900 pt-2">
                                 <span>Total</span>
-                                <span>${{ number_format($totalConEnvio, 2) }}</span>
+                                <span>{{ format_display_price($usdTotalConEnvio, $vesTotalConEnvio) }}</span>
                             </div>
                         </div>
 
@@ -237,7 +260,7 @@ new #[Layout('layouts.app')] #[Title('Carrito - Laratail Store')] class extends 
                         </div>
 
                         <!-- Shipping Estimator -->
-                        @livewire('store.partials.shipping-estimator', ['totalWeight' => $totalWeight, 'subtotal' => $subtotal])
+                        @livewire('store.partials.shipping-estimator', ['totalWeight' => $totalWeight, 'subtotal' => $usdSubtotal])
 
                         <!-- Checkout Button -->
                         <button wire:click="proceedToCheckout" class="mt-6 w-full bg-indigo-600 text-white py-4 rounded-xl font-semibold hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-200 flex items-center justify-center gap-2">

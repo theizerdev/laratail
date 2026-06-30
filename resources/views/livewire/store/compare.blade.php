@@ -119,7 +119,7 @@ new #[Layout('layouts.app')] #[Title('Comparar Productos - Laratail Store')] cla
                         <p class="text-xs text-zinc-400 uppercase tracking-wider">{{ optional($product->category)->nombre ?? '' }}</p>
                         <h3 class="text-sm font-semibold text-zinc-900 line-clamp-2">{{ $product->nombre }}</h3>
                         <p class="text-lg font-bold {{ $product->tiene_descuento ? 'text-red-600' : 'text-zinc-900' }}">
-                            ${{ number_format($product->precio_final, 2) }}
+                            {{ money_product($product, $product->tiene_descuento) }}
                         </p>
                     </div>
                 </div>
@@ -144,10 +144,10 @@ new #[Layout('layouts.app')] #[Title('Comparar Productos - Laratail Store')] cla
                             @foreach($products as $product)
                             <td class="px-6 py-4 text-center">
                                 @if($product->tiene_descuento)
-                                    <p class="text-lg font-bold text-red-600">${{ number_format($product->precio_final, 2) }}</p>
-                                    <p class="text-xs text-zinc-400 line-through">${{ number_format($product->precio, 2) }}</p>
+                                    <p class="text-lg font-bold text-red-600">{{ money_product($product, true) }}</p>
+                                    <p class="text-xs text-zinc-400 line-through">{{ money_product($product, false) }}</p>
                                 @else
-                                    <p class="text-lg font-bold text-zinc-900">${{ number_format($product->precio_final, 2) }}</p>
+                                    <p class="text-lg font-bold text-zinc-900">{{ money_product($product, false) }}</p>
                                 @endif
                             </td>
                             @endforeach

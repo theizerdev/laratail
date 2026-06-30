@@ -3,6 +3,7 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
+use Livewire\Attributes\On;
 use Livewire\Volt\Component;
 use App\Models\Product;
 use App\Models\Category;
@@ -11,6 +12,24 @@ use App\Services\CartService;
 use Illuminate\Support\Facades\Auth;
 
 new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extends Component {
+    public string $currency = 'usd';
+
+    public function mount(): void
+    {
+        $this->currency = get_current_currency();
+    }
+
+    public function updatedCurrency($value): void
+    {
+        session(['currency' => strtolower($value)]);
+        $this->dispatch('currency-updated', currency: $value);
+    }
+
+    #[On('currency-updated')]
+    public function updateSelectedCurrency($currency): void
+    {
+        $this->currency = $currency;
+    }
     // Filters
     #[Url]
     public string $category = '';
@@ -212,13 +231,21 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
                     <p class="text-sm text-zinc-500">
                         Mostrando <span class="font-medium text-zinc-700">{{ $products->firstItem() ?? 0 }}-{{ $products->lastItem() ?? 0 }}</span> de <span class="font-medium text-zinc-700">{{ $products->total() }}</span> resultados
                     </p>
-                    <flux:select wire:model.live="sort" class="rounded-lg border-zinc-300 text-sm focus:ring-indigo-500 focus:border-indigo-500 w-full sm:w-auto">
-                        <option value="recent">Más recientes</option>
-                        <option value="price_asc">Precio: menor a mayor</option>
-                        <option value="price_desc">Precio: mayor a menor</option>
-                        <option value="name">Nombre A-Z</option>
-                        <option value="newest">Nuevos primero</option>
-                    </flux:select>
+                    <div class="flex items-center gap-2 w-full sm:w-auto">
+                        @if(is_venezuela_company())
+                            <flux:select wire:model.live="currency" class="rounded-lg border-zinc-300 text-sm focus:ring-indigo-500 focus:border-indigo-500 w-32">
+                                <option value="usd">USD ($)</option>
+                                <option value="bs">VES (Bs.)</option>
+                            </flux:select>
+                        @endif
+                        <flux:select wire:model.live="sort" class="rounded-lg border-zinc-300 text-sm focus:ring-indigo-500 focus:border-indigo-500 flex-1 sm:flex-initial">
+                            <option value="recent">Más recientes</option>
+                            <option value="price_asc">Precio: menor a mayor</option>
+                            <option value="price_desc">Precio: mayor a menor</option>
+                            <option value="name">Nombre A-Z</option>
+                            <option value="newest">Nuevos primero</option>
+                        </flux:select>
+                    </div>
                 </div>
 
                 <!-- Grid -->
@@ -284,10 +311,10 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
                             </h3>
                             <div class="mt-auto flex items-center gap-2">
                                 @if($product->tiene_descuento)
-                                    <p class="text-lg font-bold text-red-600">${{ number_format($product->precio_oferta, 2) }}</p>
-                                    <p class="text-sm text-zinc-400 line-through">${{ number_format($product->precio, 2) }}</p>
+                                    <p class="text-lg font-bold text-red-600">{{ money_product($product, true) }}</p>
+                                    <p class="text-sm text-zinc-400 line-through">{{ money_product($product) }}</p>
                                 @else
-                                    <p class="text-lg font-bold text-zinc-900">${{ number_format($product->precio, 2) }}</p>
+                                    <p class="text-lg font-bold text-zinc-900">{{ money_product($product) }}</p>
                                 @endif
                             </div>
                             @if($product->stock <= 5 && $product->stock > 0)

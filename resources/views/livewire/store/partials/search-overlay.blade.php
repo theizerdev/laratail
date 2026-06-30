@@ -44,7 +44,7 @@ new class extends Component {
                     ->orWhere('sku', 'like', $q);
             })
             ->with('category')
-            ->select(['id', 'nombre', 'slug', 'imagen_principal', 'precio', 'precio_oferta', 'stock', 'category_id'])
+            ->select(['id', 'nombre', 'slug', 'imagen_principal', 'precio', 'precio_oferta', 'precio_bs', 'stock', 'category_id'])
             ->limit(8)
             ->get()
             ->toArray();
@@ -216,11 +216,11 @@ new class extends Component {
                                             <p class="text-sm font-medium text-zinc-900 truncate">{{ $result['nombre'] }}</p>
                                             <div class="flex items-center gap-2 mt-0.5">
                                                 @if(!empty($result['precio_oferta']) && $result['precio_oferta'] < $result['precio'])
-                                                    <span class="text-sm font-bold text-red-600">${{ number_format($result['precio_oferta'], 2) }}</span>
-                                                    <span class="text-xs text-zinc-400 line-through">${{ number_format($result['precio'], 2) }}</span>
-                                                @else
-                                                    <span class="text-sm font-bold text-zinc-900">${{ number_format($result['precio'], 2) }}</span>
-                                                @endif
+                                                     <span class="text-sm font-bold text-red-600">{{ money_product($result, true) }}</span>
+                                                     <span class="text-xs text-zinc-400 line-through">{{ money_product($result, false) }}</span>
+                                                 @else
+                                                     <span class="text-sm font-bold text-zinc-900">{{ money_product($result, false) }}</span>
+                                                 @endif
                                                 @if(($result['stock'] ?? 0) <= 0)
                                                     <span class="text-xs text-red-500 font-medium">Agotado</span>
                                                 @endif
@@ -280,7 +280,7 @@ new class extends Component {
                                 <a href="{{ route('store.product.detail', $tp->slug) }}" wire:navigate class="flex items-center gap-2.5 p-2 rounded-lg hover:bg-zinc-50 transition-colors" x-on:click="$wire.close()">
                                     <div class="flex-1 min-w-0">
                                         <p class="text-xs font-medium text-zinc-800 truncate">{{ $tp->nombre }}</p>
-                                        <p class="text-xs font-bold {{ $tp->tiene_descuento ? 'text-red-600' : 'text-zinc-900' }}">${{ number_format($tp->precio_final, 2) }}</p>
+                                        <p class="text-xs font-bold {{ $tp->tiene_descuento ? 'text-red-600' : 'text-zinc-900' }}">{{ money_product($tp, $tp->tiene_descuento) }}</p>
                                     </div>
                                 </a>
                                 @endforeach

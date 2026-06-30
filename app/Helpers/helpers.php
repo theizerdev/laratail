@@ -3,42 +3,45 @@
 use App\Services\RegionalConfigurationService;
 use Carbon\Carbon;
 
-function userID(){
-
-    if (auth()->user() != null) {
-        return auth()->user()->id;
-    } else {
-        // For guest users, use session ID
-        return session()->getId();
-    }
-
-}
-function empresa(){
-
-    if (auth()->user() != null) {
-
-        return auth()->user()->empresa->pais->name;
+if (!function_exists('userID')) {
+    function userID(){
+        if (auth()->user() != null) {
+            return auth()->user()->id;
+        } else {
+            // For guest users, use session ID
+            return session()->getId();
+        }
     }
 }
-// Devolver numero en formato moneda
-function money($number){
-    // Asegurarse de que el número sea numérico antes de formatearlo
-    $numericValue = is_numeric($number) ? $number : 0;
-    return '$'.number_format($numericValue, 2, ',', '.');
+
+if (!function_exists('empresa')) {
+    function empresa(){
+        if (auth()->user() != null && auth()->user()->empresa) {
+            return auth()->user()->empresa->pais->nombre ?? null;
+        }
+        return null;
+    }
 }
 
-// Devolver numero en formato moneda
-function moneyBS($number){
-    // Asegurarse de que el número sea numérico antes de formatearlo
-    $numericValue = is_numeric($number) ? $number : 0;
-    return ' Bs. '.number_format($numericValue, 2, ',', '.');
+if (!function_exists('moneyBS')) {
+    /**
+     * Convert USD price to VES using latest exchange rate and format as Bs.
+     */
+    function moneyBS($number){
+        $numericValue = is_numeric($number) ? (float)$number : 0.0;
+        $latestRate = \App\Models\ExchangeRate::getLatestRate('USD') ?? 1.0;
+        $bsAmount = $numericValue * $latestRate;
+        return 'Bs. ' . number_format($bsAmount, 2, ',', '.');
+    }
 }
 
-function tasa(){
-    // Obtener la última tasa de cambio del día
-    return \App\Models\ExchangeRate::whereDate('created_at', Carbon::now())
-        ->latest('created_at')
-        ->first();
+if (!function_exists('tasa')) {
+    /**
+     * Get the latest exchange rate record.
+     */
+    function tasa(){
+        return \App\Models\ExchangeRate::latest('date')->latest('id')->first();
+    }
 }
 
 if (!function_exists('get_regional_config')) {
@@ -51,7 +54,6 @@ if (!function_exists('get_regional_config')) {
     function get_regional_config($key = null)
     {
         $config = RegionalConfigurationService::getCurrentConfiguration();
-
         if ($key) {
             return $config[$key] ?? null;
         }
@@ -72,6 +74,12 @@ if (!function_exists('get_current_currency')) {
         if (session()->has('currency')) {
             return session('currency');
         }
+        
+        // Si la empresa es de Venezuela, por defecto es USD en primera instancia
+        if (is_venezuela_company()) {
+            return 'usd';
+        }
+        
         // Si no hay moneda en la sesión, usar la configuración regional
         return get_regional_config('currency') ?? 'usd';
     }
@@ -149,13 +157,24 @@ if (!function_exists('format_money')) {
         $thousandSeparator = $config['thousand_separator'] ?? ',';
 
         // Obtener la moneda actual de la sesión
-        $currency = get_current_currency();
+        $currency = strtolower(get_current_currency());
 
-        // Definir el símbolo de moneda según la moneda seleccionada
-        if ($currency === 'bs') {
-           $currencySymbol = 'Bs.';
+        // Si la moneda actual es Bs./VES y la empresa es de Venezuela
+        if (($currency === 'bs' || $currency === 'ves') && is_venezuela_company()) {
+            $currencySymbol = 'Bs.';
+            $latestRate = \App\Models\ExchangeRate::getLatestRate('USD') ?? 1.0;
+            $amount = $amount * $latestRate;
+            
+            // Usar formato venezolano de moneda
+            $decimalSeparator = ',';
+            $thousandSeparator = '.';
         } else {
-            $currencySymbol = '$';
+            // Si la moneda seleccionada es USD, forzar el símbolo a $
+            if ($currency === 'usd') {
+                $currencySymbol = '$';
+            } else {
+                $currencySymbol = $config['currency_symbol'] ?? '$';
+            }
         }
 
         $formatted = number_format($amount, $decimals, $decimalSeparator, $thousandSeparator);
@@ -326,8 +345,9 @@ if (!function_exists('format_datetime')) {
             return (string) $datetime;
         }
     }
+}
 
-    if (!function_exists('secure_storage_url')) {
+if (!function_exists('secure_storage_url')) {
     function secure_storage_url($path)
     {
         if (!$path) {
@@ -354,4 +374,131 @@ if (!function_exists('format_datetime')) {
         return $url;
     }
 }
+
+if (!function_exists('format_display_price')) {
+    /**
+     * Formatear y mostrar precio con soporte dual y conversión según la divisa actual de la sesión.
+     *
+     * @param float $usdAmount Monto en USD (moneda base/original)
+     * @param float $vesAmount Monto en VES (moneda de destino ya convertida usando precio_bs)
+     * @return string
+     */
+    function format_display_price($usdAmount, $vesAmount)
+    {
+        $usdAmount = (float) $usdAmount;
+        $vesAmount = (float) $vesAmount;
+        $currency = strtolower(get_current_currency());
+        $config = get_regional_config();
+
+        if (is_venezuela_company()) {
+            // Si la moneda seleccionada en la sesión es VES (Bs.)
+            if ($currency === 'bs' || $currency === 'ves') {
+                return 'Bs. ' . number_format($vesAmount, 2, ',', '.');
+            }
+            
+            // En primera instancia (USD seleccionado / por defecto)
+            // Si dual_currency es true y tiene secondary_currency
+            if (!empty($config['dual_currency'])) {
+                $usdFormatted = '$' . number_format($usdAmount, 2, '.', ',');
+                $vesFormatted = 'Bs. ' . number_format($vesAmount, 2, ',', '.');
+                return $usdFormatted . ' / ' . $vesFormatted;
+            }
+
+            return '$' . number_format($usdAmount, 2, '.', ',');
+        }
+
+        // Para otros países, usar format_money estándar
+        return format_money($usdAmount);
+    }
+}
+
+if (!function_exists('money_product')) {
+    /**
+     * Helper para formatear el precio de un producto/variante según la configuración regional y precio_bs.
+     *
+     * @param mixed $product Producto o Variante
+     * @param bool $isOffer Si se debe formatear el precio de oferta
+     * @return string
+     */
+    function money_product($product, $isOffer = false)
+    {
+        if (!$product) {
+            return '';
+        }
+
+        $priceField = $isOffer ? 'precio_oferta' : 'precio';
+        $usdPrice = (float) ($product->$priceField ?? 0.0);
+        
+        $hasDiscount = false;
+        if (isset($product->tiene_descuento)) {
+            $hasDiscount = (bool) $product->tiene_descuento;
+        } elseif (isset($product->precio_oferta)) {
+            $hasDiscount = $product->precio_oferta !== null && $product->precio_oferta < $product->precio;
+        }
+
+        if ($isOffer && !$hasDiscount) {
+            return '';
+        }
+
+        $precioBsBase = (float) ($product->precio_bs ?? $usdPrice);
+
+        // Si es de oferta y tiene descuento, aplicar la misma proporción de descuento al precio base en Bs.
+        if ($isOffer && $hasDiscount && (float)$product->precio > 0) {
+            $discountRatio = (float)$product->precio_oferta / (float)$product->precio;
+            $precioBsBase = $precioBsBase * $discountRatio;
+        }
+
+        $latestRate = \App\Models\ExchangeRate::getLatestRate('USD') ?? 1.0;
+        $vesPrice = $precioBsBase * $latestRate;
+
+        return format_display_price($usdPrice, $vesPrice);
+    }
+}
+
+if (!function_exists('format_cart_item_price')) {
+    /**
+     * Formatear el precio de un item del carrito según precio_bs y la moneda seleccionada.
+     *
+     * @param mixed $item CartItem
+     * @param bool $returnRaw Retornar el valor numérico en lugar del string formateado
+     * @return mixed
+     */
+    function format_cart_item_price($item, $returnRaw = false)
+    {
+        if (!$item) {
+            return $returnRaw ? 0.0 : '';
+        }
+
+        $source = $item->variant ?? $item->product;
+        if (!$source) {
+            return $returnRaw ? (float)$item->precio : format_money($item->precio);
+        }
+
+        $usdPrice = (float) $item->precio;
+        $usdBaseProductPrice = (float) ($source->precio ?? 1.0);
+        if ($usdBaseProductPrice <= 0) {
+            $usdBaseProductPrice = 1.0;
+        }
+        
+        $precioBsBase = (float) ($source->precio_bs ?? $usdPrice);
+        
+        // Aplicar proporción de descuento
+        if ($usdPrice < $usdBaseProductPrice) {
+            $discountRatio = $usdPrice / $usdBaseProductPrice;
+            $precioBsBase = $precioBsBase * $discountRatio;
+        }
+
+        $latestRate = \App\Models\ExchangeRate::getLatestRate('USD') ?? 1.0;
+        $vesPrice = $precioBsBase * $latestRate;
+
+        if ($returnRaw) {
+            $currency = strtolower(get_current_currency());
+            if (is_venezuela_company() && ($currency === 'bs' || $currency === 'ves')) {
+                return $vesPrice;
+            }
+            return $usdPrice;
+        }
+
+        return format_display_price($usdPrice, $vesPrice);
+    }
 }

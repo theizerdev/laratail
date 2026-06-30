@@ -57,7 +57,7 @@ new #[Layout('layouts.app')] #[Title('Vistos Recientemente - Laratail Store')] c
                     <div class="p-3 space-y-0.5">
                         <h3 class="text-xs font-semibold text-zinc-900 line-clamp-2 group-hover:text-indigo-600 transition-colors">{{ $product->nombre }}</h3>
                         <p class="text-sm font-bold {{ $product->tiene_descuento ? 'text-red-600' : 'text-zinc-900' }}">
-                            ${{ number_format($product->precio_final, 2) }}
+                            {{ money_product($product, $product->tiene_descuento) }}
                         </p>
                     </div>
                 </a>

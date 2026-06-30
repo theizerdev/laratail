@@ -90,10 +90,10 @@ new #[Layout('layouts.app')] #[Title('Mis Favoritos - Laratail Store')] class ex
                         </h3>
                         <div class="flex items-center gap-2">
                             @if($product->tiene_descuento)
-                                <p class="text-lg font-bold text-red-600">${{ number_format($product->precio_oferta, 2) }}</p>
-                                <p class="text-sm text-zinc-400 line-through">${{ number_format($product->precio, 2) }}</p>
+                                <p class="text-lg font-bold text-red-600">{{ money_product($product, true) }}</p>
+                                <p class="text-sm text-zinc-400 line-through">{{ money_product($product, false) }}</p>
                             @else
-                                <p class="text-lg font-bold text-zinc-900">${{ number_format($product->precio, 2) }}</p>
+                                <p class="text-lg font-bold text-zinc-900">{{ money_product($product, false) }}</p>
                             @endif
                         </div>
                         @if($product->stock <= 0)

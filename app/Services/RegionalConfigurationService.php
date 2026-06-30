@@ -25,7 +25,7 @@ class RegionalConfigurationService
         }
 
         $pais = $empresa->pais;
-        //dd( $pais);
+       
         // Configurar zona horaria
         config(['app.timezone' => $pais->zona_horaria ?? 'UTC']);
         date_default_timezone_set($pais->zona_horaria ?? 'UTC');

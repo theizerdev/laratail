@@ -25,6 +25,7 @@ Route::middleware(['auth', 'verified', 'role:admin|super-admin'])->prefix('admin
     require __DIR__.'/modules/reportes.php';
     require __DIR__.'/modules/monitoreo.php';
     require __DIR__.'/modules/paises.php';
+    require __DIR__.'/modules/tasas.php';
     require __DIR__.'/modules/roles.php';
     require __DIR__.'/modules/sucursales.php';
     require __DIR__.'/modules/users.php';

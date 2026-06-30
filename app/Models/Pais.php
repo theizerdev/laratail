@@ -46,4 +46,19 @@ class Pais extends Model
             'activo' => 'boolean',
         ];
     }
+
+    /**
+     * Get the currency symbol based on currency code.
+     */
+    public function getSimboloMonedaAttribute(): string
+    {
+        return match($this->moneda_principal) {
+            'VES' => 'Bs.',
+            'EUR' => '€',
+            'COP' => '$',
+            'MXN' => '$',
+            'USD' => '$',
+            default => '$'
+        };
+    }
 }

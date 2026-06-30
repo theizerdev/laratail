@@ -45,9 +45,20 @@ new #[Layout('layouts.app')] #[Title('Checkout - Laratail Store')] class extends
     {
         $cartService = app(CartService::class);
         $cart = $cartService->getOrCreate();
-        $subtotal = $cart->items->sum(fn($item) => $item->cantidad * $item->precio);
-        $descuento = $cart->coupon ? $cart->coupon->calcularDescuento($subtotal) : 0;
-        $total = max(0, $subtotal - $descuento);
+        $items = $cart->items->load('product', 'variant');
+        
+        $usdSubtotal = 0.0;
+        $vesSubtotal = 0.0;
+        foreach ($items as $item) {
+            $usdSubtotal += $item->cantidad * (float)$item->precio;
+            $vesSubtotal += $item->cantidad * (float)format_cart_item_price($item, true);
+        }
+        
+        $usdDescuento = $cart->coupon ? $cart->coupon->calcularDescuento($usdSubtotal) : 0.0;
+        $vesDescuento = $cart->coupon ? $cart->coupon->calcularDescuento($vesSubtotal) : 0.0;
+        
+        $usdTotal = max(0.0, $usdSubtotal - $usdDescuento);
+        $vesTotal = max(0.0, $vesSubtotal - $vesDescuento);
 
         $addresses = collect();
         if (Auth::check()) {
@@ -59,10 +70,15 @@ new #[Layout('layouts.app')] #[Title('Checkout - Laratail Store')] class extends
 
         return [
             'cart' => $cart,
-            'items' => $cart->items->load('product'),
-            'subtotal' => $subtotal,
-            'descuento' => $descuento,
-            'total' => $total,
+            'items' => $items,
+            
+            'usdSubtotal' => $usdSubtotal,
+            'vesSubtotal' => $vesSubtotal,
+            'usdDescuento' => $usdDescuento,
+            'vesDescuento' => $vesDescuento,
+            'usdTotal' => $usdTotal,
+            'vesTotal' => $vesTotal,
+            
             'paises' => Pais::where('activo', true)->orderBy('nombre')->get(['id', 'nombre']),
             'addresses' => $addresses,
         ];
@@ -493,7 +509,7 @@ new #[Layout('layouts.app')] #[Title('Checkout - Laratail Store')] class extends
                                 <p class="text-sm font-medium text-zinc-900 truncate">{{ optional($item->product)->nombre ?? 'Producto' }}</p>
                                 <p class="text-xs text-zinc-500">Cantidad: {{ $item->cantidad }}</p>
                             </div>
-                            <p class="text-sm font-bold text-zinc-900">${{ number_format($item->cantidad * $item->precio, 2) }}</p>
+                            <p class="text-sm font-bold text-zinc-900">{{ format_display_price($item->cantidad * $item->precio, $item->cantidad * format_cart_item_price($item, true)) }}</p>
                         </div>
                         @endforeach
                     </div>
@@ -520,7 +536,7 @@ new #[Layout('layouts.app')] #[Title('Checkout - Laratail Store')] class extends
                         @foreach($items->take(4) as $item)
                         <div class="flex justify-between text-zinc-600">
                             <span class="truncate pr-2">{{ optional($item->product)->nombre ?? 'Producto' }} × {{ $item->cantidad }}</span>
-                            <span class="font-medium text-zinc-900 whitespace-nowrap">${{ number_format($item->cantidad * $item->precio, 2) }}</span>
+                            <span class="font-medium text-zinc-900 whitespace-nowrap">{{ format_display_price($item->cantidad * $item->precio, $item->cantidad * format_cart_item_price($item, true)) }}</span>
                         </div>
                         @endforeach
                         @if($items->count() > 4)
@@ -531,12 +547,12 @@ new #[Layout('layouts.app')] #[Title('Checkout - Laratail Store')] class extends
                     <div class="space-y-4 text-base">
                         <div class="flex justify-between">
                             <span class="text-zinc-500">Subtotal</span>
-                            <span class="font-medium text-zinc-900">${{ number_format($subtotal, 2) }}</span>
+                            <span class="font-medium text-zinc-900">{{ format_display_price($usdSubtotal, $vesSubtotal) }}</span>
                         </div>
-                        @if($descuento > 0)
+                        @if($usdDescuento > 0)
                         <div class="flex justify-between text-green-600">
                             <span>Descuento</span>
-                            <span class="font-medium">-${{ number_format($descuento, 2) }}</span>
+                            <span class="font-medium">-{{ format_display_price($usdDescuento, $vesDescuento) }}</span>
                         </div>
                         @endif
                         <div class="flex justify-between">
@@ -547,7 +563,7 @@ new #[Layout('layouts.app')] #[Title('Checkout - Laratail Store')] class extends
                     <hr class="my-6 border-zinc-100">
                     <div class="flex justify-between text-2xl font-bold text-zinc-900">
                         <span>Total</span>
-                        <span class="text-indigo-600">${{ number_format($total, 2) }}</span>
+                        <span class="text-indigo-600">{{ format_display_price($usdTotal, $vesTotal) }}</span>
                     </div>
                 </div>
             </div>

@@ -480,26 +480,26 @@ new #[Layout('layouts.app')] class extends Component {
                                 @php
                                     $variantsJson = $product->variants->map(fn($v) => [
                                         'id' => $v->id,
-                                        'precio' => (float) $v->precio_final,
-                                        'original' => ($v->precio_oferta && $v->precio_oferta < $v->precio) ? (float) $v->precio : null,
+                                        'precio' => money_product($v, $v->precio_oferta && $v->precio_oferta < $v->precio),
+                                        'original' => ($v->precio_oferta && $v->precio_oferta < $v->precio) ? money_product($v, false) : null,
                                     ])->values();
                                 @endphp
-                                <span class="text-3xl font-bold" :class="$wire.selectedVariantId ? ({{ json_encode($variantsJson) }}.find(v => v.id === $wire.selectedVariantId)?.original ? 'text-red-600' : 'text-zinc-900') : 'text-zinc-900'"
-                                      x-text="'$' + ({{ json_encode($variantsJson) }}.find(v => v.id === $wire.selectedVariantId)?.precio?.toFixed(2) || '{{ number_format($product->precio_final, 2) }}')"></span>
+                                <span class="text-zinc-900 text-3xl font-bold" :class="$wire.selectedVariantId ? ({{ json_encode($variantsJson) }}.find(v => v.id === $wire.selectedVariantId)?.original ? 'text-red-600' : 'text-zinc-900') : 'text-zinc-900'"
+                                      x-text="$wire.selectedVariantId ? ({{ json_encode($variantsJson) }}.find(v => v.id === $wire.selectedVariantId)?.precio || '{{ money_product($product, $product->tiene_descuento) }}') : '{{ money_product($product, $product->tiene_descuento) }}'"></span>
                                 <template x-if="{{ json_encode($variantsJson) }}.find(v => v.id === $wire.selectedVariantId)?.original">
-                                    <span class="text-xl text-zinc-400 line-through" x-text="'$' + {{ json_encode($variantsJson) }}.find(v => v.id === $wire.selectedVariantId)?.original?.toFixed(2)"></span>
+                                    <span class="text-xl text-zinc-400 line-through" x-text="{{ json_encode($variantsJson) }}.find(v => v.id === $wire.selectedVariantId)?.original"></span>
                                 </template>
                             </div>
                         </template>
                     @else
                         @if($product->tiene_descuento)
-                            <p class="text-3xl font-bold text-red-600">${{ number_format($product->precio_oferta, 2) }}</p>
-                            <p class="text-xl text-zinc-400 line-through">${{ number_format($product->precio, 2) }}</p>
+                            <p class="text-3xl font-bold text-red-600">{{ money_product($product, true) }}</p>
+                            <p class="text-xl text-zinc-400 line-through">{{ money_product($product, false) }}</p>
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-700">
                                 Ahorras {{ $product->porcentaje_descuento }}%
                             </span>
                         @else
-                            <p class="text-3xl font-bold text-zinc-900">${{ number_format($product->precio, 2) }}</p>
+                            <p class="text-3xl font-bold text-zinc-900">{{ money_product($product, false) }}</p>
                         @endif
                     @endif
                 </div>
@@ -841,7 +841,7 @@ new #[Layout('layouts.app')] class extends Component {
                         <p class="text-xs text-zinc-400 uppercase tracking-wider">{{ optional($rp->category)->nombre ?? '' }}</p>
                         <h3 class="text-sm font-semibold text-zinc-900 line-clamp-2 group-hover:text-indigo-600 transition-colors">{{ $rp->nombre }}</h3>
                         <p class="text-base font-bold {{ $rp->tiene_descuento ? 'text-red-600' : 'text-zinc-900' }}">
-                            ${{ number_format($rp->precio_final, 2) }}
+                            {{ money_product($rp, $rp->tiene_descuento) }}
                         </p>
                     </div>
                 </a>
@@ -868,7 +868,7 @@ new #[Layout('layouts.app')] class extends Component {
                     <div class="p-3 space-y-0.5">
                         <h3 class="text-xs font-semibold text-zinc-900 line-clamp-2 group-hover:text-indigo-600 transition-colors">{{ $rv->nombre }}</h3>
                         <p class="text-sm font-bold {{ $rv->tiene_descuento ? 'text-red-600' : 'text-zinc-900' }}">
-                            ${{ number_format($rv->precio_final, 2) }}
+                            {{ money_product($rv, $rv->tiene_descuento) }}
                         </p>
                     </div>
                 </a>

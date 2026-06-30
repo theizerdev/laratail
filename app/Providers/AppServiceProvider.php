@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use App\Services\RegionalConfigurationService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,6 +35,8 @@ class AppServiceProvider extends ServiceProvider
         // Register auth event listeners for activity logging
         // Note: LoginSuccessListener and LogoutListener are auto-discovered by Laravel
         // from app/Listeners based on their type-hinted handle() methods.
+
+       
     }
 
     /**
