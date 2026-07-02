@@ -55,9 +55,26 @@ class Index extends Component
         $whatsappService = app(\App\Services\WhatsAppService::class);
         $empleado = null;
 
+        $token = null;
         if ($this->nuevoEstado === 'asignado' && $this->empleadoAsignadoId) {
             $empleado = \App\Models\Empleado::find($this->empleadoAsignadoId);
             if ($empleado) {
+                // Generar token único para el empleado si no tiene uno, o renovar expiración si falta menos de 48h
+                $necesita_nuevo_token = empty($order->empleado_token) || $order->empleado_token_expires_at < now();
+                $necesita_renovar = !$necesita_nuevo_token && $order->empleado_token_expires_at->diffInHours(now()) < 48;
+                
+                if ($necesita_nuevo_token) {
+                    $token = \Illuminate\Support\Str::random(64);
+                    $order->update([
+                        'empleado_token' => $token,
+                        'empleado_token_expires_at' => now()->addDays(7),
+                        'asignado_a' => $empleado->user_id,
+                    ]);
+                } elseif ($necesita_renovar) {
+                    // Renovar expiración manteniendo el mismo token
+                    $order->update(['empleado_token_expires_at' => now()->addDays(7)]);
+                }
+                
                 // Crear o actualizar el envío (Shipment)
                 $order->shipment()->updateOrCreate(
                     ['order_id' => $order->id],
@@ -95,6 +112,13 @@ class Index extends Component
                 }
 
                 $msgEmpleado = "Hola *{$empleado->nombre}*, se te ha asignado un nuevo pedido: *#{$order->numero}*.\nCliente: {$order->customer->nombre}\nDirección a entregar: {$dir}.\n\n*Detalle del Pedido:*\n{$detalleItems}";
+                
+                // Agregar enlace de acceso si se generó un nuevo token
+                if ($token) {
+                    $enlace_seguimiento = url("/empleado/pedido/{$order->id}/{$token}");
+                    $msgEmpleado .= "\n🌐 Accede a los detalles y actualiza el estado aquí:\n{$enlace_seguimiento}";
+                }
+                
                 $whatsappService->sendMessage($empleado->telefono, $msgEmpleado);
             }
         } catch (\Exception $e) {

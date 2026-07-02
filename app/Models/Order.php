@@ -52,6 +52,8 @@ class Order extends Model
         'notas_cliente',
         'empresa_id',
         'sucursal_id',
+        'empleado_token',
+        'empleado_token_expires_at',
     ];
 
     protected function casts(): array
@@ -67,6 +69,7 @@ class Order extends Model
             'fecha_envio' => 'datetime',
             'fecha_entrega' => 'datetime',
             'fecha_cancelacion' => 'datetime',
+            'empleado_token_expires_at' => 'datetime',
         ];
     }
 

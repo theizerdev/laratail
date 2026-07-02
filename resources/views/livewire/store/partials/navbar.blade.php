@@ -87,7 +87,7 @@ new class extends Component {
 };
 ?>
 <div>
-    <nav x-data="{ mobileOpen: false }" class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-zinc-100 shadow-sm transition-all">
+    <nav x-data="{ mobileOpen: false, canInstall: false }" @beforeinstallprompt.window="window.deferredPrompt = $event; canInstall = true" class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-zinc-100 shadow-sm transition-all">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
             <!-- Logo -->
@@ -133,6 +133,18 @@ new class extends Component {
                         </select>
                     </div>
                 @endif
+
+                <!-- PWA Install Button -->
+                <button 
+                    type="button" 
+                    x-show="canInstall" 
+                    @click="window.deferredPrompt.prompt(); window.deferredPrompt.userChoice.then(choice => { if (choice.outcome === 'accepted') { canInstall = false; } })" 
+                    class="text-zinc-400 hover:text-indigo-600 transition-colors flex items-center" 
+                    title="Instalar Aplicación"
+                    style="display: none;"
+                >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                </button>
 
                 <!-- Dark Mode Toggle -->
                 <button type="button" @click="darkMode = !darkMode; localStorage.setItem('darkMode', darkMode)" class="text-zinc-400 hover:text-zinc-600 transition-colors" title="Cambiar tema">
@@ -306,6 +318,18 @@ new class extends Component {
                     @endif
                 </a>
             @endauth
+
+            <!-- PWA Install Button (Mobile) -->
+            <button 
+                type="button" 
+                x-show="canInstall" 
+                @click="window.deferredPrompt.prompt(); window.deferredPrompt.userChoice.then(choice => { if (choice.outcome === 'accepted') { canInstall = false; } })" 
+                class="text-left text-indigo-650 hover:text-indigo-800 py-2 font-semibold flex items-center gap-2 border-t border-zinc-100 mt-1 pt-3"
+                style="display: none;"
+            >
+                <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                Instalar Aplicación
+            </button>
         </div>
     </div>
 </nav>

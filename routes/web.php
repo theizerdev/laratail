@@ -48,6 +48,9 @@ Route::middleware('auth')->group(function () {
     Volt::route('/favoritos', 'store.wishlist')->name('store.wishlist');
 });
 
+// Empleado - Ruta pública para seguimiento de pedidos (con token)
+Route::get('/empleado/pedido/{id}/{token}', \App\Livewire\Empleado\Pedido\Show::class)->name('empleado.pedido.show');
+
 // Recently viewed
 Volt::route('/vistos-recientemente', 'store.recently-viewed')->name('store.recently-viewed');
 

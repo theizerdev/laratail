@@ -7,7 +7,15 @@ const STATIC_ASSETS = [
 
 self.addEventListener('install', (event) => {
     event.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => cache.addAll(STATIC_ASSETS))
+        caches.open(CACHE_NAME).then((cache) => {
+            return Promise.all(
+                STATIC_ASSETS.map(url => {
+                    return cache.add(url).catch(err => {
+                        console.warn('Failed to cache during install:', url, err);
+                    });
+                })
+            );
+        })
     );
     self.skipWaiting();
 });

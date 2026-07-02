@@ -9,6 +9,7 @@ use App\Models\OrderItem;
 use App\Models\Pais;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -208,9 +209,13 @@ class Edit extends Component
             
             // Verificar si se asignó un empleado
             $empleado_asignado = $this->order->asignado_a !== $this->asignado_a && $this->asignado_a !== null;
+            // También generar token si cambiamos el estado a 'asignado' y ya tenía un empleado asignado pero no tenía token
+            $estado_cambio_a_asignado = $this->order->estado !== 'asignado' && $this->estado === 'asignado' && $this->asignado_a !== null && empty($this->order->empleado_token);
             $empleado = \App\Models\User::find($this->asignado_a);
-
-            $this->order->update([
+            $token = null;
+            
+            // Generar token único para el empleado si se le asigna un pedido o si se cambia el estado a asignado
+            $updateData = [
                 'customer_id' => $this->customer_id,
                 'estado' => $this->estado,
                 'estado_pago' => $this->estado_pago,
@@ -232,7 +237,24 @@ class Edit extends Component
                 'referencia_pago' => $this->referencia_pago ?: null,
                 'notas_cliente' => $this->notas_cliente ?: null,
                 'notas_internas' => $this->notas_internas ?: null,
-            ]);
+            ];
+            
+            // Lógica de tokens: generar nuevo si no existe, renovar si falta menos de 48h para expirar
+            if (($empleado_asignado || $estado_cambio_a_asignado) && $empleado) {
+                $necesita_nuevo_token = empty($this->order->empleado_token) || $this->order->empleado_token_expires_at < now();
+                $necesita_renovar = !$necesita_nuevo_token && $this->order->empleado_token_expires_at->diffInHours(now()) < 48;
+                
+                if ($necesita_nuevo_token) {
+                    $token = Str::random(64);
+                    $updateData['empleado_token'] = $token;
+                    $updateData['empleado_token_expires_at'] = now()->addDays(7);
+                } elseif ($necesita_renovar) {
+                    // Renovar expiración manteniendo el mismo token
+                    $updateData['empleado_token_expires_at'] = now()->addDays(7);
+                }
+            }
+
+            $this->order->update($updateData);
 
             // Rebuild items
             $this->order->items()->delete();
@@ -258,8 +280,8 @@ class Edit extends Component
                 $customer = $this->order->customer;
                 $whatsappService = new \App\Services\WhatsAppService($this->order->empresa_id);
                 
-                // Si se asignó un empleado, notificarlo
-                if ($empleado_asignado && $empleado) {
+                // Si se generó un nuevo token, notificar al empleado
+                if ($token && $empleado) {
                     // Obtener teléfono del empleado
                     $telefono_empleado = preg_replace('/[^0-9]/', '', $empleado->telefono ?? '');
                     if (!empty($telefono_empleado)) {
@@ -268,12 +290,14 @@ class Edit extends Component
                         }
                         
                         // Mensaje para el empleado asignado
+                        $enlace_seguimiento = url("/empleado/pedido/{$this->order->id}/{$token}");
                         $mensaje_empleado = "🔔 *NUEVO PEDIDO ASIGNADO*\n\n";
                         $mensaje_empleado .= "Has sido asignado al pedido *{$this->order->numero}*\n\n";
                         $mensaje_empleado .= "📋 Detalles:\n";
                         $mensaje_empleado .= "• Cliente: " . ($customer?->nombre_completo ?? 'Cliente no registrado') . "\n";
                         $mensaje_empleado .= "• Total: $" . number_format($this->order->total, 2) . "\n";
                         $mensaje_empleado .= "• Dirección: {$this->order->direccion_envio}, {$this->order->ciudad_envio}\n";
+                        $mensaje_empleado .= "\n🌐 Accede a los detalles y actualiza el estado aquí:\n{$enlace_seguimiento}\n";
                         $mensaje_empleado .= "\n⏰ Por favor, procesa este pedido a la brevedad.";
                         
                         try {

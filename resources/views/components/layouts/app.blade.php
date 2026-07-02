@@ -26,7 +26,7 @@
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @endif
-    
+
     @livewireStyles
 
     <!-- Dark mode base -->
@@ -69,9 +69,16 @@
     <!-- PWA Service Worker -->
     <script>
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').catch(() => {});
-            });
+            const registerSW = () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('PWA Service Worker registered successfully.'))
+                    .catch(err => console.warn('PWA Service Worker registration failed:', err));
+            };
+            if (document.readyState === 'complete' || document.readyState === 'interactive') {
+                registerSW();
+            } else {
+                window.addEventListener('load', registerSW);
+            }
         }
     </script>
 
