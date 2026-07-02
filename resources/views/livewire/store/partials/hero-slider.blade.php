@@ -4,45 +4,38 @@ use Livewire\Volt\Component;
 new class extends Component {
     public $slides = [
         [
-            'image' => 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2070&auto=format&fit=crop',
-            'title' => 'Nueva Colección de Verano',
-            'subtitle' => 'Descubre estilos frescos y modernos para esta temporada.',
-            'cta' => 'Comprar Ahora',
-            'link' => '/catalogo'
+            'image' => '/app/carousel/slide1.png',
+
         ],
         [
-            'image' => 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=2070&auto=format&fit=crop',
-            'title' => 'Diseño Minimalista',
-            'subtitle' => 'Elegancia en cada detalle. Encuentra tu look perfecto.',
-            'cta' => 'Ver Novedades',
-            'link' => '/catalogo?nuevo=1'
+            'image' => '/app/carousel/img2.jpg',
+
         ],
         [
-            'image' => 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop',
-            'title' => 'Accesorios Premium',
-            'subtitle' => 'El toque final que tu outfit necesita.',
-            'cta' => 'Explorar',
-            'link' => '/catalogo'
+            'image' => '/app/carousel/img3.jpg',
         ]
     ];
 };
 ?>
 
-<div class="relative w-full h-[70vh] min-h-[500px]">
+<div class="relative w-full overflow-hidden">
     <!-- Swiper -->
-    <div class="swiper mySwiper h-full w-full">
+    <div class="swiper mySwiper w-full h-auto">
         <div class="swiper-wrapper">
             @foreach($slides as $slide)
-            <div class="swiper-slide relative">
+            <div class="swiper-slide relative w-full h-auto">
                 <!-- Imagen de fondo -->
-                <div class="absolute inset-0 w-full h-full">
-                    <img src="{{ $slide['image'] }}" alt="{{ $slide['title'] }}" class="w-full h-full object-cover" />
-                    <!-- Overlay oscuro para mejorar legibilidad del texto -->
-                    <div class="absolute inset-0 bg-black/40"></div>
+                <div class="relative w-full h-auto">
+                    <img src="{{ $slide['image'] }}" alt="slider" class="w-full h-auto block" />
+                    <!-- Overlay oscuro para mejorar legibilidad del texto (solo si hay contenido de texto) -->
+                    @if(!empty($slide['title']) || !empty($slide['subtitle']))
+                        <div class="absolute inset-0 bg-black/40"></div>
+                    @endif
                 </div>
-                
-                <!-- Contenido -->
-                <div class="relative h-full flex items-center justify-center text-center px-4">
+
+                <!-- Contenido (solo si hay título o subtítulo) -->
+                @if(!empty($slide['title']) || !empty($slide['subtitle']))
+                <div class="absolute inset-0 flex items-center justify-center text-center px-4">
                     <div class="max-w-3xl space-y-6">
                         <h2 class="text-4xl md:text-6xl font-bold text-white tracking-tight leading-tight opacity-0 animate-fade-in-up">
                             {{ $slide['title'] }}
@@ -50,17 +43,20 @@ new class extends Component {
                         <p class="text-lg md:text-2xl text-gray-200 font-light opacity-0 animate-fade-in-up animation-delay-200">
                             {{ $slide['subtitle'] }}
                         </p>
+                        @if(!empty($slide['cta']))
                         <div class="pt-4 opacity-0 animate-fade-in-up animation-delay-400">
-                            <a href="{{ $slide['link'] }}" class="inline-block bg-white text-zinc-900 px-8 py-4 text-lg font-semibold rounded-full hover:bg-zinc-100 transition-transform hover:scale-105 active:scale-95 shadow-lg">
+                            <a href="{{ $slide['link'] ?? '#' }}" class="inline-block bg-white text-zinc-900 px-8 py-4 text-lg font-semibold rounded-full hover:bg-zinc-100 transition-transform hover:scale-105 active:scale-95 shadow-lg">
                                 {{ $slide['cta'] }}
                             </a>
                         </div>
+                        @endif
                     </div>
                 </div>
+                @endif
             </div>
             @endforeach
         </div>
-        
+
         <!-- Controles de navegación Swiper -->
         <div class="swiper-button-next text-white after:!text-2xl hidden md:flex"></div>
         <div class="swiper-button-prev text-white after:!text-2xl hidden md:flex"></div>
@@ -82,6 +78,7 @@ new class extends Component {
                 new Swiper(".mySwiper", {
                     loop: true,
                     effect: "fade",
+                    autoHeight: true,
                     speed: 1000,
                     autoplay: {
                         delay: 5000,
@@ -99,7 +96,7 @@ new class extends Component {
             }
         }
     </script>
-    
+
     <style>
         /* Animaciones para el texto del slider */
         @keyframes fadeInUp {
@@ -112,15 +109,15 @@ new class extends Component {
                 transform: translateY(0);
             }
         }
-        
+
         .swiper-slide-active .animate-fade-in-up {
             animation: fadeInUp 0.8s ease-out forwards;
         }
-        
+
         .animation-delay-200 {
             animation-delay: 0.2s !important;
         }
-        
+
         .animation-delay-400 {
             animation-delay: 0.4s !important;
         }
