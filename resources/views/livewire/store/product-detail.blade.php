@@ -198,6 +198,7 @@ new #[Layout('layouts.app')] class extends Component {
         $cartService->addItem($this->product, $this->quantity, $this->selectedVariantId);
 
         $this->dispatch('cart-updated');
+        $this->dispatch('notify', message: '¡Producto agregado al carrito!', type: 'success');
         $this->addedToCart = true;
         $this->js('setTimeout(() => { $wire.addedToCart = false }, 3000)');
     }

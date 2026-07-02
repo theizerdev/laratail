@@ -51,10 +51,10 @@ new #[Layout('layouts.app')] #[Title('Verificar Teléfono - Laratail Store')] cl
         ]);
 
         try {
-            $whatsappService = app(\App\Services\WhatsAppService::class);
+            $whatsappService = new \App\Services\WhatsAppService($user->empresa_id);
             $message = "Tu nuevo código de verificación para Laratail Store es: *{$newOtp}*. No lo compartas con nadie.";
             $whatsappService->sendMessage($user->telefono, $message);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             Log::error("Error enviando OTP via WhatsApp: " . $e->getMessage());
         }
 

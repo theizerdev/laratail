@@ -104,7 +104,32 @@ class CartService
     {
         $cart = $this->getOrCreate();
 
-        $precio = $product->tiene_descuento ? $product->precio_oferta : $product->precio;
+        // Obtener la fuente del precio (variante si existe, sino el producto)
+        $source = $product;
+        if ($variantId) {
+            $variant = $product->variants()->find($variantId);
+            if ($variant) {
+                $source = $variant;
+            }
+        }
+
+        // Obtener precio correcto según la moneda actual
+        $currency = strtolower(get_current_currency());
+        if (is_venezuela_company() && ($currency === 'bs' || $currency === 'ves')) {
+            // Si la moneda es Bs./VES, usar el precio_bs de la fuente (producto o variante)
+            $precioBaseUsd = $source->tiene_descuento ? $source->precio_oferta : $source->precio;
+            $precioBaseOriginal = $source->precio;
+            
+            if ($precioBaseOriginal > 0 && $source->precio_bs > 0) {
+                // Aplicar misma proporción de descuento al precio_bs
+                $precio = $precioBaseUsd / $precioBaseOriginal * $source->precio_bs;
+            } else {
+                $precio = $precioBaseUsd;
+            }
+        } else {
+            // Para USD, usar el precio normal
+            $precio = $source->tiene_descuento ? $source->precio_oferta : $source->precio;
+        }
 
         // Check if item already exists in cart
         $existingItem = $cart->items()

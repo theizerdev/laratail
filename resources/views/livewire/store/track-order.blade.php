@@ -185,14 +185,24 @@ new #[Layout('layouts.app')] #[Title('Rastrear Pedido - Laratail Store')] class 
                         <img src="{{ optional($item->product)->imagen_principal_url ?? 'https://placehold.co/50' }}" class="w-12 h-12 rounded-lg object-cover bg-zinc-100 flex-shrink-0" alt="">
                         <div class="flex-1 min-w-0">
                             <p class="text-sm font-medium text-zinc-900 truncate">{{ optional($item->product)->nombre ?? 'Producto' }}</p>
-                            <p class="text-xs text-zinc-500">{{ $item->cantidad }} × ${{ number_format($item->precio, 2) }}</p>
+                            <p class="text-xs text-zinc-500">{{ $item->cantidad }} × {{ format_order_item_price($item) }}</p>
                         </div>
                     </div>
                     @endforeach
                 </div>
+                @php
+                    $vesTotal = 0.0;
+                    foreach ($trackedOrder->items as $item) {
+                        $vesTotal += $item->cantidad * (float)format_order_item_price($item, true);
+                    }
+                    $latestRate = \App\Models\ExchangeRate::getLatestRate('USD') ?? 1.0;
+                    $vesDescuento = $trackedOrder->descuento * $latestRate;
+                    $vesEnvio = $trackedOrder->envio * $latestRate;
+                    $vesTotal = max(0.0, $vesTotal - $vesDescuento + $vesEnvio);
+                @endphp
                 <div class="mt-4 pt-4 border-t border-zinc-100 flex justify-between text-lg font-bold text-zinc-900">
                     <span>Total</span>
-                    <span>${{ number_format($trackedOrder->total, 2) }}</span>
+                    <span>{{ format_display_price($trackedOrder->total, $vesTotal) }}</span>
                 </div>
             </div>
         </div>

@@ -10,6 +10,30 @@ new #[Layout('layouts.app')] class extends Component {
     {
         $this->order = $order->load(['items.product', 'paisEnvio']);
     }
+
+    public function with(): array
+    {
+        $usdSubtotal = $this->order->subtotal;
+        $vesSubtotal = 0.0;
+        foreach ($this->order->items as $item) {
+            $vesSubtotal += $item->cantidad * (float)format_order_item_price($item, true);
+        }
+        $latestRate = \App\Models\ExchangeRate::getLatestRate('USD') ?? 1.0;
+        $vesDescuento = $this->order->descuento * $latestRate;
+        $vesEnvio = $this->order->envio * $latestRate;
+        $vesTotal = max(0.0, $vesSubtotal - $vesDescuento + $vesEnvio);
+
+        return [
+            'usdSubtotal' => $usdSubtotal,
+            'vesSubtotal' => $vesSubtotal,
+            'usdDescuento' => $this->order->descuento,
+            'vesDescuento' => $vesDescuento,
+            'usdEnvio' => $this->order->envio,
+            'vesEnvio' => $vesEnvio,
+            'usdTotal' => $this->order->total,
+            'vesTotal' => $vesTotal,
+        ];
+    }
 };
 ?>
 
@@ -56,9 +80,9 @@ new #[Layout('layouts.app')] class extends Component {
                     <img src="{{ optional($item->product)->imagen_principal_url ?? 'https://placehold.co/60' }}" class="w-14 h-14 rounded-lg object-cover bg-zinc-100" alt="">
                     <div class="flex-1 min-w-0">
                         <p class="text-sm font-medium text-zinc-900 truncate">{{ optional($item->product)->nombre ?? 'Producto' }}</p>
-                        <p class="text-xs text-zinc-500">{{ $item->cantidad }} × ${{ number_format($item->precio, 2) }}</p>
+                        <p class="text-xs text-zinc-500">{{ $item->cantidad }} × {{ format_order_item_price($item) }}</p>
                     </div>
-                    <p class="text-sm font-bold text-zinc-900">${{ number_format($item->subtotal, 2) }}</p>
+                    <p class="text-sm font-bold text-zinc-900">{{ format_display_price($item->cantidad * $item->precio_unitario, $item->cantidad * format_order_item_price($item, true)) }}</p>
                 </div>
                 @endforeach
             </div>
@@ -67,24 +91,24 @@ new #[Layout('layouts.app')] class extends Component {
             <div class="bg-zinc-50 rounded-xl p-4 space-y-2 text-sm">
                 <div class="flex justify-between">
                     <span class="text-zinc-500">Subtotal</span>
-                    <span class="text-zinc-900">${{ number_format($order->subtotal, 2) }}</span>
+                    <span class="text-zinc-900">{{ format_display_price($usdSubtotal, $vesSubtotal) }}</span>
                 </div>
-                @if($order->descuento > 0)
+                @if($usdDescuento > 0)
                 <div class="flex justify-between text-green-600">
                     <span>Descuento</span>
-                    <span>-${{ number_format($order->descuento, 2) }}</span>
+                    <span>-{{ format_display_price($usdDescuento, $vesDescuento) }}</span>
                 </div>
                 @endif
-                @if($order->envio > 0)
+                @if($usdEnvio > 0)
                 <div class="flex justify-between">
                     <span class="text-zinc-500">Envío</span>
-                    <span class="text-zinc-900">${{ number_format($order->envio, 2) }}</span>
+                    <span class="text-zinc-900">{{ format_display_price($usdEnvio, $vesEnvio) }}</span>
                 </div>
                 @endif
                 <hr class="border-zinc-200">
                 <div class="flex justify-between text-lg font-bold text-zinc-900 pt-1">
                     <span>Total</span>
-                    <span>${{ number_format($order->total, 2) }}</span>
+                    <span>{{ format_display_price($usdTotal, $vesTotal) }}</span>
                 </div>
             </div>
         </div>

@@ -320,13 +320,24 @@ new #[Layout('layouts.app')] #[Title('Checkout - Laratail Store')] class extends
                     // Ahora $phone es un número limpio como "584241703465" sin símbolos
                     if ($phone && strlen($phone) >= 11) {
 
-                        // Construir resumen de items
+                        // Construir resumen de items con la moneda correcta
+                        $currency = strtolower(get_current_currency());
+                        $isBsCurrency = is_venezuela_company() && ($currency === 'bs' || $currency === 'ves');
+                        $currencySymbol = $isBsCurrency ? 'Bs.' : '$';
+                        $decimalSeparator = $isBsCurrency ? ',' : '.';
+                        $thousandSeparator = $isBsCurrency ? '.' : ',';
+                        
                         $resumenItems = "";
                         foreach ($items as $item) {
                             $producto = $item->product;
                             $nombre_producto = $producto ? $producto->nombre : 'Producto Desconocido';
-                            $subtotal_item = $item->cantidad * $item->precio;
-                            $resumenItems .= "• {$item->cantidad}x {$nombre_producto} - $" . number_format($subtotal_item, 2) . "\n";
+                             if ($isBsCurrency) {
+                                $subtotal_item = ( $item->cantidad * $item->precio) * tasa()->usd_rate;
+                             } else {
+                                 $subtotal_item = $item->cantidad * $item->precio;
+                            } 
+                            $resumenItems .= "• {$item->cantidad}x {$nombre_producto} - {$currencySymbol} " . number_format($subtotal_item, 2, $decimalSeparator, $thousandSeparator) . "\n";
+                             
                         }
 
                         // Mensaje profesional completo
@@ -336,11 +347,20 @@ new #[Layout('layouts.app')] #[Title('Checkout - Laratail Store')] class extends
                         $mensaje .= "📋 *Resumen de tu compra:*\n";
                         $mensaje .= $resumenItems . "\n";
                         $mensaje .= "💰 *Resumen de pagos:*\n";
-                        $mensaje .= "   Subtotal: $" . number_format($subtotal, 2) . "\n";
+                       if ($isBsCurrency) {
+                         $mensaje .= "   Subtotal: {$currencySymbol} " . number_format($subtotal , 2, $decimalSeparator, $thousandSeparator) . "\n";
+                       } else {
+                         $mensaje .= "   Subtotal: {$currencySymbol} " . number_format($subtotal, 2, $decimalSeparator, $thousandSeparator) . "\n";
+                       }
+                       
                         if ($descuento > 0) {
-                            $mensaje .= "   Descuento: -$" . number_format($descuento, 2) . "\n";
+                            $mensaje .= "   Descuento: -{$currencySymbol} " . number_format($descuento, 2, $decimalSeparator, $thousandSeparator) . "\n";
                         }
-                        $mensaje .= "\n💳 *TOTAL A PAGAR:* *$" . number_format($total, 2) . "*\n\n";
+                        if ($isBsCurrency) {
+                         $mensaje .= "\n💳 *TOTAL A PAGAR:* *{$currencySymbol} " . number_format($total * tasa()->usd_rate, 2, $decimalSeparator, $thousandSeparator) . "*\n\n";
+                        } else {
+                        $mensaje .= "\n💳 *TOTAL A PAGAR:* *{$currencySymbol} " . number_format($total, 2, $decimalSeparator, $thousandSeparator) . "*\n\n";
+                        }
                         $metodos_pago = [
                             'contra_entrega' => 'Pago contra entrega',
                             'transferencia' => 'Transferencia bancaria'
@@ -393,17 +413,17 @@ new #[Layout('layouts.app')] #[Title('Checkout - Laratail Store')] class extends
         <div class="flex items-center justify-center mb-12">
             @foreach([1 => 'Dirección', 2 => 'Pago', 3 => 'Confirmar'] as $num => $label)
                 <div class="flex items-center">
-                    <div class="flex items-center justify-center w-12 h-12 rounded-full text-base font-bold transition-colors
+                    <div class="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full text-sm sm:text-base font-bold transition-colors
                         {{ $currentStep > $num ? 'bg-green-500 text-white' : ($currentStep === $num ? 'bg-indigo-600 text-white' : 'bg-zinc-100 text-zinc-400') }}">
                         @if($currentStep > $num)
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         @else
                             {{ $num }}
                         @endif
                     </div>
-                    <span class="ml-3 text-base font-medium {{ $currentStep >= $num ? 'text-zinc-900' : 'text-zinc-400' }}">{{ $label }}</span>
+                    <span class="ml-2 sm:ml-3 text-sm sm:text-base font-medium hidden sm:inline-block {{ $currentStep >= $num ? 'text-zinc-900' : 'text-zinc-400' }}">{{ $label }}</span>
                     @if($num < 3)
-                        <div class="w-20 sm:w-32 h-0.5 mx-4 {{ $currentStep > $num ? 'bg-green-500' : 'bg-zinc-200' }}"></div>
+                        <div class="w-8 sm:w-20 md:w-32 h-0.5 mx-2 sm:mx-4 {{ $currentStep > $num ? 'bg-green-500' : 'bg-zinc-200' }}"></div>
                     @endif
                 </div>
             @endforeach
@@ -498,8 +518,13 @@ new #[Layout('layouts.app')] #[Title('Checkout - Laratail Store')] class extends
                         </div>
                     </div>
 
-                    <button wire:click="nextStep" class="mt-8 w-full bg-indigo-600 text-white py-4 rounded-xl font-semibold hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-200">
-                        Continuar al Pago
+                    <button wire:click="nextStep" wire:loading.attr="disabled" class="mt-8 w-full bg-indigo-600 text-white py-4 rounded-xl font-semibold hover:bg-indigo-700 disabled:opacity-75 disabled:cursor-not-allowed transition-all shadow-lg shadow-indigo-200 flex items-center justify-center gap-2">
+                        <svg wire:loading wire:target="nextStep" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span wire:loading.remove wire:target="nextStep">Continuar al Pago</span>
+                        <span wire:loading wire:target="nextStep">Cargando...</span>
                     </button>
                 </div>
                 @endif
@@ -524,8 +549,13 @@ new #[Layout('layouts.app')] #[Title('Checkout - Laratail Store')] class extends
                         <button wire:click="goToStep(1)" class="px-6 py-4 border border-zinc-300 rounded-xl font-medium text-zinc-700 hover:bg-zinc-50 transition-colors">
                             ← Atrás
                         </button>
-                        <button wire:click="nextStep" class="flex-1 bg-indigo-600 text-white py-4 rounded-xl font-semibold hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-200">
-                            Revisar Pedido
+                        <button wire:click="nextStep" wire:loading.attr="disabled" class="flex-1 bg-indigo-600 text-white py-4 rounded-xl font-semibold hover:bg-indigo-700 disabled:opacity-75 disabled:cursor-not-allowed transition-all shadow-lg shadow-indigo-200 flex items-center justify-center gap-2">
+                            <svg wire:loading wire:target="nextStep" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            <span wire:loading.remove wire:target="nextStep">Revisar Pedido</span>
+                            <span wire:loading wire:target="nextStep">Cargando...</span>
                         </button>
                     </div>
                 </div>
@@ -581,10 +611,13 @@ new #[Layout('layouts.app')] #[Title('Checkout - Laratail Store')] class extends
                         <button wire:click="goToStep(2)" class="px-6 py-4 border border-zinc-300 rounded-xl font-medium text-zinc-700 hover:bg-zinc-50 transition-colors">
                             ← Atrás
                         </button>
-                        <button wire:click="confirmOrder" wire:loading.attr="disabled" class="flex-1 bg-indigo-600 text-white py-4 rounded-xl font-semibold hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
-                            <svg wire:loading class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
-                            <span wire:loading.remove>Confirmar Pedido</span>
-                            <span wire:loading>Procesando...</span>
+                        <button wire:click="confirmOrder" wire:loading.attr="disabled" class="flex-1 bg-indigo-600 text-white py-4 rounded-xl font-semibold hover:bg-indigo-700 disabled:opacity-75 disabled:cursor-not-allowed transition-all shadow-lg shadow-indigo-200 flex items-center justify-center gap-2">
+                            <svg wire:loading wire:target="confirmOrder" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            <span wire:loading.remove wire:target="confirmOrder">Confirmar Pedido</span>
+                            <span wire:loading wire:target="confirmOrder">Procesando...</span>
                         </button>
                     </div>
                 </div>

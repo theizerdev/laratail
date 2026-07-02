@@ -67,8 +67,13 @@ new #[Layout('layouts.app')] #[Title('Carrito - Laratail Store')] class extends 
     {
         $item = CartItem::find($itemId);
         if (!$item) return;
+        if ($qty <= 0) {
+            $this->removeItem($itemId);
+            return;
+        }
         app(CartService::class)->updateItemQty($item, $qty);
         $this->dispatch('cart-updated');
+        $this->dispatch('notify', message: 'Cantidad de producto actualizada.', type: 'success');
     }
 
     public function removeItem(int $itemId): void
@@ -77,6 +82,7 @@ new #[Layout('layouts.app')] #[Title('Carrito - Laratail Store')] class extends 
         if (!$item) return;
         app(CartService::class)->removeItem($item);
         $this->dispatch('cart-updated');
+        $this->dispatch('notify', message: 'Producto eliminado del carrito.', type: 'info');
     }
 
     public function applyCoupon(): void
@@ -92,9 +98,11 @@ new #[Layout('layouts.app')] #[Title('Carrito - Laratail Store')] class extends 
         $success = app(CartService::class)->applyCoupon($this->couponCode);
         if ($success) {
             $this->couponSuccess = '¡Cupón aplicado correctamente!';
+            $this->dispatch('notify', message: '¡Cupón aplicado correctamente!', type: 'success');
             $this->couponCode = '';
         } else {
             $this->couponError = 'Cupón inválido, expirado o no cumple los requisitos mínimos.';
+            $this->dispatch('notify', message: 'El cupón no es válido o no cumple los requisitos.', type: 'error');
         }
     }
 
@@ -102,6 +110,7 @@ new #[Layout('layouts.app')] #[Title('Carrito - Laratail Store')] class extends 
     {
         app(CartService::class)->removeCoupon();
         $this->couponSuccess = null;
+        $this->dispatch('notify', message: 'Cupón removido del carrito.', type: 'info');
     }
 
     public function proceedToCheckout(): void
@@ -263,9 +272,14 @@ new #[Layout('layouts.app')] #[Title('Carrito - Laratail Store')] class extends 
                         @livewire('store.partials.shipping-estimator', ['totalWeight' => $totalWeight, 'subtotal' => $usdSubtotal])
 
                         <!-- Checkout Button -->
-                        <button wire:click="proceedToCheckout" class="mt-6 w-full bg-indigo-600 text-white py-4 rounded-xl font-semibold hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-200 flex items-center justify-center gap-2">
-                            Proceder al Pago
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        <button wire:click="proceedToCheckout" wire:loading.attr="disabled" class="mt-6 w-full bg-indigo-600 text-white py-4 rounded-xl font-semibold hover:bg-indigo-700 disabled:opacity-75 disabled:cursor-not-allowed transition-all shadow-lg shadow-indigo-200 flex items-center justify-center gap-2">
+                            <svg wire:loading wire:target="proceedToCheckout" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            <span wire:loading.remove wire:target="proceedToCheckout">Proceder al Pago</span>
+                            <span wire:loading wire:target="proceedToCheckout">Cargando...</span>
+                            <svg wire:loading.remove wire:target="proceedToCheckout" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                         </button>
 
                         <!-- Security badges -->

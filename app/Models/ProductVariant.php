@@ -46,6 +46,14 @@ class ProductVariant extends Model
     }
 
     /**
+     * Tiene descuento activo
+     */
+    public function getTieneDescuentoAttribute(): bool
+    {
+        return $this->precio_oferta !== null && $this->precio_oferta < $this->precio;
+    }
+
+    /**
      * Stock bajo
      */
     public function getStockBajoAttribute(): bool

@@ -502,3 +502,62 @@ if (!function_exists('format_cart_item_price')) {
         return format_display_price($usdPrice, $vesPrice);
     }
 }
+
+if (!function_exists('format_order_item_price')) {
+    /**
+     * Formatear el precio de un item del pedido según precio_bs de su producto/variante y la moneda seleccionada.
+     *
+     * @param mixed $item OrderItem
+     * @param bool $returnRaw Retornar el valor numérico en lugar del string formateado
+     * @return mixed
+     */
+    function format_order_item_price($item, $returnRaw = false)
+    {
+        if (!$item) {
+            return $returnRaw ? 0.0 : '';
+        }
+
+        $source = $item->variant ?? $item->product;
+        $usdPrice = (float) $item->precio_unitario;
+
+        if (!$source) {
+            $latestRate = \App\Models\ExchangeRate::getLatestRate('USD') ?? 1.0;
+            $vesPrice = $usdPrice * $latestRate;
+            if ($returnRaw) {
+                $currency = strtolower(get_current_currency());
+                if (is_venezuela_company() && ($currency === 'bs' || $currency === 'ves')) {
+                    return $vesPrice;
+                }
+                return $usdPrice;
+            }
+            return format_display_price($usdPrice, $vesPrice);
+        }
+
+        $usdBaseProductPrice = (float) ($source->precio ?? 1.0);
+        if ($usdBaseProductPrice <= 0) {
+            $usdBaseProductPrice = 1.0;
+        }
+
+        $precioBsBase = (float) ($source->precio_bs ?? $usdPrice);
+
+        // Aplicar proporción de descuento
+        if ($usdPrice < $usdBaseProductPrice) {
+            $discountRatio = $usdPrice / $usdBaseProductPrice;
+            $precioBsBase = $precioBsBase * $discountRatio;
+        }
+
+        $latestRate = \App\Models\ExchangeRate::getLatestRate('USD') ?? 1.0;
+        $vesPrice = $precioBsBase * $latestRate;
+
+        if ($returnRaw) {
+            $currency = strtolower(get_current_currency());
+            if (is_venezuela_company() && ($currency === 'bs' || $currency === 'ves')) {
+                return $vesPrice;
+            }
+            return $usdPrice;
+        }
+
+        return format_display_price($usdPrice, $vesPrice);
+    }
+}
+
