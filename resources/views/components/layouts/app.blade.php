@@ -69,7 +69,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             const registerSW = () => {
-                navigator.serviceWorker.register('/sw.js')
+                navigator.serviceWorker.register('/serviceworker.js')
                     .then(reg => console.log('PWA Service Worker registered successfully.'))
                     .catch(err => console.warn('PWA Service Worker registration failed:', err));
             };
@@ -85,4 +85,3 @@
     @fluxScripts
 </body>
 </html>
-
