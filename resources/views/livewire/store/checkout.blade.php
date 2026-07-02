@@ -398,11 +398,17 @@ new #[Layout('layouts.app')] #[Title('Checkout - Laratail Store')] class extends
     <!-- Breadcrumb -->
     <div class="bg-white border-b border-zinc-100">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
-            <nav class="flex items-center gap-2 text-base">
-                <a href="/carrito" wire:navigate class="text-zinc-500 hover:text-zinc-900 transition-colors">Carrito</a>
-                <svg class="w-5 h-5 text-zinc-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                <span class="text-zinc-900 font-medium">Checkout</span>
-            </nav>
+            <div class="flex justify-between items-center">
+                <nav class="flex items-center gap-2 text-base">
+                    <a href="/carrito" wire:navigate class="text-zinc-500 hover:text-zinc-900 transition-colors">Carrito</a>
+                    <svg class="w-5 h-5 text-zinc-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    <span class="text-zinc-900 font-medium">Checkout</span>
+                </nav>
+                <!-- Botón de búsqueda en tiempo real (mismo que en navbar) -->
+                <button type="button" class="text-zinc-400 hover:text-zinc-600 transition-colors" onclick="window.dispatchEvent(new CustomEvent('open-search'))">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </button>
+            </div>
         </div>
     </div>
 

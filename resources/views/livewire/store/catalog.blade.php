@@ -13,10 +13,57 @@ use Illuminate\Support\Facades\Auth;
 
 new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extends Component {
     public string $currency = 'usd';
+    public string $searchQuery = '';
+    public $searchResults = [];
+    public $searchSuggestions = [];
+    public bool $showSearchDropdown = false;
 
     public function mount(): void
     {
         $this->currency = get_current_currency();
+    }
+
+    public function updatedSearchQuery(): void
+    {
+        if (strlen($this->searchQuery) < 2) {
+            $this->searchResults = [];
+            $this->searchSuggestions = [];
+            $this->showSearchDropdown = false;
+            return;
+        }
+
+        $q = '%' . $this->searchQuery . '%';
+
+        // Buscar productos (misma lógica que search-overlay)
+        $this->searchResults = Product::where('status', true)
+            ->where(function ($builder) use ($q) {
+                $builder->where('nombre', 'like', $q)
+                    ->orWhere('descripcion_corta', 'like', $q)
+                    ->orWhere('sku', 'like', $q);
+            })
+            ->with('category')
+            ->select(['id', 'nombre', 'slug', 'imagen_principal', 'precio', 'precio_oferta', 'precio_bs', 'stock', 'category_id'])
+            ->limit(5)
+            ->get()
+            ->toArray();
+
+        // Buscar categorías
+        $catSuggestions = Category::where('status', true)
+            ->where('nombre', 'like', $q)
+            ->select(['id', 'nombre', 'slug'])
+            ->limit(2)
+            ->get()
+            ->map(fn($c) => ['type' => 'category', 'label' => $c->nombre, 'url' => '/catalogo/' . $c->slug])
+            ->toArray();
+
+        $this->searchSuggestions = $catSuggestions;
+        $this->showSearchDropdown = true;
+    }
+
+    public function hideSearchDropdown(): void
+    {
+        // Pequeño delay para permitir click en resultados antes de ocultar
+        $this->js('setTimeout(() => { $wire.showSearchDropdown = false }, 200)');
     }
 
     public function updatedCurrency($value): void
@@ -45,6 +92,8 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
     public int $minPrice = 0;
     #[Url]
     public int $maxPrice = 10000;
+    #[Url]
+    public string $search = '';
 
     public bool $showMobileFilters = false;
     public ?int $quickViewProductId = null;
@@ -54,6 +103,16 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
     {
         $query = Product::with(['category', 'brand'])
             ->where('status', true);
+            
+        // Filtro de búsqueda
+        if (!empty($this->search)) {
+            $q = '%' . $this->search . '%';
+            $query->where(function ($builder) use ($q) {
+                $builder->where('nombre', 'like', $q)
+                    ->orWhere('descripcion_corta', 'like', $q)
+                    ->orWhere('sku', 'like', $q);
+            });
+        }
 
         // Category filter
         if ($this->category) {
@@ -232,20 +291,85 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
                     <p class="text-sm text-zinc-500">
                         Mostrando <span class="font-medium text-zinc-700">{{ $products->firstItem() ?? 0 }}-{{ $products->lastItem() ?? 0 }}</span> de <span class="font-medium text-zinc-700">{{ $products->total() }}</span> resultados
                     </p>
-                    <div class="flex items-center gap-2 w-full sm:w-auto">
-                        @if(is_venezuela_company())
-                            <flux:select wire:model.live="currency" class="rounded-lg border-zinc-300 text-sm focus:ring-indigo-500 focus:border-indigo-500 w-32">
-                                <option value="usd">USD ($)</option>
-                                <option value="bs">VES (Bs.)</option>
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
+                        <!-- Input de búsqueda en tiempo real -->
+                        <div class="relative w-full sm:w-72">
+                            <div class="relative">
+                                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                                <input 
+                                    type="text" 
+                                    wire:model.live.debounce="searchQuery"
+                                    wire:focus="showSearchDropdown = true"
+                                    wire:blur="hideSearchDropdown()"
+                                    placeholder="Buscar productos..."
+                                    class="w-full pl-10 pr-4 py-2 rounded-lg border border-zinc-300 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                                >
+                            </div>
+                            
+                            <!-- Dropdown de resultados en tiempo real -->
+                            @if($showSearchDropdown && (count($searchResults) > 0 || count($searchSuggestions) > 0))
+                                <div class="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl border border-zinc-200 z-50 overflow-hidden">
+                                    <!-- Sugerencias de categorías -->
+                                    @if(count($searchSuggestions) > 0)
+                                        <div class="px-4 py-2 bg-zinc-50 border-b border-zinc-100">
+                                            <p class="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Categorías</p>
+                                        </div>
+                                        @foreach($searchSuggestions as $suggestion)
+                                            <a href="{{ $suggestion['url'] }}" wire:navigate class="block px-4 py-3 hover:bg-zinc-50 transition-colors">
+                                                <span class="text-sm font-medium text-zinc-700">{{ $suggestion['label'] }}</span>
+                                            </a>
+                                        @endforeach
+                                    @endif
+                                    
+                                    <!-- Resultados de productos -->
+                                    @if(count($searchResults) > 0)
+                                        <div class="px-4 py-2 bg-zinc-50 border-b border-zinc-100 {{ count($searchSuggestions) > 0 ? '' : 'border-t-0' }}">
+                                            <p class="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Productos</p>
+                                        </div>
+                                        @foreach($searchResults as $product)
+                                            <a href="/producto/{{ $product['slug'] }}" wire:navigate class="flex items-center gap-3 px-4 py-3 hover:bg-zinc-50 transition-colors">
+                                                <img 
+                                                    src="{{ $product['imagen_principal'] ?? 'https://placehold.co/40x40?text=?' }}" 
+                                                    alt="{{ $product['nombre'] }}"
+                                                    class="w-10 h-10 rounded-lg object-cover bg-zinc-100"
+                                                >
+                                                <div class="flex-1 min-w-0">
+                                                    <p class="text-sm font-medium text-zinc-900 truncate">{{ $product['nombre'] }}</p>
+                                                    <p class="text-xs text-zinc-500">
+                                                        ${{ number_format($product['precio_oferta'] ?? $product['precio'], 2) }}
+                                                    </p>
+                                                </div>
+                                            </a>
+                                        @endforeach
+                                    @endif
+                                    
+                                    <!-- Ver todos los resultados -->
+                                    @if(strlen($searchQuery) >= 2)
+                                        <a href="/catalogo?search={{ urlencode($searchQuery) }}" wire:navigate class="block px-4 py-3 bg-indigo-50 hover:bg-indigo-100 transition-colors text-center">
+                                            <span class="text-sm font-semibold text-indigo-600">Ver todos los resultados</span>
+                                        </a>
+                                    @endif
+                                </div>
+                            @endif
+                        </div>
+                        
+                        <div class="flex items-center gap-2">
+                            @if(is_venezuela_company())
+                                <flux:select wire:model.live="currency" class="rounded-lg border-zinc-300 text-sm focus:ring-indigo-500 focus:border-indigo-500 w-32">
+                                    <option value="usd">USD ($)</option>
+                                    <option value="bs">VES (Bs.)</option>
+                                </flux:select>
+                            @endif
+                            <flux:select wire:model.live="sort" class="rounded-lg border-zinc-300 text-sm focus:ring-indigo-500 focus:border-indigo-500 flex-1 sm:flex-initial">
+                                <option value="recent">Más recientes</option>
+                                <option value="price_asc">Precio: menor a mayor</option>
+                                <option value="price_desc">Precio: mayor a menor</option>
+                                <option value="name">Nombre A-Z</option>
+                                <option value="newest">Nuevos primero</option>
                             </flux:select>
-                        @endif
-                        <flux:select wire:model.live="sort" class="rounded-lg border-zinc-300 text-sm focus:ring-indigo-500 focus:border-indigo-500 flex-1 sm:flex-initial">
-                            <option value="recent">Más recientes</option>
-                            <option value="price_asc">Precio: menor a mayor</option>
-                            <option value="price_desc">Precio: mayor a menor</option>
-                            <option value="name">Nombre A-Z</option>
-                            <option value="newest">Nuevos primero</option>
-                        </flux:select>
+                        </div>
                     </div>
                 </div>
 
