@@ -74,12 +74,12 @@ if (!function_exists('get_current_currency')) {
         if (session()->has('currency')) {
             return session('currency');
         }
-        
+
         // Si la empresa es de Venezuela, por defecto es USD en primera instancia
         if (is_venezuela_company()) {
             return 'usd';
         }
-        
+
         // Si no hay moneda en la sesión, usar la configuración regional
         return get_regional_config('currency') ?? 'usd';
     }
@@ -164,7 +164,7 @@ if (!function_exists('format_money')) {
             $currencySymbol = 'Bs.';
             $latestRate = \App\Models\ExchangeRate::getLatestRate('USD') ?? 1.0;
             $amount = $amount * $latestRate;
-            
+
             // Usar formato venezolano de moneda
             $decimalSeparator = ',';
             $thousandSeparator = '.';
@@ -395,13 +395,13 @@ if (!function_exists('format_display_price')) {
             if ($currency === 'bs' || $currency === 'ves') {
                 return 'Bs. ' . number_format($vesAmount, 2, ',', '.');
             }
-            
+
             // En primera instancia (USD seleccionado / por defecto)
             // Si dual_currency es true y tiene secondary_currency
             if (!empty($config['dual_currency'])) {
                 $usdFormatted = '$' . number_format($usdAmount, 2, '.', ',');
                 $vesFormatted = 'Bs. ' . number_format($vesAmount, 2, ',', '.');
-                return $usdFormatted . ' / ' . $vesFormatted;
+                return $usdFormatted ;
             }
 
             return '$' . number_format($usdAmount, 2, '.', ',');
@@ -428,7 +428,7 @@ if (!function_exists('money_product')) {
 
         $priceField = $isOffer ? 'precio_oferta' : 'precio';
         $usdPrice = (float) ($product->$priceField ?? 0.0);
-        
+
         $hasDiscount = false;
         if (isset($product->tiene_descuento)) {
             $hasDiscount = (bool) $product->tiene_descuento;
@@ -479,9 +479,9 @@ if (!function_exists('format_cart_item_price')) {
         if ($usdBaseProductPrice <= 0) {
             $usdBaseProductPrice = 1.0;
         }
-        
+
         $precioBsBase = (float) ($source->precio_bs ?? $usdPrice);
-        
+
         // Aplicar proporción de descuento
         if ($usdPrice < $usdBaseProductPrice) {
             $discountRatio = $usdPrice / $usdBaseProductPrice;

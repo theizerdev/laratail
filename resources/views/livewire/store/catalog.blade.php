@@ -303,12 +303,12 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
                                 {{ optional($product->category)->nombre ?? 'General' }}
                                 @if($product->brand) · {{ $product->brand->nombre }} @endif
                             </p>
-                            <h3 class="text-base font-semibold text-zinc-900 mb-2 line-clamp-2">
+                            <h6 class="text-[.625rem] font-semibold text-zinc-900 mb-2 line-clamp-2">
                                 <a href="{{ route('store.product.detail', $product->slug) }}" wire:navigate>
                                     <span aria-hidden="true" class="absolute inset-0"></span>
                                     {{ $product->nombre }}
                                 </a>
-                            </h3>
+                            </h6>
                             <div class="mt-auto flex items-center gap-2">
                                 @if($product->tiene_descuento)
                                     <p class="text-lg font-bold text-red-600">{{ money_product($product, true) }}</p>
@@ -390,7 +390,7 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
                 {{-- Right: Content --}}
                 <div class="flex flex-col h-full space-y-4">
                     {{-- Categories / Brand --}}
-                    <div class="flex flex-wrap gap-1.5 text-[10px] font-bold uppercase tracking-wider text-zinc-400">
+                    <div class="flex flex-wrap gap-1.5 text-[.625rem] font-bold uppercase tracking-wider text-zinc-400">
                         <span>{{ optional($qp->category)->nombre ?? 'General' }}</span>
                         @if($qp->brand)
                             <span class="text-zinc-300">&middot;</span>

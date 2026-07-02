@@ -86,13 +86,13 @@ new class extends Component {
     }
 };
 ?>
-<div>
-    <nav x-data="{ mobileOpen: false, canInstall: false }" @beforeinstallprompt.window="window.deferredPrompt = $event; canInstall = true" class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-zinc-100 shadow-sm transition-all">
+<div x-data="{ mobileOpen: false, canInstall: false }" @beforeinstallprompt.window="window.deferredPrompt = $event; canInstall = true" x-effect="document.body.style.overflow = mobileOpen ? 'hidden' : ''">
+    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-zinc-100 shadow-sm transition-all">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
             <!-- Logo -->
-            <div class="flex-shrink-0 flex items-center">
-                <a href="/" wire:navigate class="text-2xl font-bold text-zinc-900 tracking-tight flex items-center gap-2">
+            <div class="flex-shrink-0 hidden sm:flex items-center">
+                <a href="/" wire:navigate class="text-2xl font-bold text-zinc-900 dark:text-zinc-50 tracking-tight flex items-center gap-2">
                     <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                     Laratail Store
                 </a>
@@ -290,49 +290,98 @@ new class extends Component {
                 </div>
             </div>
         </div>
-    </div>
+    </nav>
 
-    <!-- Mobile menu -->
-    <div x-show="mobileOpen" x-collapse x-cloak class="md:hidden border-t border-zinc-100 bg-white">
-        <div class="px-4 py-3 flex flex-col gap-2">
-            <a href="/catalogo" wire:navigate class="text-zinc-600 hover:text-indigo-600 py-2 font-medium">Catálogo</a>
-            <a href="/catalogo?nuevo=1" wire:navigate class="text-zinc-600 hover:text-indigo-600 py-2 font-medium">Novedades</a>
-            <a href="/catalogo?oferta=1" wire:navigate class="text-zinc-600 hover:text-indigo-600 py-2 font-medium">Ofertas</a>
-            <a href="/comparar" wire:navigate class="text-zinc-600 hover:text-indigo-600 py-2 font-medium">Comparar
-                @php $cmpCount = count(session('compare_products', [])); @endphp
-                @if($cmpCount > 0) ({{ $cmpCount }}) @endif
-            </a>
-            @guest
-                <hr class="border-zinc-100">
-                <a href="/acceso" wire:navigate class="text-zinc-700 py-2 font-medium">Iniciar Sesión</a>
-                <a href="/registro" wire:navigate class="text-indigo-600 py-2 font-medium">Registrarse</a>
-            @endguest
-            @auth
-                <hr class="border-zinc-100">
-                <a href="/mi-cuenta" wire:navigate class="text-zinc-600 py-2 font-medium">Mi Cuenta</a>
-                <a href="/mi-cuenta/pedidos" wire:navigate class="text-zinc-600 py-2 font-medium">Mis Pedidos</a>
-                <a href="/favoritos" wire:navigate class="text-zinc-600 py-2 font-medium flex items-center justify-between">
-                    <span>Mis Favoritos</span>
-                    @if(Auth::check() && $this->wishlistData['count'] > 0)
-                        <span class="bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">{{ $this->wishlistData['count'] }}</span>
-                    @endif
-                </a>
-            @endauth
+    <!-- Mobile Offcanvas menu -->
+    <div x-cloak class="md:hidden">
+        <!-- Backdrop overlay -->
+        <div x-show="mobileOpen" 
+             x-transition:enter="transition-opacity ease-linear duration-300"
+             x-transition:enter-start="opacity-0"
+             x-transition:enter-end="opacity-100"
+             x-transition:leave="transition-opacity ease-linear duration-300"
+             x-transition:leave-start="opacity-100"
+             x-transition:leave-end="opacity-0"
+             class="fixed inset-0 bg-zinc-900/60 backdrop-blur-sm z-[90]"
+             @click="mobileOpen = false"></div>
 
-            <!-- PWA Install Button (Mobile) -->
-            <button 
-                type="button" 
-                x-show="canInstall" 
-                @click="window.deferredPrompt.prompt(); window.deferredPrompt.userChoice.then(choice => { if (choice.outcome === 'accepted') { canInstall = false; } })" 
-                class="text-left text-indigo-650 hover:text-indigo-800 py-2 font-semibold flex items-center gap-2 border-t border-zinc-100 mt-1 pt-3"
-                style="display: none;"
-            >
-                <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                Instalar Aplicación
-            </button>
+        <!-- Drawer Content -->
+        <div x-show="mobileOpen"
+             x-transition:enter="transition ease-in-out duration-300 transform"
+             x-transition:enter-start="-translate-x-full"
+             x-transition:enter-end="translate-x-0"
+             x-transition:leave="transition ease-in-out duration-300 transform"
+             x-transition:leave-start="translate-x-0"
+             x-transition:leave-end="-translate-x-full"
+             class="fixed inset-y-0 left-0 w-full max-w-[280px] bg-white dark:bg-zinc-900 shadow-2xl z-[100] flex flex-col justify-between overflow-y-auto">
+            
+            <div class="px-5 py-6">
+                <!-- Drawer Header -->
+                <div class="flex items-center justify-between mb-8">
+                    <a href="/" wire:navigate @click="mobileOpen = false" class="text-xl font-bold text-zinc-950 dark:text-zinc-50 tracking-tight flex items-center gap-2">
+                        <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                        Laratail Store
+                    </a>
+                    <button type="button" @click="mobileOpen = false" class="text-zinc-500 hover:text-zinc-750 dark:hover:text-zinc-305 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="flex flex-col gap-1.5">
+                    <a href="/catalogo" wire:navigate @click="mobileOpen = false" class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800 font-semibold transition-colors">Catálogo</a>
+                    <a href="/catalogo?nuevo=1" wire:navigate @click="mobileOpen = false" class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800 font-semibold transition-colors">Novedades</a>
+                    <a href="/catalogo?oferta=1" wire:navigate @click="mobileOpen = false" class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800 font-semibold transition-colors">Ofertas</a>
+                    <a href="/comparar" wire:navigate @click="mobileOpen = false" class="flex items-center justify-between px-3 py-2.5 rounded-xl text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800 font-semibold transition-colors">
+                        <span>Comparar</span>
+                        @php $cmpCount = count(session('compare_products', [])); @endphp
+                        @if($cmpCount > 0)
+                            <span class="bg-indigo-600 text-white text-[10px] font-bold rounded-full h-4.5 w-4.5 flex items-center justify-center">{{ $cmpCount }}</span>
+                        @endif
+                    </a>
+
+                    <flux:separator class="my-4" />
+
+                    @guest
+                        <a href="/acceso" wire:navigate @click="mobileOpen = false" class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800 font-semibold transition-colors">Iniciar Sesión</a>
+                        <a href="/registro" wire:navigate @click="mobileOpen = false" class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/20 font-semibold transition-colors">Registrarse</a>
+                    @endguest
+
+                    @auth
+                        <a href="/mi-cuenta" wire:navigate @click="mobileOpen = false" class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800 font-semibold transition-colors">Mi Cuenta</a>
+                        <a href="/mi-cuenta/pedidos" wire:navigate @click="mobileOpen = false" class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800 font-semibold transition-colors">Mis Pedidos</a>
+                        <a href="/favoritos" wire:navigate @click="mobileOpen = false" class="flex items-center justify-between px-3 py-2.5 rounded-xl text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800 font-semibold transition-colors">
+                            <span>Mis Favoritos</span>
+                            @if(Auth::check() && $this->wishlistData['count'] > 0)
+                                <span class="bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">{{ $this->wishlistData['count'] }}</span>
+                            @endif
+                        </a>
+                    @endauth
+                </div>
+            </div>
+
+            <!-- Drawer Footer / PWA Install -->
+            <div class="p-5 border-t border-zinc-150 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50">
+                <button 
+                    type="button" 
+                    x-show="canInstall" 
+                    @click="window.deferredPrompt.prompt(); window.deferredPrompt.userChoice.then(choice => { if (choice.outcome === 'accepted') { canInstall = false; } })" 
+                    class="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold shadow-sm transition-colors mb-2"
+                    style="display: none;"
+                >
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    Instalar Aplicación
+                </button>
+                @auth
+                    <form method="POST" action="/logout" class="block">
+                        @csrf
+                        <button type="submit" class="w-full text-center px-4 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 font-semibold rounded-xl transition-colors">Cerrar Sesión</button>
+                    </form>
+                @endauth
+            </div>
+
         </div>
     </div>
-</nav>
 
 <!-- Toast Notification Container -->
 <div x-data="{

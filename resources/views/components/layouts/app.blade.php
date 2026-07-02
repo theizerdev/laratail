@@ -57,8 +57,7 @@
     <!-- Footer Partial -->
     <livewire:store.partials.footer />
 
-    <!-- Social Proof Notifications -->
-    <livewire:store.partials.social-proof />
+
 
     <!-- WhatsApp Chat Widget -->
     <livewire:store.partials.whatsapp-chat />
