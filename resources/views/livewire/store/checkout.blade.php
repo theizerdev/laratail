@@ -296,6 +296,69 @@ new #[Layout('layouts.app')] #[Title('Checkout - Laratail Store')] class extends
 
             DB::commit();
 
+            // WhatsApp notification al cliente (best-effort; no bloquea el pedido)
+            try {
+                // Siempre usar el teléfono que el cliente ingresó en el checkout por ser el más actual
+                if (!empty($this->telefono)) {
+                    // Limpiar todo caracter que no sea número (remueve +, espacios, guiones, etc.)
+                    $phone = preg_replace('/[^0-9]/', '', $this->telefono);
+                    
+                    // Obtener código de país del pais seleccionado en el formulario
+                    $pais_seleccionado = Pais::find($this->pais_id);
+                    $codigo_pais = $pais_seleccionado && $pais_seleccionado->codigo_telefono ? $pais_seleccionado->codigo_telefono : '58';
+                    
+                    // Si el número no empieza con el código de país, lo agregamos
+                    if (str_starts_with($phone, '0')) {
+                        $phone = ltrim($phone, '0');
+                    }
+                    
+                    // Asegurar que siempre tenga el código de país
+                    if (!str_starts_with($phone, $codigo_pais)) {
+                        $phone = $codigo_pais . $phone;
+                    }
+                    
+                    // Ahora $phone es un número limpio como "584241703465" sin símbolos
+                    if ($phone && strlen($phone) >= 11) {
+
+                        // Construir resumen de items
+                        $resumenItems = "";
+                        foreach ($items as $item) {
+                            $producto = $item->product;
+                            $nombre_producto = $producto ? $producto->nombre : 'Producto Desconocido';
+                            $subtotal_item = $item->cantidad * $item->precio;
+                            $resumenItems .= "• {$item->cantidad}x {$nombre_producto} - $" . number_format($subtotal_item, 2) . "\n";
+                        }
+
+                        // Mensaje profesional completo
+                        $nombre_completo = trim($customer->nombre . ' ' . ($customer->apellido ?? '')) ?: $this->nombre;
+                        $mensaje = "👋 ¡Hola *{$nombre_completo}*!\n\n";
+                        $mensaje .= "✅ Tu pedido *{$order->numero}* ha sido recibido exitosamente.\n\n";
+                        $mensaje .= "📋 *Resumen de tu compra:*\n";
+                        $mensaje .= $resumenItems . "\n";
+                        $mensaje .= "💰 *Resumen de pagos:*\n";
+                        $mensaje .= "   Subtotal: $" . number_format($subtotal, 2) . "\n";
+                        if ($descuento > 0) {
+                            $mensaje .= "   Descuento: -$" . number_format($descuento, 2) . "\n";
+                        }
+                        $mensaje .= "\n💳 *TOTAL A PAGAR:* *$" . number_format($total, 2) . "*\n\n";
+                        $metodos_pago = [
+                            'contra_entrega' => 'Pago contra entrega',
+                            'transferencia' => 'Transferencia bancaria'
+                        ];
+                        $mensaje .= "📱 Método de pago: *" . ($metodos_pago[$this->paymentMethod] ?? ucfirst($this->paymentMethod)) . "*\n";
+                        $mensaje .= "📍 Dirección de entrega: {$this->direccion}, {$this->ciudad}\n";
+                        $mensaje .= "\n⏰ Te notificaremos cuando tu pedido sea procesado y enviado.\n";
+                        $mensaje .= "Si tienes alguna pregunta, no dudes en contactarnos.\n";
+                        $mensaje .= "¡Gracias por tu compra! 🛍️";
+
+                        $whatsappService = new \App\Services\WhatsAppService();
+                        $whatsappService->sendMessage($phone, $mensaje);
+                    }
+                }
+            } catch (\Exception $e) {
+                \Illuminate\Support\Facades\Log::error('WhatsApp notification error (checkout): ' . $e->getMessage());
+            }
+
             // Clear cart
             app(CartService::class)->clearCart();
             $this->dispatch('cart-updated');

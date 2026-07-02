@@ -112,7 +112,7 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
         }
 
         return [
-            'products' => $query->paginate(12)->withQueryString(),
+            'products' => $query->paginate(15)->withQueryString(),
             'categories' => Category::whereNull('parent_id')
                 ->where('status', true)
                 ->with(['children' => fn($q) => $q->where('status', true)->orderBy('orden')])
@@ -130,8 +130,8 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
     #[Computed]
     public function quickViewProduct()
     {
-        return $this->quickViewProductId 
-            ? Product::with(['category', 'brand'])->find($this->quickViewProductId) 
+        return $this->quickViewProductId
+            ? Product::with(['category', 'brand'])->find($this->quickViewProductId)
             : null;
     }
 
@@ -165,8 +165,8 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
 
         $added = \App\Models\Wishlist::toggle($customer->id, $productId);
         $this->dispatch('wishlist-updated');
-        $this->dispatch('notify', 
-            message: $added ? 'Producto añadido a favoritos.' : 'Producto eliminado de favoritos.', 
+        $this->dispatch('notify',
+            message: $added ? 'Producto añadido a favoritos.' : 'Producto eliminado de favoritos.',
             type: $added ? 'success' : 'info'
         );
     }
@@ -367,15 +367,15 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
         @if($this->quickViewProduct)
             @php $qp = $this->quickViewProduct; @endphp
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-                
+
                 {{-- Left: Image --}}
                 <div class="relative aspect-[4/5] rounded-xl overflow-hidden bg-zinc-50 border border-zinc-100/80 shadow-xs flex items-center justify-center">
-                    <img 
-                        src="{{ $qp->imagen_principal_url ?? 'https://placehold.co/400x500?text=Producto' }}" 
-                        alt="{{ $qp->nombre }}" 
+                    <img
+                        src="{{ $qp->imagen_principal_url ?? 'https://placehold.co/400x500?text=Producto' }}"
+                        alt="{{ $qp->nombre }}"
                         class="w-full h-full object-cover object-center"
                     />
-                    
+
                     @if($qp->nuevo)
                         <div class="absolute top-3 left-3">
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-zinc-950 text-white shadow-sm">Nuevo</span>
@@ -439,19 +439,19 @@ new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extend
                     {{-- Actions block --}}
                     <div class="pt-4 border-t border-zinc-100 flex items-center gap-2 mt-auto">
                         {{-- Add to Cart --}}
-                        <flux:button 
-                            wire:click.prevent="addToCart({{ $qp->id }})" 
-                            variant="primary" 
+                        <flux:button
+                            wire:click.prevent="addToCart({{ $qp->id }})"
+                            variant="primary"
                             class="flex-1 !bg-indigo-600 hover:!bg-indigo-700"
                             :disabled="$qp->stock <= 0"
                         >
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                             Añadir al carrito
                         </flux:button>
-                        
+
                         {{-- Add to Wishlist --}}
-                        <button 
-                            wire:click.prevent="toggleWishlist({{ $qp->id }})" 
+                        <button
+                            wire:click.prevent="toggleWishlist({{ $qp->id }})"
                             class="w-10 h-10 rounded-xl border border-zinc-200 bg-white flex items-center justify-center text-zinc-500 hover:text-red-500 hover:border-red-200 transition-all shadow-xs shrink-0"
                             title="Añadir a favoritos"
                         >

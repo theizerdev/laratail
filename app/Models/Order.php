@@ -21,6 +21,7 @@ class Order extends Model
         'numero',
         'customer_id',
         'user_id',
+        'asignado_a',
         'tipo',
         'estado',
         'estado_pago',
@@ -94,6 +95,11 @@ class Order extends Model
     public function getEsPedidoAttribute(): bool
     {
         return $this->tipo === 'venta';
+    }
+
+    public function asignadoA(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\User::class, 'asignado_a');
     }
 
     public function getEsCotizacionAttribute(): bool

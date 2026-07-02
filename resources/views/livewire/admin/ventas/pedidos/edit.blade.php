@@ -120,6 +120,14 @@
                         <option value="reembolsado">Reembolsado</option>
                     </flux:select>
                 </div>
+                <div class="mt-3">
+                    <flux:select wire:model="asignado_a" label="Asignar empleado">
+                        <option value="">Sin asignar</option>
+                        @foreach($empleados as $emp)
+                            <option value="{{ $emp->id }}">{{ $emp->name }}</option>
+                        @endforeach
+                    </flux:select>
+                </div>
             </div>
 
             {{-- Cupón --}}

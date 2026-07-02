@@ -56,6 +56,7 @@ class Edit extends Component
     // Estado
     public string $estado = '';
     public string $estado_pago = '';
+    public ?int $asignado_a = null;
 
     // Add item
     public string $productSearch = '';
@@ -68,6 +69,7 @@ class Edit extends Component
         $this->customer_id = $this->order->customer_id;
         $this->estado = $this->order->estado;
         $this->estado_pago = $this->order->estado_pago;
+        $this->asignado_a = $this->order->asignado_a;
         $this->subtotal = (float) $this->order->subtotal;
         $this->descuento = (float) $this->order->descuento;
         $this->impuesto = (float) $this->order->impuesto;
@@ -200,10 +202,19 @@ class Edit extends Component
 
         DB::beginTransaction();
         try {
+            // Verificar si el estado cambió para enviar notificaciones
+            $estado_cambio = $this->order->estado !== $this->estado;
+            $nuevo_estado = $this->estado;
+            
+            // Verificar si se asignó un empleado
+            $empleado_asignado = $this->order->asignado_a !== $this->asignado_a && $this->asignado_a !== null;
+            $empleado = \App\Models\User::find($this->asignado_a);
+
             $this->order->update([
                 'customer_id' => $this->customer_id,
                 'estado' => $this->estado,
                 'estado_pago' => $this->estado_pago,
+                'asignado_a' => $this->asignado_a,
                 'subtotal' => $this->subtotal,
                 'descuento' => $this->descuento,
                 'impuesto' => $this->impuesto,
@@ -241,6 +252,91 @@ class Edit extends Component
             }
 
             DB::commit();
+            
+            // Enviar notificaciones si el estado cambió o se asignó un empleado
+            try {
+                $customer = $this->order->customer;
+                $whatsappService = new \App\Services\WhatsAppService($this->order->empresa_id);
+                
+                // Si se asignó un empleado, notificarlo
+                if ($empleado_asignado && $empleado) {
+                    // Obtener teléfono del empleado
+                    $telefono_empleado = preg_replace('/[^0-9]/', '', $empleado->telefono ?? '');
+                    if (!empty($telefono_empleado)) {
+                        if (strlen($telefono_empleado) === 10) {
+                            $telefono_empleado = '58' . $telefono_empleado;
+                        }
+                        
+                        // Mensaje para el empleado asignado
+                        $mensaje_empleado = "🔔 *NUEVO PEDIDO ASIGNADO*\n\n";
+                        $mensaje_empleado .= "Has sido asignado al pedido *{$this->order->numero}*\n\n";
+                        $mensaje_empleado .= "📋 Detalles:\n";
+                        $mensaje_empleado .= "• Cliente: " . ($customer?->nombre_completo ?? 'Cliente no registrado') . "\n";
+                        $mensaje_empleado .= "• Total: $" . number_format($this->order->total, 2) . "\n";
+                        $mensaje_empleado .= "• Dirección: {$this->order->direccion_envio}, {$this->order->ciudad_envio}\n";
+                        $mensaje_empleado .= "\n⏰ Por favor, procesa este pedido a la brevedad.";
+                        
+                        try {
+                            $whatsappService->sendMessage($telefono_empleado, $mensaje_empleado);
+                        } catch (\Exception $e) {
+                            report($e);
+                        }
+                    }
+                }
+                
+                // Si el estado cambió, notificar al cliente
+                if ($estado_cambio && $customer) {
+                    $telefono_cliente = preg_replace('/[^0-9]/', '', $customer->whatsapp ?? $customer->telefono ?? '');
+                    if (!empty($telefono_cliente)) {
+                        if (strlen($telefono_cliente) === 10) {
+                            $telefono_cliente = '58' . $telefono_cliente;
+                        }
+                        
+                        // Mensajes según el nuevo estado
+                        $estados_mensajes = [
+                            'confirmado' => [
+                                'titulo' => '✅ Pedido Confirmado',
+                                'mensaje' => "Tu pedido ha sido confirmado y estamos preparándolo."
+                            ],
+                            'procesando' => [
+                                'titulo' => '🔄 Pedido en Proceso',
+                                'mensaje' => "Estamos procesando tu pedido para enviarlo pronto."
+                            ],
+                            'enviado' => [
+                                'titulo' => '🚚 Pedido Enviado',
+                                'mensaje' => "¡Tu pedido ha sido enviado! Pronto lo recibirás."
+                            ],
+                            'entregado' => [
+                                'titulo' => '🎉 Pedido Entregado',
+                                'mensaje' => "Tu pedido ha sido entregado exitosamente. ¡Gracias por tu compra!"
+                            ],
+                            'cancelado' => [
+                                'titulo' => '❌ Pedido Cancelado',
+                                'mensaje' => "Lamentamos informarte que tu pedido ha sido cancelado. Contactanos para más información."
+                            ]
+                        ];
+                        
+                        if (isset($estados_mensajes[$nuevo_estado])) {
+                            $info_estado = $estados_mensajes[$nuevo_estado];
+                            $mensaje_cliente = "{$info_estado['titulo']}\n\n";
+                            $mensaje_cliente .= "Hola *{$customer->nombre_completo}*,\n\n";
+                            $mensaje_cliente .= "{$info_estado['mensaje']}\n\n";
+                            $mensaje_cliente .= "📋 Pedido: *{$this->order->numero}*\n";
+                            $mensaje_cliente .= "💰 Total: $" . number_format($this->order->total, 2) . "\n";
+                            $mensaje_cliente .= "\nSi tienes alguna pregunta, no dudes en contactarnos.";
+                            
+                            try {
+                                $whatsappService->sendMessage($telefono_cliente, $mensaje_cliente);
+                            } catch (\Exception $e) {
+                                report($e);
+                            }
+                        }
+                    }
+                }
+            } catch (\Exception $e) {
+                report($e);
+            }
+            
             session()->flash('success', 'Pedido actualizado correctamente.');
             $this->redirect(route('admin.pedidos'), navigate: true);
         } catch (\Exception $e) {
@@ -268,11 +364,13 @@ class Edit extends Component
             ->limit(8)->get();
 
         $paises = Pais::orderBy('nombre')->get();
+        $empleados = \App\Models\User::where('activo', true)->orderBy('name')->get(['id', 'name', 'telefono']);
 
         return view('livewire.admin.ventas.pedidos.edit', [
             'customers' => $customers,
             'products' => $products,
             'paises' => $paises,
+            'empleados' => $empleados,
         ]);
     }
 }
