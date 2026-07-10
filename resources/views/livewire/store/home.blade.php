@@ -47,7 +47,7 @@ new #[Layout('layouts.app')] class extends Component {
 @push('structured-data')
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
+  "@@context": "https://schema.org",
   "@type": "Store",
   "name": "Abastos Los Trinis",
   "image": "{{ asset('images/logo.png') }}",
@@ -80,7 +80,7 @@ new #[Layout('layouts.app')] class extends Component {
 </script>
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
+  "@@context": "https://schema.org",
   "@type": "WebSite",
   "name": "Abastos Los Trinis",
   "url": "{{ url('/') }}",

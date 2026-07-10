@@ -359,7 +359,7 @@ new #[Layout('layouts.app')] class extends Component {
     @push('structured-data')
     <script type="application/ld+json">
     {
-      "@context": "https://schema.org/",
+      "@@context": "https://schema.org/",
       "@type": "Product",
       "name": "{{ $product->nombre }}",
       "image": "{{ $product->imagen_principal_url ?: asset('images/logo.png') }}",
