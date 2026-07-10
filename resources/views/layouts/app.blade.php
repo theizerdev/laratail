@@ -15,8 +15,8 @@
     <meta property="og:description" content="{{ $description ?? 'Explora nuestro catálogo de productos.' }}">
     <meta property="og:site_name" content="Abastos Los Trinis">
 
-    <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/images/logo.png" sizes="any">
+    <link rel="icon" href="/images/logo.png" type="image/pngl">
 
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json">

@@ -7,8 +7,8 @@
 
     <title>{{ $title ?? config('app.name', 'Laravel') }}</title>
 
-    <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/images/logo.png" sizes="any">
+    <link rel="icon" href="/images/logo.png" type="image/pngl">
 
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json">

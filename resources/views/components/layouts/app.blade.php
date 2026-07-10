@@ -6,8 +6,8 @@
     <meta name="theme-color" content="#4f46e5">
     <title>{{ config('app.name', 'Abastos Los Trinis') }}</title>
 
-    <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/images/logo.png" sizes="any">
+    <link rel="icon" href="/images/logo.png" type="image/pngl">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
     <!-- PWA Manifest -->
