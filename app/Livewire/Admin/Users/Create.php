@@ -6,6 +6,7 @@ use App\Models\Empresa;
 use App\Models\Group;
 use App\Models\Sucursal;
 use App\Models\User;
+use App\Services\UsernameGeneratorService;
 use App\Traits\PermissionOrganizer;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\Layout;
@@ -20,6 +21,7 @@ class Create extends Component
     use PermissionOrganizer;
 
     public string $name = '';
+    public ?string $username = '';
     public string $email = '';
     public string $password = '';
     public string $telefono = '';
@@ -33,10 +35,25 @@ class Create extends Component
         $this->sucursal_id = null;
     }
 
+    public function updatedName(): void
+    {
+        // Only generate username if it's empty or was auto-generated before
+        if (empty($this->username) || $this->username === $this->generateCurrentUsername()) {
+            $usernameGenerator = app(UsernameGeneratorService::class);
+            $this->username = $usernameGenerator->generate($this->name);
+        }
+    }
+    
+    private function generateCurrentUsername(): string
+    {
+        return app(UsernameGeneratorService::class)->generate($this->name);
+    }
+
     protected function rules(): array
     {
         return [
             'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users,username',
             'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required|string|min:8',
             'telefono' => 'nullable|string|max:20',
@@ -53,6 +70,7 @@ class Create extends Component
 
         $user = User::create([
             'name' => $this->name,
+            'username' => $this->username,
             'email' => $this->email,
             'password' => Hash::make($this->password),
             'telefono' => $this->telefono ?: null,

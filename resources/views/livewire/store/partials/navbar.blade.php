@@ -94,7 +94,7 @@ new class extends Component {
             <div class="flex-shrink-0 hidden sm:flex items-center">
                 <a href="/" wire:navigate class="text-2xl font-bold text-zinc-900 dark:text-zinc-50 tracking-tight flex items-center gap-2">
                     <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                    Laratail Store
+                    Abastos Los Trinis
                 </a>
             </div>
 
@@ -320,7 +320,7 @@ new class extends Component {
                 <div class="flex items-center justify-between mb-8">
                     <a href="/" wire:navigate @click="mobileOpen = false" class="text-xl font-bold text-zinc-950 dark:text-zinc-50 tracking-tight flex items-center gap-2">
                         <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                        Laratail Store
+                        Abastos Los Trinis
                     </a>
                     <button type="button" @click="mobileOpen = false" class="text-zinc-500 hover:text-zinc-750 dark:hover:text-zinc-305 transition-colors">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>

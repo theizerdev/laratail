@@ -1,0 +1,115 @@
+<?php
+
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
+
+class AuthController extends Controller
+{
+    /**
+     * Muestra la vista del formulario de login.
+     */
+    public function create()
+    {
+        return view('auth.login');
+    }
+
+    /**
+     * Maneja el intento de autenticación.
+     */
+    public function store(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'login' => ['required', 'string'],
+                'password' => ['required', 'string'],
+            ]);
+
+            if ($validator->fails()) {
+                throw new ValidationException($validator);
+            }
+
+            $validated = $validator->validated();
+
+            $key = Str::transliterate(Str::lower($validated['login']) . '|' . $request->ip());
+
+            if (RateLimiter::tooManyAttempts($key, 5)) {
+                $seconds = RateLimiter::availableIn($key);
+                throw ValidationException::withMessages([
+                    'login' => __('auth.throttle', [
+                        'seconds' => $seconds,
+                        'minutes' => ceil($seconds / 60),
+                    ]),
+                ]);
+            }
+
+            $credentials = [
+                'password' => $validated['password'],
+            ];
+
+            $loginField = filter_var($validated['login'], FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+            $credentials[$loginField] = $validated['login'];
+
+            if (!Auth::attempt($credentials, $request->boolean('remember'))) {
+                RateLimiter::hit($key);
+
+                throw ValidationException::withMessages([
+                    'login' => __('auth.failed'),
+                ]);
+            }
+
+            RateLimiter::clear($key);
+
+            $request->session()->regenerate();
+
+            $user = Auth::user();
+
+            if (!$user->hasVerifiedEmail()) {
+                $verificationUrl = route('verification.notice');
+                if ($request->expectsJson()) {
+                    Auth::logout();
+                    $request->session()->invalidate();
+                    $request->session()->regenerateToken();
+
+                    return response()->json(['redirect_url' => $verificationUrl]);
+                }
+                return redirect($verificationUrl);
+            }
+
+            $defaultRoute = $user->hasRole(['admin', 'super-admin'])
+                ? route('admin.dashboard')
+                : route('home');
+
+            $redirectUrl = redirect()->intended($defaultRoute)->getTargetUrl();
+
+            if ($request->expectsJson()) {
+                return response()->json(['redirect_url' => $redirectUrl]);
+            }
+
+            return redirect($redirectUrl);
+
+        } catch (ValidationException $e) {
+            if ($request->expectsJson()) {
+                return response()->json(['errors' => $e->errors()], 422);
+            }
+            throw $e;
+        } catch (\Throwable $e) {
+            Log::error($e);
+
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'message' => 'Ha ocurrido un error en el servidor.',
+                    'error' => $e->getMessage(),
+                ], 500);
+            }
+            throw $e;
+        }
+    }
+}

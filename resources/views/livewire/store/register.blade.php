@@ -5,11 +5,12 @@ use Livewire\Attributes\Validate;
 use Livewire\Volt\Component;
 use App\Models\Customer;
 use App\Models\User;
+use App\Services\UsernameGeneratorService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-new #[Layout('layouts.app')] #[Title('Registrarse - Laratail Store')] class extends Component {
+new #[Layout('layouts.app')] #[Title('Registrarse - Abastos Los Trinis')] class extends Component {
     #[Validate('required|min:2|max:100')]
     public string $nombre = '';
 
@@ -49,9 +50,15 @@ new #[Layout('layouts.app')] #[Title('Registrarse - Laratail Store')] class exte
             $group = \App\Models\Group::where('name', 'Clientes')->first();
             $groupId = $group ? $group->id : null;
 
+            // Generate username
+            $usernameGenerator = app(UsernameGeneratorService::class);
+            $fullName = $this->nombre . ' ' . $this->apellido;
+            $username = $usernameGenerator->generate($fullName);
+            
             // Create user
             $user = User::create([
-                'name' => $this->nombre . ' ' . $this->apellido,
+                'name' => $fullName,
+                'username' => $username,
                 'email' => $this->email,
                 'password' => Hash::make($this->password),
                 'telefono' => $phoneFormatted,
@@ -79,8 +86,8 @@ new #[Layout('layouts.app')] #[Title('Registrarse - Laratail Store')] class exte
 
             try {
                 $whatsappService = app(\App\Services\WhatsAppService::class);
-                $message = "Hola {$this->nombre}, tu código de verificación para Laratail Store es: *{$otp}*. No lo compartas con nadie.";
-                $whatsappService->sendMessage($phoneFormatted, $message);
+                $message = "Hola {$this->nombre}, tu codigo de verificacion para Abastos Los Trinis es: *{$otp}*. No lo compartas con nadie.";
+                $whatsappService->sendMessage($phoneFormatted, $message, true);
             } catch (\Exception $e) {
                 \Illuminate\Support\Facades\Log::error("Error enviando OTP via WhatsApp: " . $e->getMessage());
             }

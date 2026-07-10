@@ -6,7 +6,7 @@ use Livewire\Volt\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
-new #[Layout('layouts.app')] #[Title('Verificar Teléfono - Laratail Store')] class extends Component {
+new #[Layout('layouts.app')] #[Title('Verificar Teléfono - Abastos Los Trinis')] class extends Component {
     #[Validate('required|string|size:6')]
     public string $otp = '';
 
@@ -52,8 +52,8 @@ new #[Layout('layouts.app')] #[Title('Verificar Teléfono - Laratail Store')] cl
 
         try {
             $whatsappService = new \App\Services\WhatsAppService($user->empresa_id);
-            $message = "Tu nuevo código de verificación para Laratail Store es: *{$newOtp}*. No lo compartas con nadie.";
-            $whatsappService->sendMessage($user->telefono, $message);
+            $message = "Tu nuevo codigo de verificacion es: *{$newOtp}*. No lo compartas con nadie.";
+            $whatsappService->sendMessage($user->telefono, $message, true);
         } catch (\Throwable $e) {
             Log::error("Error enviando OTP via WhatsApp: " . $e->getMessage());
         }

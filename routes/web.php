@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
+use App\Http\Controllers\Store\Auth\LoginController as StoreLoginController;
 
 // ─── Public Store Routes ─────────────────────────────────────────────────────
 Volt::route('/', 'store.home')->name('home');
@@ -23,7 +24,8 @@ Route::middleware('auth')->group(function () {
  
 // Customer Auth (guest only)
 Route::middleware('guest')->group(function () {
-    Volt::route('/acceso', 'store.login')->name('store.login');
+    Route::get('/acceso', [StoreLoginController::class, 'create'])->name('store.login');
+    Route::post('/acceso', [StoreLoginController::class, 'store']);
     Volt::route('/registro', 'store.register')->name('store.register');
 });
 

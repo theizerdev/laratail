@@ -5,7 +5,7 @@ use Livewire\Volt\Component;
 use App\Models\Product;
 use App\Services\CartService;
 
-new #[Layout('layouts.app')] #[Title('Comparar Productos - Laratail Store')] class extends Component {
+new #[Layout('layouts.app')] #[Title('Comparar Productos - Abastos Los Trinis')] class extends Component {
 
     public function addToCompare(int $productId): void
     {

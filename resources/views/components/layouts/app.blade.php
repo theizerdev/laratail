@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#4f46e5">
-    <title>{{ config('app.name', 'Laratail Store') }}</title>
+    <title>{{ config('app.name', 'Abastos Los Trinis') }}</title>
 
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">

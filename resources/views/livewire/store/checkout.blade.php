@@ -12,7 +12,7 @@ use App\Services\CartService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-new #[Layout('layouts.app')] #[Title('Checkout - Laratail Store')] class extends Component {
+new #[Layout('layouts.app')] #[Title('Checkout - Abastos Los Trinis')] class extends Component {
     public int $currentStep = 1;
 
     // Step 1: Shipping
@@ -372,7 +372,7 @@ new #[Layout('layouts.app')] #[Title('Checkout - Laratail Store')] class extends
                         $mensaje .= "¡Gracias por tu compra! 🛍️";
 
                         $whatsappService = new \App\Services\WhatsAppService();
-                        $whatsappService->sendMessage($phone, $mensaje);
+                        $whatsappService->sendMessage($phone, $mensaje, true);
                     }
                 }
             } catch (\Exception $e) {

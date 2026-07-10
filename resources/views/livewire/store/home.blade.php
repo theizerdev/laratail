@@ -3,7 +3,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Volt\Component;
 
-new #[Layout('components.layouts.app')] #[Title('Inicio - Laratail Store')] class extends Component {
+new #[Layout('components.layouts.app')] #[Title('Inicio - Abastos Los Trinis')] class extends Component {
     //
 };
 ?>

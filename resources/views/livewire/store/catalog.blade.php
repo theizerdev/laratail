@@ -11,7 +11,7 @@ use App\Models\Brand;
 use App\Services\CartService;
 use Illuminate\Support\Facades\Auth;
 
-new #[Layout('layouts.app')] #[Title('Catálogo - Laratail Store')] class extends Component {
+new #[Layout('layouts.app')] #[Title('Catálogo - Abastos Los Trinis')] class extends Component {
     public string $currency = 'usd';
     public string $searchQuery = '';
     public $searchResults = [];

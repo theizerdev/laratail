@@ -24,6 +24,8 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @endif
 
+    @livewireStyles
+
     {{-- Iconify Icons --}}
     <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
 </head>
@@ -33,9 +35,9 @@
         <div class="flex w-full flex-col items-center justify-center px-6 py-12 lg:w-1/2 lg:px-16 xl:px-24">
             <div class="w-full max-w-sm">
                 {{-- Logo --}}
-                <div class="mb-8">
-                    <a href="{{ route('home') }}" class="text-2xl font-semibold tracking-tight text-zinc-400">
-                        flux
+                <div class="mb-8 flex justify-center">
+                    <a href="{{ route('home') }}">
+                        <img src="{{ asset('images/logo.png') }}" alt="Logo" style="height: 80px; width: auto;">
                     </a>
                 </div>
 
@@ -60,19 +62,25 @@
                 <div class="absolute top-0 right-1/4 h-full w-px bg-gradient-to-b from-transparent via-cyan-400/15 to-transparent"></div>
                 <div class="absolute top-0 right-1/3 h-full w-px bg-gradient-to-b from-transparent via-emerald-400/10 to-transparent"></div>
             </div>
+            
 
             {{-- Testimonial content --}}
             <div class="relative z-10 flex h-full flex-col items-center justify-center px-12 text-center">
-                {{-- Stars --}}
-                <div class="mb-6 flex gap-1">
-                    @for ($i = 0; $i < 5; $i++)
-                        <iconify-icon icon="heroicons:star-solid" class="h-5 w-5 text-white"></iconify-icon>
-                    @endfor
-                </div>
+                
+             
+               
 
                 {{-- Quote --}}
                 <blockquote class="mb-8 max-w-md text-xl leading-relaxed font-medium text-white/90">
-                    "Flux has enabled me to design, build, and deliver apps faster than ever before."
+                    "Somos una empresa mayorista, encargada para el reabastecimiento de comercios.
+                    
+                    No somos solo un proveedor; nos convertimos en el socio estratégico de su rentabilidad. Nuestra operación se fundamenta en tres pilares esenciales:
+
+                    Precios competitivos: Optimizamos los costos de origen para ofrecer tarifas por volumen que maximizan el margen de ganancia de nuestros clientes.
+                    
+                    Disponibilidad constante: Mantenemos un control estricto de inventario para asegurar un stock permanente de los productos de mayor rotación.
+                    
+                    Logística integral: Contamos con una red de distribución ágil que garantiza la entrega segura de los pedidos en los tiempos pactados.
                 </blockquote>
 
                 {{-- Author --}}
@@ -81,15 +89,15 @@
                         <iconify-icon icon="heroicons:user-solid" class="h-6 w-6 text-zinc-400"></iconify-icon>
                     </div>
                     <div class="text-left">
-                        <p class="text-sm font-semibold text-white">Caleb Porzio</p>
-                        <p class="text-xs text-white/60">Creator of Livewire</p>
+                        <p class="text-sm font-semibold text-white">Abastos Los Trinis</p>
+                        <p class="text-xs text-white/60">Los abastos para ti</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    
     @livewireScripts
-    @fluxScripts
 
     <!-- PWA Service Worker -->
     <script>

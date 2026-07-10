@@ -23,6 +23,8 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @endif
 
+    @livewireStyles
+
     {{-- Iconify Icons --}}
     <script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
 </head>
@@ -226,6 +228,14 @@
 
     @livewireScripts
     @fluxScripts
+    <script>
+        // Ensure Alpine initializes after Livewire/Flux scripts are loaded
+        document.addEventListener('livewire:init', () => {
+            if (typeof Alpine !== 'undefined' && !Alpine.version) {
+                Alpine.start();
+            }
+        });
+    </script>
 
     <!-- PWA Service Worker -->
     <script>

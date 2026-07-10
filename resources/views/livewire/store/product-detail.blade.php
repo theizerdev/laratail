@@ -342,7 +342,7 @@ new #[Layout('layouts.app')] class extends Component {
     <!-- SEO Meta (injected via JS) -->
     @push('head-scripts')
     <script>
-        document.title = "{{ addslashes($product->meta_title ?: $product->nombre . ' - Laratail Store') }}";
+        document.title = "{{ addslashes($product->meta_title ?: $product->nombre . ' - Abastos Los Trinis') }}";
         let metaDesc = document.querySelector('meta[name="description"]');
         if (metaDesc) metaDesc.setAttribute('content', "{{ addslashes($product->meta_description ?: $product->descripcion_corta ?: '') }}");
         let ogTitle = document.querySelector('meta[property="og:title"]');

@@ -26,12 +26,20 @@
         <form wire:submit="save">
             <div class="space-y-6">
                 {{-- Basic Info --}}
-                <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
                     <flux:input
-                        wire:model="name"
+                        wire:model.live="name"
                         label="Nombre Completo"
                         placeholder="Ej: Juan Pérez"
                         :error="$errors->first('name')"
+                        required
+                    />
+                    
+                    <flux:input
+                        wire:model="username"
+                        label="Username"
+                        placeholder="jponce"
+                        :error="$errors->first('username')"
                         required
                     />
 

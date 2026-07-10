@@ -4,10 +4,11 @@ use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Volt\Component;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
-new #[Layout('layouts.app')] #[Title('Iniciar Sesión - Laratail Store')] class extends Component {
-    #[Validate('required|email')]
-    public string $email = '';
+new #[Layout('layouts.app')] #[Title('Iniciar Sesión - Abastos Los Trinis')] class extends Component {
+    #[Validate('required|string')]
+    public string $login = '';
 
     #[Validate('required')]
     public string $password = '';
@@ -18,8 +19,13 @@ new #[Layout('layouts.app')] #[Title('Iniciar Sesión - Laratail Store')] class 
     {
         $this->validate();
 
-        if (!Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
-            $this->addError('email', 'Las credenciales proporcionadas no son válidas.');
+        // Find user by email or username
+        $user = User::where('email', $this->login)
+            ->orWhere('username', $this->login)
+            ->first();
+
+        if (!$user || !Auth::attempt(['email' => $user->email, 'password' => $this->password], $this->remember)) {
+            $this->addError('login', 'Las credenciales proporcionadas no son válidas.');
             return;
         }
 
@@ -43,10 +49,10 @@ new #[Layout('layouts.app')] #[Title('Iniciar Sesión - Laratail Store')] class 
         <div class="bg-white rounded-2xl border border-zinc-100 shadow-sm p-8">
             <form wire:submit="login" class="space-y-5">
                 <flux:input
-                    wire:model="email"
-                    label="Correo electrónico"
-                    type="email"
-                    placeholder="tu@email.com"
+                    wire:model="login"
+                    label="Correo electrónico o username"
+                    placeholder="tu@email.com o tgonzalez"
+                    :error="$errors->first('login')"
                     autofocus
                 />
 

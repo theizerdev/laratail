@@ -6,6 +6,7 @@ use App\Models\Customer;
 use App\Models\Pais;
 use App\Models\User;
 use App\Services\WhatsAppService;
+use App\Services\UsernameGeneratorService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -184,6 +185,21 @@ class Index extends Component
             if ($this->editingId) {
                 $customer = Customer::findOrFail($this->editingId);
                 $customer->update($data);
+                
+                // If customer has an associated user and name changed, update user's name and username
+                if ($customer->user) {
+                    $newFullName = trim($this->nombre . ' ' . $this->apellido);
+                    if ($newFullName !== $customer->user->name) {
+                        $usernameGenerator = app(UsernameGeneratorService::class);
+                        $newUsername = $usernameGenerator->generate($newFullName, $customer->user->id);
+                        
+                        $customer->user->update([
+                            'name' => $newFullName,
+                            'username' => $newUsername
+                        ]);
+                    }
+                }
+                
                 session()->flash('success', 'Cliente actualizado correctamente.');
             } else {
                 // Create user if requested
@@ -192,9 +208,15 @@ class Index extends Component
 
                     $group = \App\Models\Group::where('name', 'Clientes')->first();
                     $groupId = $group ? $group->id : null;
+                    
+                    // Generate unique username
+                    $usernameGenerator = app(UsernameGeneratorService::class);
+                    $fullName = trim($this->nombre . ' ' . $this->apellido);
+                    $username = $usernameGenerator->generate($fullName);
 
                     $user = User::create([
-                        'name' => trim($this->nombre . ' ' . $this->apellido),
+                        'name' => $fullName,
+                        'username' => $username,
                         'email' => $this->email,
                         'password' => Hash::make($password),
                         'telefono' => $this->telefono ?: null,

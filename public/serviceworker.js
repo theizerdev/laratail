@@ -1,4 +1,4 @@
-// Service Worker básico para Laratail Store PWA
+// Service Worker básico para Abastos Los Trinis PWA
 const CACHE_NAME = 'laratail-store-v1';
 const urlsToCache = [
   '/',

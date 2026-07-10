@@ -6,6 +6,7 @@ use App\Models\Empresa;
 use App\Models\Group;
 use App\Models\Sucursal;
 use App\Models\User;
+use App\Services\UsernameGeneratorService;
 use App\Traits\PermissionOrganizer;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\Layout;
@@ -21,6 +22,7 @@ class Edit extends Component
 
     public User $user;
     public string $name = '';
+    public ?string $username = '';
     public string $email = '';
     public string $password = '';
     public string $telefono = '';
@@ -28,6 +30,7 @@ class Edit extends Component
     public ?int $sucursal_id = null;
     public ?int $group_id = null;
     public array $selectedRoles = [];
+    public mixed $originalUsername = null;
 
     public function mount(int $id): void
     {
@@ -39,6 +42,14 @@ class Edit extends Component
         $this->sucursal_id = $this->user->sucursal_id;
         $this->group_id = $this->user->group_id;
         $this->selectedRoles = $this->user->roles->pluck('id')->map(fn ($id) => (string) $id)->toArray();
+        
+        // If user doesn't have a username yet, generate one
+        if (is_null($this->user->username)) {
+            $usernameGenerator = app(UsernameGeneratorService::class);
+            $this->username = $usernameGenerator->generate($this->name, $this->user->id);
+        } else {
+            $this->username = $this->user->username;
+        }
     }
 
     public function updatedEmpresaId(): void
@@ -46,10 +57,25 @@ class Edit extends Component
         $this->sucursal_id = null;
     }
 
+    public function updatedName(): void
+    {
+        // Store the original username only once when it's first loaded
+        if (!isset($this->originalUsername)) {
+            $this->originalUsername = $this->user->username;
+        }
+        
+        // Only update username if it was the original auto-generated one (never overwrite manual changes)
+        if ($this->username === $this->originalUsername || is_null($this->originalUsername)) {
+            $usernameGenerator = app(UsernameGeneratorService::class);
+            $this->username = $usernameGenerator->generate($this->name, $this->user->id);
+        }
+    }
+
     protected function rules(): array
     {
         return [
             'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users,username,' . $this->user->id,
             'email' => 'required|email|max:255|unique:users,email,' . $this->user->id,
             'password' => 'nullable|string|min:8',
             'telefono' => 'nullable|string|max:20',
@@ -72,6 +98,9 @@ class Edit extends Component
             'sucursal_id' => $this->sucursal_id,
             'group_id' => $this->group_id,
         ];
+
+        // Always save the username (user might have edited it manually)
+        $data['username'] = $this->username;
 
         if ($this->password) {
             $data['password'] = Hash::make($this->password);

@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $title ?? config('app.name', 'Laratail Store') }}</title>
+    <title>{{ $title ?? config('app.name', 'Abastos Los Trinis') }}</title>
 
-    <meta name="description" content="{{ $description ?? 'Laratail Store - Tu destino para encontrar el mejor estilo y calidad.' }}">
+    <meta name="description" content="{{ $description ?? 'Abastos Los Trinis - Tu destino para encontrar el mejor estilo y calidad.' }}">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="{{ $title ?? config('app.name', 'Laratail Store') }}">
+    <meta property="og:title" content="{{ $title ?? config('app.name', 'Abastos Los Trinis') }}">
     <meta property="og:description" content="{{ $description ?? 'Explora nuestro catálogo de productos.' }}">
-    <meta property="og:site_name" content="Laratail Store">
+    <meta property="og:site_name" content="Abastos Los Trinis">
 
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">

@@ -4,7 +4,7 @@ use Livewire\Attributes\Title;
 use Livewire\Volt\Component;
 use App\Models\Product;
 
-new #[Layout('layouts.app')] #[Title('Vistos Recientemente - Laratail Store')] class extends Component {
+new #[Layout('layouts.app')] #[Title('Vistos Recientemente - Abastos Los Trinis')] class extends Component {
     public function addProduct(int $productId): void
     {
         $viewed = session('recently_viewed', []);

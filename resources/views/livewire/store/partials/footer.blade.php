@@ -23,7 +23,7 @@ new class extends Component {
             <div class="space-y-4">
                 <a href="/" wire:navigate class="text-2xl font-bold text-white tracking-tight flex items-center gap-2">
                     <svg class="w-8 h-8 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                    Laratail Store
+                    Abastos Los Trinis
                 </a>
                 <p class="text-sm text-zinc-400">
                     Tu destino para encontrar el mejor estilo y calidad. Ofrecemos productos cuidadosamente seleccionados para ti.
@@ -69,7 +69,7 @@ new class extends Component {
         </div>
 
         <div class="mt-12 pt-8 border-t border-zinc-800 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-zinc-500">
-            <p>&copy; {{ date('Y') }} Laratail Store. Todos los derechos reservados.</p>
+            <p>&copy; {{ date('Y') }} Abastos Los Trinis. Todos los derechos reservados.</p>
             <div class="flex space-x-4">
                 <span class="hover:text-zinc-300 cursor-pointer">Términos de Servicio</span>
                 <span class="hover:text-zinc-300 cursor-pointer">Política de Privacidad</span>
