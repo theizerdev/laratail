@@ -20,7 +20,6 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectGuestsTo(fn ($request) => $request->is('admin/*') || $request->is('admin') ? '/login' : '/acceso');
         $middleware->redirectUsersTo('/');
          $middleware->web(append: [
-            \Spatie\Csp\AddCspHeaders::class,
             //\App\Http\Middleware\SetLocale::class,
             //\App\Http\Middleware\ApplyTemplateLayout::class,
             \App\Http\Middleware\RegionalConfiguration::class,

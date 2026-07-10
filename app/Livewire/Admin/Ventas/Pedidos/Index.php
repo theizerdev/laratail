@@ -99,7 +99,15 @@ class Index extends Component
                 } else {
                     $message = "Hola *{$order->customer->nombre}*, te informamos que el estado de tu pedido *#{$order->numero}* ha sido actualizado a: *{$order->estado_label}*.\n\nGracias por confiar en nosotros.";
                 }
-                $whatsappService->sendMessage($order->customer->telefono, $message);
+
+                // Formatear número de cliente
+                $countryCodeRaw = $order->empresa->codigo_telefono ?? '58';
+                $countryCode = preg_replace('/[^0-9]/', '', $countryCodeRaw);
+                $cleanPhone = preg_replace('/[^0-9]/', '', $order->customer->telefono);
+                $cleanPhone = preg_replace('/^0/', '', $cleanPhone);
+                $formattedPhone = $countryCode . $cleanPhone;
+                //dd("Enviando WhatsApp a {$formattedPhone} con mensaje: {$message}");
+                $whatsappService->sendMessage($formattedPhone, $message, true);
             }
 
             // Notificación al Empleado (solo si fue asignado)
@@ -118,8 +126,15 @@ class Index extends Component
                     $enlace_seguimiento = url("/empleado/pedido/{$order->id}/{$token}");
                     $msgEmpleado .= "\n🌐 Accede a los detalles y actualiza el estado aquí:\n{$enlace_seguimiento}";
                 }
+
+                // Formatear número de empleado
+                $countryCodeRaw = $order->empresa->codigo_telefono ?? '58';
+                $countryCode = preg_replace('/[^0-9]/', '', $countryCodeRaw);
+                $cleanPhoneEmp = preg_replace('/[^0-9]/', '', $empleado->telefono);
+                $cleanPhoneEmp = preg_replace('/^0/', '', $cleanPhoneEmp);
+                $formattedPhoneEmp = $countryCode . $cleanPhoneEmp;
                 
-                $whatsappService->sendMessage($empleado->telefono, $msgEmpleado);
+                $whatsappService->sendMessage($formattedPhoneEmp, $msgEmpleado, true);
             }
         } catch (\Exception $e) {
             \Illuminate\Support\Facades\Log::error("Error enviando notificación via WhatsApp: " . $e->getMessage());

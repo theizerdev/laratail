@@ -35,9 +35,9 @@
         <flux:sidebar.header>
             <div class="flex items-center gap-3">
                 <div class="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-500 text-sm font-bold text-white shadow-sm shadow-emerald-200">
-                    F
+                    LT
                 </div>
-                <span class="text-xl font-bold tracking-tight text-zinc-900 dark:text-white">Flux</span>
+                <span class="text-xl font-bold tracking-tight text-zinc-900 dark:text-white">Los Trinis</span>
             </div>
             <flux:sidebar.collapse />
         </flux:sidebar.header>
