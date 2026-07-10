@@ -62,29 +62,31 @@ class Index extends Component
     {
         $this->validate();
 
-        ExchangeRate::updateOrCreate(
-            ['id' => $this->editingId],
-            [
-                'date' => $this->date,
-                'usd_rate' => $this->usd_rate,
-                'eur_rate' => $this->eur_rate,
-                'source' => $this->source,
-                'fetch_time' => now()->format('H:i:s'),
-                'raw_data' => [
-                    'manual' => true,
-                    'created_by' => auth()->user()->name,
-                    'updated_at' => now()->toISOString()
-                ]
+        $service = new ExchangeRateService();
+        $success = $service->saveRate([
+            'date' => $this->date,
+            'usd_rate' => $this->usd_rate,
+            'eur_rate' => $this->eur_rate,
+            'source' => $this->source,
+            'fetch_time' => now()->format('H:i:s'),
+            'raw_data' => [
+                'manual' => true,
+                'created_by' => auth()->check() ? auth()->user()->name : 'System',
+                'updated_at' => now()->toISOString()
             ]
-        );
+        ], $this->editingId);
 
         $this->dispatch('modal-close', name: 'tasa-form');
         $this->resetForm();
 
-        session()->flash('success', $this->editingId
-            ? 'Tasa de cambio actualizada correctamente.'
-            : 'Tasa de cambio creada correctamente.'
-        );
+        if ($success) {
+            session()->flash('success', $this->editingId
+                ? 'Tasa de cambio actualizada correctamente.'
+                : 'Tasa de cambio creada correctamente.'
+            );
+        } else {
+            session()->flash('error', 'Error al guardar la tasa de cambio.');
+        }
     }
 
     public function fetchBCVRates(): void

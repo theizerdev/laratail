@@ -23,6 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
             //\App\Http\Middleware\SetLocale::class,
             //\App\Http\Middleware\ApplyTemplateLayout::class,
             \App\Http\Middleware\RegionalConfiguration::class,
+            \App\Http\Middleware\UpdateExchangeRateMiddleware::class,
             //\App\Http\Middleware\CheckCajaTasa::class,
             //\App\Http\Middleware\PreventAuthPageCaching::class,
         ]);

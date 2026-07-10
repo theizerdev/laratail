@@ -28,6 +28,7 @@ class RegionalConfiguration
                 RegionalConfigurationService::setRegionalConfiguration($empresa);
             }
         }
+        // dd("Configuración regional aplicada: " . session('regional_configuration')['currency'] . ", " . session('regional_configuration')['timezone']);
 
         return $next($request);
     }

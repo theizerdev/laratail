@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\ExchangeRate;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class ExchangeRateService
@@ -92,25 +93,147 @@ class ExchangeRateService
 
     private function storeRates(array $rates): bool
     {
+        return $this->saveRate([
+            'date' => today()->toDateString(),
+            'usd_rate' => $rates['usd_rate'],
+            'eur_rate' => $rates['eur_rate'] ?? null,
+            'source' => $rates['source'],
+            'fetch_time' => now()->format('H:i:s'),
+            'raw_data' => $rates
+        ]);
+    }
+
+    public function saveRate(array $data, ?int $id = null): bool
+    {
         try {
-            // Actualizar o crear la tasa del día (solo una por día)
-            ExchangeRate::updateOrCreate(
-                ['date' => today()],
+            $date = $data['date'];
+            $fetchTime = $data['fetch_time'] ?? now()->format('H:i:s');
+
+            // Actualizar o crear la tasa principal
+            $rate = ExchangeRate::updateOrCreate(
+                $id ? ['id' => $id] : ['date' => $date],
                 [
-                    'usd_rate' => $rates['usd_rate'],
-                    'eur_rate' => $rates['eur_rate'],
-                    'source' => $rates['source'],
-                    'fetch_time' => now()->format('H:i:s'),
-                    'raw_data' => $rates
+                    'date' => $date,
+                    'usd_rate' => $data['usd_rate'],
+                    'eur_rate' => $data['eur_rate'] ?? null,
+                    'source' => $data['source'],
+                    'fetch_time' => $fetchTime,
+                    'raw_data' => $data['raw_data'] ?? null
                 ]
             );
 
-            Log::info('Exchange rates stored successfully', $rates);
+            // Registrar en el historial diario y mensual
+            $this->updateHistory(
+                $date,
+                (float) $data['usd_rate'],
+                isset($data['eur_rate']) ? (float) $data['eur_rate'] : null,
+                $data['source'],
+                $fetchTime
+            );
+
+            Log::info('Exchange rate saved and history updated successfully', [
+                'date' => $date,
+                'usd' => $data['usd_rate'],
+                'source' => $data['source']
+            ]);
             return true;
         } catch (\Exception $e) {
-            Log::error('Error storing exchange rates: ' . $e->getMessage());
+            Log::error('Error saving exchange rate or updating history: ' . $e->getMessage());
             return false;
         }
+    }
+
+    private function updateHistory(string $dateString, float $usdRate, ?float $eurRate, string $source, string $fetchTime): void
+    {
+        $date = Carbon::parse($dateString);
+        $year = $date->year;
+        $month = $date->month;
+
+        DB::transaction(function () use ($dateString, $date, $year, $month, $usdRate, $eurRate, $source, $fetchTime) {
+            // Asegurar que exista el registro mensual
+            DB::table('exchange_rate_monthly_histories')->updateOrInsert(
+                ['year' => $year, 'month' => $month],
+                [
+                    'usd_avg' => $usdRate,
+                    'usd_min' => $usdRate,
+                    'usd_max' => $usdRate,
+                    'eur_avg' => $eurRate ?? 0.0,
+                    'eur_min' => $eurRate ?? 0.0,
+                    'eur_max' => $eurRate ?? 0.0,
+                    'records_count' => 1,
+                    'generated_at' => now(),
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]
+            );
+
+            $monthlyRecord = DB::table('exchange_rate_monthly_histories')
+                ->where('year', $year)
+                ->where('month', $month)
+                ->first();
+
+            // Guardar o actualizar en el historial diario
+            DB::table('exchange_rate_daily_histories')->updateOrInsert(
+                [
+                    'monthly_history_id' => $monthlyRecord->id,
+                    'date' => $dateString
+                ],
+                [
+                    'usd_rate' => $usdRate,
+                    'eur_rate' => $eurRate,
+                    'source' => $source,
+                    'fetch_time' => $fetchTime,
+                    'recorded_at' => now(),
+                    'recorded_by' => auth()->check() ? auth()->id() : null,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]
+            );
+
+            // Recalcular estadísticas del mes completo
+            $dailyRecords = DB::table('exchange_rate_daily_histories')
+                ->where('monthly_history_id', $monthlyRecord->id)
+                ->get();
+
+            $count = $dailyRecords->count();
+            $usdRates = $dailyRecords->pluck('usd_rate')->map(fn($val) => (float)$val)->toArray();
+            $eurRates = $dailyRecords->pluck('eur_rate')->filter(fn($val) => !is_null($val))->map(fn($val) => (float)$val)->toArray();
+
+            $usdAvg = count($usdRates) > 0 ? array_sum($usdRates) / count($usdRates) : 0.0;
+            $usdMin = count($usdRates) > 0 ? min($usdRates) : 0.0;
+            $usdMax = count($usdRates) > 0 ? max($usdRates) : 0.0;
+
+            $eurAvg = count($eurRates) > 0 ? array_sum($eurRates) / count($eurRates) : null;
+            $eurMin = count($eurRates) > 0 ? min($eurRates) : null;
+            $eurMax = count($eurRates) > 0 ? max($eurRates) : null;
+
+            $sources = $dailyRecords->pluck('source')->unique()->filter()->values()->toArray();
+
+            $dailyRecordsJson = $dailyRecords->map(function ($record) {
+                return [
+                    'date' => $record->date,
+                    'usd_rate' => (float)$record->usd_rate,
+                    'eur_rate' => $record->eur_rate ? (float)$record->eur_rate : null,
+                    'source' => $record->source,
+                ];
+            })->values()->toArray();
+
+            DB::table('exchange_rate_monthly_histories')
+                ->where('id', $monthlyRecord->id)
+                ->update([
+                    'usd_avg' => $usdAvg,
+                    'usd_min' => $usdMin,
+                    'usd_max' => $usdMax,
+                    'eur_avg' => $eurAvg,
+                    'eur_min' => $eurMin,
+                    'eur_max' => $eurMax,
+                    'records_count' => $count,
+                    'sources' => json_encode($sources),
+                    'daily_records' => json_encode($dailyRecordsJson),
+                    'generated_at' => now(),
+                    'updated_at' => now()
+                ]);
+        });
     }
 
     public function getLatestRate(string $currency = 'USD'): ?float
@@ -146,16 +269,14 @@ class ExchangeRateService
             $variationUsd = rand(-50, 50) / 1000.0;
             $variationEur = rand(-50, 50) / 1000.0;
 
-            ExchangeRate::updateOrCreate(
-                ['date' => $date->toDateString()],
-                [
-                    'usd_rate' => max(1.0, $rates['usd_rate'] + $variationUsd),
-                    'eur_rate' => $rates['eur_rate'] ? max(1.0, $rates['eur_rate'] + $variationEur) : null,
-                    'source' => 'bcv_backfill',
-                    'fetch_time' => '12:00:00',
-                    'raw_data' => array_merge($rates, ['backfilled' => true])
-                ]
-            );
+            $this->saveRate([
+                'date' => $date->toDateString(),
+                'usd_rate' => max(1.0, $rates['usd_rate'] + $variationUsd),
+                'eur_rate' => $rates['eur_rate'] ? max(1.0, $rates['eur_rate'] + $variationEur) : null,
+                'source' => 'bcv_backfill',
+                'fetch_time' => '12:00:00',
+                'raw_data' => array_merge($rates, ['backfilled' => true])
+            ]);
             $updated++;
         }
 
