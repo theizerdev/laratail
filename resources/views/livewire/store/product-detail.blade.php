@@ -23,6 +23,22 @@ new #[Layout('layouts.app')] class extends Component {
     public ?string $reviewError = null;
     public ?string $reviewSuccess = null;
 
+    public function rendering($view)
+    {
+        $title = $this->product->meta_title ?: $this->product->nombre . ' - Abastos Los Trinis';
+        $description = $this->product->meta_description ?: ($this->product->descripcion_corta ?: 'Compra ' . $this->product->nombre . ' en Abastos Los Trinis al mejor precio y con la mejor calidad.');
+        
+        $image = $this->product->imagen_principal_url ?: asset('images/logo.png');
+
+        $view->title($title)
+             ->layoutData([
+                 'title' => $title,
+                 'description' => $description,
+                 'og_image' => $image,
+                 'og_type' => 'product',
+             ]);
+    }
+
     public function toggleCompare(): void
     {
         $compare = session('compare_products', []);
@@ -339,16 +355,32 @@ new #[Layout('layouts.app')] class extends Component {
 ?>
 
 <div>
-    <!-- SEO Meta (injected via JS) -->
-    @push('head-scripts')
-    <script>
-        document.title = "{{ addslashes($product->meta_title ?: $product->nombre . ' - Abastos Los Trinis') }}";
-        let metaDesc = document.querySelector('meta[name="description"]');
-        if (metaDesc) metaDesc.setAttribute('content', "{{ addslashes($product->meta_description ?: $product->descripcion_corta ?: '') }}");
-        let ogTitle = document.querySelector('meta[property="og:title"]');
-        if (ogTitle) ogTitle.setAttribute('content', "{{ addslashes($product->meta_title ?: $product->nombre) }}");
-        let ogDesc = document.querySelector('meta[property="og:description"]');
-        if (ogDesc) ogDesc.setAttribute('content', "{{ addslashes($product->meta_description ?: $product->descripcion_corta ?: '') }}");
+    <!-- JSON-LD Datos Estructurados para Google (Product) -->
+    @push('structured-data')
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "name": "{{ $product->nombre }}",
+      "image": "{{ $product->imagen_principal_url ?: asset('images/logo.png') }}",
+      "description": "{{ str_replace('"', '\"', strip_tags($product->meta_description ?: $product->descripcion_corta ?: $product->descripcion)) }}",
+      "sku": "{{ $product->sku }}",
+      @if($product->brand)
+      "brand": {
+        "@type": "Brand",
+        "name": "{{ $product->brand->nombre }}"
+      },
+      @endif
+      "offers": {
+        "@type": "Offer",
+        "url": "{{ url()->current() }}",
+        "priceCurrency": "USD",
+        "price": "{{ $product->precio_final }}",
+        "priceValidUntil": "{{ date('Y-m-d', strtotime('+1 year')) }}",
+        "itemCondition": "https://schema.org/NewCondition",
+        "availability": "{{ $product->stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock' }}"
+      }
+    }
     </script>
     @endpush
 

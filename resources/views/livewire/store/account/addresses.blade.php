@@ -7,7 +7,7 @@ use App\Models\CustomerAddress;
 use App\Models\Pais;
 use Illuminate\Support\Facades\Auth;
 
-new #[Layout('layouts.app')] class extends Component {
+new #[Layout('layouts.app', ['meta_robots' => 'noindex, nofollow'])] class extends Component {
     public bool $showForm = false;
     public ?int $editingId = null;
 

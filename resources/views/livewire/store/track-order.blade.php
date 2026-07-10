@@ -4,7 +4,7 @@ use Livewire\Attributes\Title;
 use Livewire\Volt\Component;
 use App\Models\Order;
 
-new #[Layout('layouts.app')] #[Title('Rastrear Pedido - Abastos Los Trinis')] class extends Component {
+new #[Layout('layouts.app', ['meta_robots' => 'noindex, nofollow'])] #[Title('Rastrear Pedido - Abastos Los Trinis')] class extends Component {
     public string $orderNumber = '';
     public string $orderEmail = '';
     public ?Order $trackedOrder = null;

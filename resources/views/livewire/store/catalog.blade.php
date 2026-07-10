@@ -11,12 +11,36 @@ use App\Models\Brand;
 use App\Services\CartService;
 use Illuminate\Support\Facades\Auth;
 
-new #[Layout('layouts.app')] #[Title('Catálogo - Abastos Los Trinis')] class extends Component {
+new #[Layout('layouts.app')] class extends Component {
     public string $currency = 'usd';
     public string $searchQuery = '';
     public $searchResults = [];
     public $searchSuggestions = [];
     public bool $showSearchDropdown = false;
+
+    public function rendering($view)
+    {
+        $title = 'Catálogo de Productos - Abastos Los Trinis';
+        $description = 'Explora nuestro catálogo completo de productos. Encuentra víveres, charcutería, bebidas, productos de limpieza y más en Abastos Los Trinis.';
+
+        if ($this->category) {
+            $cat = Category::where('slug', $this->category)->first();
+            if ($cat) {
+                $title = $cat->meta_title ?: 'Catálogo de ' . $cat->nombre . ' - Abastos Los Trinis';
+                $description = $cat->meta_description ?: 'Compra los mejores productos de la categoría ' . $cat->nombre . ' en Abastos Los Trinis. Calidad garantizada y entregas rápidas.';
+            }
+        } elseif (!empty($this->search)) {
+            $title = 'Resultados de búsqueda para "' . $this->search . '" - Abastos Los Trinis';
+            $description = 'Resultados de la búsqueda de "' . $this->search . '" en el catálogo de Abastos Los Trinis.';
+        }
+
+        $view->title($title)
+             ->layoutData([
+                 'title' => $title,
+                 'description' => $description,
+                 'og_image' => asset('images/logo.png'),
+             ]);
+    }
 
     public function mount(): void
     {

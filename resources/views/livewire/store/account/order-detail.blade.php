@@ -5,7 +5,7 @@ use App\Models\Customer;
 use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 
-new #[Layout('layouts.app')] class extends Component {
+new #[Layout('layouts.app', ['meta_robots' => 'noindex, nofollow'])] class extends Component {
     public Order $order;
 
     public function mount(Order $order)

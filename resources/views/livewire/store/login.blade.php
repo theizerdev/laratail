@@ -6,7 +6,7 @@ use Livewire\Volt\Component;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
-new #[Layout('layouts.app')] #[Title('Iniciar Sesión - Abastos Los Trinis')] class extends Component {
+new #[Layout('layouts.app', ['meta_robots' => 'noindex, nofollow'])] #[Title('Iniciar Sesión - Abastos Los Trinis')] class extends Component {
     #[Validate('required|string')]
     public string $login = '';
 

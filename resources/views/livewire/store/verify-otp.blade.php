@@ -6,7 +6,7 @@ use Livewire\Volt\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
-new #[Layout('layouts.app')] #[Title('Verificar Teléfono - Abastos Los Trinis')] class extends Component {
+new #[Layout('layouts.app', ['meta_robots' => 'noindex, nofollow'])] #[Title('Verificar Teléfono - Abastos Los Trinis')] class extends Component {
     #[Validate('required|string|size:6')]
     public string $otp = '';
 

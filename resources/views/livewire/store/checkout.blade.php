@@ -12,7 +12,7 @@ use App\Services\CartService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-new #[Layout('layouts.app')] #[Title('Checkout - Abastos Los Trinis')] class extends Component {
+new #[Layout('layouts.app', ['meta_robots' => 'noindex, nofollow'])] #[Title('Checkout - Abastos Los Trinis')] class extends Component {
     public int $currentStep = 1;
 
     // Step 1: Shipping

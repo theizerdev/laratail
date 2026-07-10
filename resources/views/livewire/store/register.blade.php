@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-new #[Layout('layouts.app')] #[Title('Registrarse - Abastos Los Trinis')] class extends Component {
+new #[Layout('layouts.app', ['meta_robots' => 'noindex, nofollow'])] #[Title('Registrarse - Abastos Los Trinis')] class extends Component {
     #[Validate('required|min:2|max:100')]
     public string $nombre = '';
 

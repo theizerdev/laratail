@@ -6,7 +6,7 @@ use App\Models\Customer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-new #[Layout('layouts.app')] class extends Component {
+new #[Layout('layouts.app', ['meta_robots' => 'noindex, nofollow'])] class extends Component {
     #[Validate('required|min:2|max:100')]
     public string $nombre = '';
 

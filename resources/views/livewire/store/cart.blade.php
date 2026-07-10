@@ -6,7 +6,7 @@ use App\Services\CartService;
 use App\Models\CartItem;
 use App\Models\Coupon;
 
-new #[Layout('layouts.app')] #[Title('Carrito - Abastos Los Trinis')] class extends Component {
+new #[Layout('layouts.app', ['meta_robots' => 'noindex, nofollow'])] #[Title('Carrito - Abastos Los Trinis')] class extends Component {
     public string $couponCode = '';
     public ?string $couponError = null;
     public ?string $couponSuccess = null;

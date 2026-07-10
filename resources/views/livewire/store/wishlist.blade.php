@@ -7,7 +7,7 @@ use App\Models\Wishlist;
 use App\Services\CartService;
 use Illuminate\Support\Facades\Auth;
 
-new #[Layout('layouts.app')] #[Title('Mis Favoritos - Abastos Los Trinis')] class extends Component {
+new #[Layout('layouts.app', ['meta_robots' => 'noindex, nofollow'])] #[Title('Mis Favoritos - Abastos Los Trinis')] class extends Component {
     public function with(): array
     {
         $customer = Auth::check() ? Customer::where('user_id', Auth::id())->first() : null;

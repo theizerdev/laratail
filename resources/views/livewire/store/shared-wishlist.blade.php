@@ -6,7 +6,7 @@ use App\Models\Customer;
 use App\Models\Wishlist;
 use App\Services\CartService;
 
-new #[Layout('layouts.app')] #[Title('Lista de Regalos - Abastos Los Trinis')] class extends Component {
+new #[Layout('layouts.app', ['meta_robots' => 'noindex, nofollow'])] #[Title('Lista de Regalos - Abastos Los Trinis')] class extends Component {
     public Customer $customer;
 
     public function mount(Customer $customer)
